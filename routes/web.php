@@ -21,7 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Foodbank \\
 Route::resource('/foodbank', 'FoodbankController')->middleware('auth');
 
-// Foodbank \\
+Route::resource('/goodiebag', 'GoodiebagController');
 
+Route::get('/goodiebag/foodbank', 'GoodiebagController@selectFoodbank')->name('goodiebag')

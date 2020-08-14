@@ -38,6 +38,6 @@ class User extends Authenticatable
     ];
     public function foodbanks()
     {
-        return $this->belongsToMany('App\Foodbank')->withTimeStamps()->withPivot('role_id');
+        return $this->belongsToMany('App\Foodbank')->withTimestamps()->withPivot('role_id');
     }
 }

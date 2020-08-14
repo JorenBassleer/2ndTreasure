@@ -11,6 +11,7 @@
                 <div class="card-body">
                     <ul>
                         <li>{{$foodbank->foodbank_email}}</li>
+                        <li>{{$foodbank->foodbank_phone}}</li>
                         <li>{{$foodbank->foodbank_address}} {{$foodbank->foodbank_city}} {{$foodbank->foodbank_postalcode}} {{$foodbank->foodbank_province}}</li>
                     </ul>
                 </div>
