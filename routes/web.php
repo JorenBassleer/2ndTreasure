@@ -26,4 +26,6 @@ Route::resource('/foodbank', 'FoodbankController')->middleware('auth');
 
 Route::resource('/goodiebag', 'GoodiebagController');
 
-Route::get('/goodiebag/foodbank', 'GoodiebagController@selectFoodbank')->name('goodiebag')
+// Overview of what is in goodiebag + select foodbank
+Route::get('/goodiebag/{goodiebag}/select_foodbank', 'GoodiebagController@selectFoodbank')->name('goodiebag.select_foodbank');
+Route::post('/goodiebag/{goodiebag}/select_foodbank', 'GoodiebagController@storeSelectedFoodbank')->name('goodiebag.store_selected_foodbank');

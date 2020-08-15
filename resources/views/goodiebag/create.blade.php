@@ -14,8 +14,8 @@
                             <div class="form-group row">
                                 <label for="{{($food->id)}}" class="col-md-4 col-form-label text-md-right">{{ __(str_replace('_', ' ' ,$food->type)) }}</label>
                                 <div class="col-md-6">
-                                    <input id="food_input" type="text" class="form-control @error($food->id) is-invalid @enderror" name="{{$food->id}}" value="{{ old($food->id) }}" autocomplete="{{foodBackend($food->type)}} " autofocus>
-                                    @error(foodBackend($food->type))
+                                    <input id="food_input" type="text" class="form-control @error($food->id) is-invalid @enderror" name="{{$food->type}}" value="{{ old($food->type) }}" autocomplete="{{foodBackend($food->type)}} " autofocus>
+                                    @error($food->type)
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
