@@ -28,4 +28,7 @@ Route::resource('/goodiebag', 'GoodiebagController');
 
 // Overview of what is in goodiebag + select foodbank
 Route::get('/goodiebag/{goodiebag}/select_foodbank', 'GoodiebagController@selectFoodbank')->name('goodiebag.select_foodbank');
-Route::post('/goodiebag/{goodiebag}/select_foodbank', 'GoodiebagController@storeSelectedFoodbank')->name('goodiebag.store_selected_foodbank');
+
+Route::resource('/appeal', 'AppealController')->middleware('auth');
+Route::post('/appeal/{appeal}/change_status', 'AppealController@changeStatus')->middleware('auth')->name('appeal.changeStatus');
+Route::get('cron/clean', 'CronController@cleanDatabase');

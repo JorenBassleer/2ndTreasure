@@ -3,6 +3,13 @@
 
 // Variables
 @import 'variables';
+// Font Awesome
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+// Globals
+@import 'globals.scss';
+
+// Partials
+@import 'partials/menu.scss';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';

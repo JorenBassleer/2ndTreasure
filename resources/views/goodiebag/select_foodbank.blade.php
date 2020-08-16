@@ -16,7 +16,7 @@
                             </div>
                         </div>
                     @endforeach
-                        <form action="{{route('goodiebag.store_selected_foodbank', $goodiebag->id)}}" method="POST">
+                        <form action="{{route('appeal.store')}}" method="POST">
                                 @csrf
                                 <select name="foodbank_name" class="custom-select custom-select-lg mb-3">
                                     <option selected>Select a foodbank</option>
@@ -24,6 +24,7 @@
                                         <option value="{{$foodbank->foodbank_name}}">{{$foodbank->foodbank_name}}</option>
                                     @endforeach
                                 </select>
+                                <input type="hidden" name="goodiebag_id" value="{{$goodiebag->id}}">
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">

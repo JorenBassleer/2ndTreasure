@@ -23,6 +23,9 @@ class StatusesTableSeeder extends Seeder
         Status::updateOrCreate([
             'status' => 'Completed',
         ]);
+        Status::updateOrCreate([
+            'status' => 'Incoming',
+        ]);
 
     }
 }

@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header">Create a goodiebag for a foodbank</div>
                 <div class="card-body">
-                    <div>Help those who need it and give a 2ndTreasure goodiebag to a foodbank</div>
+                    <div class="col-md-8">Help those who need it and give a 2ndTreasure goodiebag to a foodbank</div>
                     <form action="{{route('goodiebag.store')}}" method="POST">
                         @csrf
                         @foreach($foods as $food)

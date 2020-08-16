@@ -4,9 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('partials.errors')
             <div class="card">
                 <div class="card-header">Add foodbank</div>
-
                 <div class="card-body">
                     <form action="{{route('foodbank.store')}}" method="POST">
                         @csrf

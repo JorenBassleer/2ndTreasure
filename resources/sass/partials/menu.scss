@@ -1,0 +1,22 @@
+.notification {
+    text-decoration: none !important;
+    position: relative !important;
+    display: inline-block !important;
+    border-radius: 2px !important;
+    -webkit-border-radius: 2px !important;
+    -moz-border-radius: 2px !important;
+    -ms-border-radius: 2px !important;
+    -o-border-radius: 2px !important;
+}
+  
+  .notification:hover {
+    background: red !important;
+  }
+  
+  .notification .badge {
+    position: absolute !important;
+    top: -5px !important;
+    padding: 5px 10px !important;
+    background: red !important;
+    color: white !important;
+}

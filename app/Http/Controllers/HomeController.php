@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Appeal;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +24,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with('foodbanks', auth()->user()->foodbanks);
+        $appealsNotRead = Appeal::whereHas('user', function ($query) {
+            return $query->where([
+                ['user_id', '=', auth()->user()->id],
+                ['hasUserRead', '=', 0],
+                ]);
+        })->get();
+        return view('home')->with([
+            'foodbanks' => auth()->user()->foodbanks,
+            // 'amountOfAppealsNotRead' => count($appealsNotRead),
+        ]);
     }
 }

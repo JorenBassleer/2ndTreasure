@@ -40,4 +40,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Foodbank')->withTimestamps()->withPivot('role_id');
     }
+    public function appeals()
+    {
+        return $this->hasMany('App\Appeal');
+    }
 }

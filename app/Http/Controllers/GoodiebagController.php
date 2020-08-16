@@ -43,7 +43,9 @@ class GoodiebagController extends Controller
         $validator =$this->validateGoodiebag($request);
         if(!$validator->passes()) {
             return redirect()->back()
-            ->withErrors(['errors'=>$validator->errors()->all()])->withInput(); }
+            ->withErrors(['errors'=>$validator->errors()->all()])->withInput();
+        }
+        
         $goodiebag = new Goodiebag ([
             'user_id' => auth()->user()->id,
         ]);
@@ -122,23 +124,6 @@ class GoodiebagController extends Controller
             ]);
 
     }
-    public function storeSelectedFoodbank(Goodiebag $goodiebag, Request $request)
-    {
-        $this->validateFoodbank($request);
-        $foodbank_id = Foodbank::where('foodbank_name', $request->foodbank_name)->first()->id;
-        // Invalid foodbank requested
-        if($foodbank_id == null) {
-            return back()->withErrors('That foodbank wasn\'t found in our records');
-        }
-        // Link goodiebag with posted foodbank
-        $goodiebag->foodbank_id = $foodbank_id;
-        // Set status to pending
-        $goodiebag->status_id = 2;
-        $goodiebag->save();
-        return view('thankyou')->with(['goodiebag' => $goodiebag,
-                                        'foodbank' => Foodbank::find($foodbank_id), 
-                                        ]);
-    }
 
     protected function validateGoodiebag(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -173,14 +158,4 @@ class GoodiebagController extends Controller
         return true;
     }
 
-    protected function validateFoodbank($request)
-    {
-        if($request->validate([
-            'foodbank_name' => 'string|exists:foodbanks,foodbank_name',
-        ])) {
-        }
-        else {
-            abort(400);
-        }
-    }
 }

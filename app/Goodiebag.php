@@ -11,4 +11,9 @@ class Goodiebag extends Model
     {
         return $this->belongsToMany('App\Food')->withTimestamps()->withPivot('amount');
     }
+
+    public function appeals()
+    {
+        return $this->hasMany('App\Appeal');
+    }
 }

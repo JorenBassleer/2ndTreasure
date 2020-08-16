@@ -14,18 +14,19 @@ class GoodiebagsTableSeeder extends Seeder
         Goodiebag::updateOrCreate([
             'user_id' => 1,
             'foodbank_id' => 1,
-            'status_id' => 1,
         ]);
         Goodiebag::updateOrCreate([
             'user_id' => 2,
             'foodbank_id' => 1,
-            'status_id' => 2,
         ]);
         Goodiebag::updateOrCreate([
             'user_id' => 3,
             'foodbank_id' => 1,
-            'status_id' => 3,
+        ]);
 
+        Goodiebag::updateOrCreate([
+            'user_id' => 1,
+            'foodbank_id' => 2,
         ]);
     }
 }

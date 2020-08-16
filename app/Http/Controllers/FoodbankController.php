@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Foodbank;
 use App\FoodbankUser;
 use Illuminate\Http\Request;
-
+use Validator;
 class FoodbankController extends Controller
 {
     /**
@@ -36,18 +36,13 @@ class FoodbankController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateFoodbank($request);
-        $foodbank = new Foodbank([
-            'foodbank_name' => $request->foodbank_name,
-            'foodbank_email' => $request->foodbank_email,
-            'foodbank_address' =>$request->foodbank_address,
-            'foodbank_city' => $request->foodbank_city,
-            'foodbank_postalcode' =>$request->foodbank_postalcode,
-            'foodbank_province' =>$request->foodbank_province,
-            'foodbank_phone' =>$request->foodbank_phone,
-            'company_number' =>$request->company_number,
-            'details' =>$request->details,
-        ]);
+        $validator = $this->validateFoodbank($request);
+        if(!$validator->passes()) {
+            return redirect()->back()
+            ->withErrors(['errors'=>$validator->errors()->all()])->withInput();
+        }
+        $foodbank = new Foodbank;
+        $hasSucceeded = $foodbank->fill($request->all());
         $foodbank->save();
         $foodbank->users()->attach(auth()->user()->id);
         $changeRole = FoodbankUser::where([['user_id', auth()->user()->id],
@@ -104,9 +99,9 @@ class FoodbankController extends Controller
     }
 
     protected function validateFoodbank(Request $request) {
-        if($request->validate([
+        $validator = Validator::make($request->all(), [
             'foodbank_name' => 'required|max:100|string',
-            'foodbank_email' => 'required|max:100|string',
+            'foodbank_email' => 'required|max:100|string|unique:foodbanks,foodbank_email',
             'foodbank_address' => 'required|max:100|string',
             'foodbank_city' => 'required|max:100|string',
             'foodbank_postalcode' => 'required|max:100|string',
@@ -114,11 +109,8 @@ class FoodbankController extends Controller
             'foodbank_phone' => 'required|max:100|string',
             'company_number' => 'required|max:100|string',
             'details' => 'required|max:255|string',
-        ])) {
-        }
-        else {
-            abort(400);
-        }
+        ]);
+        return $validator;
     }
 
 }

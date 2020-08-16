@@ -17,7 +17,7 @@
                     {{ __('You are logged in!') }}
                 </div>
             </div>
-            @if($foodbanks == null)
+            @if(!count($foodbanks) > 0)
                 <div class="card">
                     <div class="card-body"><h3><a href="{{route('foodbank.create')}}">Do you own a foodbank? Add it to our website</a></h3></div>
                 </div>

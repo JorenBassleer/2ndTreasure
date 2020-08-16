@@ -8,8 +8,8 @@ class Status extends Model
 {
     protected $fillable = ['status'];
 
-    public function goodiebags()
+    public function appeals()
     {
-        return $this->belongsTo('App\Goodiebag');
+        return $this->hasMany('App\Appeal');
     }
 }

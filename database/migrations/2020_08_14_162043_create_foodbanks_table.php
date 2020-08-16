@@ -23,7 +23,7 @@ class CreateFoodbanksTable extends Migration
             $table->string('foodbank_postalcode')->nullable();
             $table->string('foodbank_province')->nullable();
             $table->string('foodbank_phone')->nullable();
-            $table->string('company_number')->nullable();
+            $table->string('company_number')->nullable()->unique();
             $table->string('details')->nullable();
             $table->timestamps();
         });

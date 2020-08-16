@@ -16,4 +16,9 @@ class Foodbank extends Model
     {
         return $this->belongsToMany('App\User')->withTimestamps()->withPivot('role_id');
     }
+
+    public function appeals()
+    {
+        return $this->hasMany('App\Appeal');
+    }
 }
