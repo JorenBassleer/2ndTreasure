@@ -92,7 +92,7 @@ class RegisterController extends Controller
 
     // Get lat and long by address         
     $prepAddr = str_replace(' ','+',$address);
-    $apikey = "AIzaSyAXVSQngRh511t5sFYqGlveekKmHBda-ow";
+    $apikey = env('GOOGLE_APIKEY');
     $geocode=$this->file_get_content_curl('https://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false&key='.$apikey);
     $output= json_decode($geocode);
     $LatLon[0] = $output->results[0]->geometry->location->lat;
