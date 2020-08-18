@@ -2,23 +2,76 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\UserInterface;
 
-class Foodbank extends Model
+class Foodbank extends Authenticatable
 {
     protected $fillable = [
-        'foodbank_name' ,'foodbank_email',
-        'foodbank_address','foodbank_city',
-        'foodbank_postalcode','foodbank_province',
-        'foodbank_phone','company_number','details'
+        'user_id' ,
+        'company_number','details',
     ];
-    public function users()
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function getAuthIdentifier()
     {
-        return $this->belongsToMany('App\User')->withTimestamps()->withPivot('role_id');
+        return $this->getKey();
+    }
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+    public function getRememberToken()
+    {
+        return $this->remember_token;
     }
 
-    public function appeals()
+    /**
+     * Set the token value for the "remember me" session.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setRememberToken($value)
     {
-        return $this->hasMany('App\Appeal');
+        $this->remember_token = $value;
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
+    // public function users()
+    // {
+    //     return $this->belongsToMany('App\User')->withTimestamps()->withPivot('role_id');
+    // }
+
+    // public function appeals()
+    // {
+    //     return $this->hasMany('App\Appeal');
+    // }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function foodbankStat()
+    {
+        return $this->hasOne('App\FoodbankStats');
+    }
+    public function goodiebags()
+    {
+        return $this->hasMany('App\Goodiebag');
     }
 }

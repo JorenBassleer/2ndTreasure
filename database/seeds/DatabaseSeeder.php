@@ -14,12 +14,12 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(FoodbanksTableSeeder::class);
-        $this->call(FoodbankUserTableSeeder::class);
         $this->call(FoodsTableSeeder::class);
-        $this->call(StatusesTableSeeder::class);
         $this->call(GoodiebagsTableSeeder::class);
         $this->call(FoodGoodiebagTableSeeder::class);
-        $this->call(AppealsTableSeeder::class);
+        $this->call(FoodbankStatsTableSeeder::class);
+        $this->call(UserStatsTableSeeder::class);
+        $this->call(WeekStatsTableSeeder::class);
 
     }
 }

@@ -16,7 +16,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name', 'email','address','city','postalcode','phone','province', 'password',
+        'name', 'email',
+        'address','city',
+        'postalcode','phone',
+        'province', 'password',
+        'country', 'treasures',
+        'lat', 'lng',
     ];
 
     /**
@@ -36,12 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function foodbanks()
+    // public function foodbanks()
+    // {
+    //     return $this->belongsToMany('App\Foodbank')->withTimestamps()->withPivot('role_id');
+    // }
+    // public function appeals()
+    // {
+    //     return $this->hasMany('App\Appeal');
+    // }
+
+    public function userStat()
     {
-        return $this->belongsToMany('App\Foodbank')->withTimestamps()->withPivot('role_id');
+        return $this->hasOne('App\UserStats');
     }
-    public function appeals()
+    public function foodbank()
     {
-        return $this->hasMany('App\Appeal');
+        return $this->hasOne('App\Foodbank');
     }
 }

@@ -17,6 +17,9 @@ class CreateGoodiebagsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('foodbank_id')->nullable();
+            $table->string('code')->nullable()->unique();
+            $table->boolean('hasReceived')->nullable();
+            $table->float('total_kg')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('foodbank_id')->references('id')->on('foodbanks')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

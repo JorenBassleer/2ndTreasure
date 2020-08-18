@@ -14,35 +14,36 @@ class UsersTableSeeder extends Seeder
     {
 
         User::updateOrCreate([
-            'first_name' => 'Joren',
-            'last_name' => 'Bassleer ',
+            'name' => 'Joren Bassleer ',
             'email' => 'joren@bassleer.com',
             'password' => Hash::make('12345'),
             'address' => 'Belgiëlei 161/2',
             'city' => 'Antwerpen',
             'postalcode' => '2018',
             'province' => 'Antwerpen',
+            'country' => 'België',
             'phone' => '0485177696',
         ]);
         User::updateOrCreate([
-            'first_name' => 'David',
-            'last_name' => 'Frederickx ',
-            'email' => 'David@Frederickx.com',
+            'name' => 'Daklozenhulp Antwerpen ',
+            'email' => 'daklozen@antwerpen.com',
             'password' => Hash::make('12345'),
             'address' => 'Belgiëlei 161/2',
             'city' => 'Antwerpen',
+            'isFoodbank' => true,
             'postalcode' => '2018',
+            'country' => 'België',
             'province' => 'Antwerpen',
             'phone' => '0485177696',
         ]);
-        for($i=0;$i<15; $i++) {
+        for($i=5;$i<15; $i++) {
             User::updateOrCreate([
-                'first_name' => 'Een',
-                'last_name' => 'Persoon ',
+                'name' => 'Daklozenhulp Oostakker',
                 'email' => 'persson@email.com' . $i,
                 'password' => Hash::make('12345'),
                 'address' => 'Achter de Wereld' ,
                 'city' => 'Antwerpen',
+                'country' => 'België',
                 'postalcode' => '2018' ,
                 'province' => 'Antwerpen',
                 'phone' => '0485177696',

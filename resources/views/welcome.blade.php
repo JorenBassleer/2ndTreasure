@@ -1,100 +1,144 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>2ndTreasure</title>
+@extends('layouts.app')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+@section('content')         
+<div class="title m-b-md">
+    2ndTreasure
+</div> 
+<div class="card">
+    <div class="card-header">Create a goodiebag for a foodbank</div>
+    <div class="card-body">
+        <div class="col-md-8">Help those who need it and give a 2ndTreasure goodiebag to a foodbank</div>
+        <form action="{{route('goodiebag.store')}}" method="POST">
+            @csrf
+            @foreach($foods as $food)
+                <div class="form-group row">
+                    <label for="{{($food->id)}}" class="col-md-4 col-form-label text-md-right">{{ __(str_replace('_', ' ' ,$food->type)) }}</label>
+                    <div class="col-md-6">
+                        <input id="food_input" type="text" class="form-control @error($food->id) is-invalid @enderror" name="{{$food->type}}" value="{{ old($food->type) }}" autocomplete="{{foodBackend($food->type)}} " autofocus>
+                        @error($food->type)
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+            @endforeach
+            <div>
+                <label for="foodbank_id">Select foodbank</label>
+                <select name="foodbank_id" id="foodbank_id">
+                    @foreach($foodbanks as $foodbank)
+                        <option name="foodbank_id" value="{{$foodbank->id}}">{{$foodbank->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group row mb-0">
+                <div class="col-md-6 offset-md-4">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Create goodiebag') }}
+                    </button>
                 </div>
             </div>
+        </form>
+        <style>
+            #map {
+            display: block;
+            float: right;
+            height: 400px;
+            width: 50%;
+            }
+        </style>
+        <div id="map" class="map"></div>
         </div>
-    </body>
-</html>
+        <a href="{{route('foodbank.create')}}">Add your own foodbank</a>
+    </div>
+</div>
+<script>
+
+var script = document.createElement('script');
+script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAXVSQngRh511t5sFYqGlveekKmHBda-ow&callback=initMap';
+script.defer = true;
+document.head.appendChild(script);
+window.initMap = function() {
+    let map, infoWindow;
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: {{$lat}}, lng: {{$lng}} },
+        zoom: 13,
+        mapTypeControlOptions: {
+        mapTypeIds: []
+        }, // here´s the array of controls
+        disableDefaultUI: true, // a way to quickly hide all controls
+        mapTypeControl: true,
+        scaleControl: true,
+        zoomControl: true,
+        zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.LARGE 
+        },
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    infoWindow = new google.maps.InfoWindow;
+    setMarkers(map);
+
+    // Try HTML5 geolocation.
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+    var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    };
+
+    infoWindow.setPosition(pos);
+    infoWindow.setContent('You are here');
+    infoWindow.open(map);
+    map.setCenter(pos);
+    }, function() {
+    handleLocationError(true, infoWindow, map.getCenter());
+    });
+} else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+}
+};
+
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+infoWindow.setPosition(pos);
+infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+infoWindow.open(map);
+}
+
+
+function setMarkers(map){
+    var foodbanks = @json($foodbanks);
+    for (var i = 0; i < foodbanks.length; i++) {
+        var foodbank = foodbanks[i];
+        var foodbankLoc = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)}
+        const contentString =
+            '<div id="content">' +
+            '<div id="siteNotice">' +
+            "</div>" +
+            '<h2 id="firstHeading" class="firstHeading">'+foodbank.name+'</h2>' +
+            '<div id="bodyContent">' +
+            "<p>" + foodbank.name + " " + foodbank.details + "</p>" +
+            '<a href="http://127.0.0.1:8000/foodbank/'+ foodbank.id +'">Link</a>' +
+            "</div>" +
+            "</div>";
+        const infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+        const marker = new google.maps.Marker({
+            position: foodbankLoc,
+            map,
+            title: foodbank.name,
+        });
+        marker.addListener("click", () => {
+            infowindow.open(map, marker);
+        });
+    }    
+}
+
+    </script>
+@endsection
+   

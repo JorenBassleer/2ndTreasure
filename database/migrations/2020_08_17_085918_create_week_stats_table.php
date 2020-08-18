@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatusesTable extends Migration
+class CreateWeekStatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('week_stats', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
+            $table->integer('amount_of_foodbanks');
+            $table->integer('amount_of_users');
+            $table->integer('amount_of_kg_donated');
+            $table->float('amount_of_treasures_created');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('week_stats');
     }
 }

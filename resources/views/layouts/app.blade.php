@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -18,6 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXVSQngRh511t5sFYqGlveekKmHBda-ow&callback=initMap">
+  </script> --}}
+
 </head>
 <body>
     <div id="app">
@@ -52,17 +56,17 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link notification" href="{{ route('appeal.index') }}"><i class="fa fa-inbox fa-2x" aria-hidden="true"></i>
                                 
                                 @if(count(App\Appeal::where(['user_id' => auth()->user()->id])->orWhere(['foodbank_id'=> 1])->where(['hasUserRead' => 0])->orWhere(['hasFoodbankRead' => 0])->get()) > 0)
                                     <span class="badge">{{count(App\Appeal::where(['user_id' => auth()->user()->id])->orWhere(['foodbank_id'=> 1])->where(['hasUserRead' => 0])->orWhere(['hasFoodbankRead' => 0])->get())}}</span>
                                 </a>
-                                @endif
+                                @endif --}}
                             </li>  
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ ucfirst(Auth::user()->first_name) }} <span class="caret"></span>
+                                    {{ ucfirst(Auth::user()->name) }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

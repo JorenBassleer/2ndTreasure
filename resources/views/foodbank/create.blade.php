@@ -51,20 +51,7 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="foodbank_city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="foodbank_city" type="foodbank_city" class="form-control @error('foodbank_city') is-invalid @enderror" name="foodbank_city" value="{{ old('foodbank_city') }}" required autocomplete="foodbank_city">
-
-                                @error('foodbank_city')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                        
                         <div class="form-group row">
                             <label for="foodbank_postalcode" class="col-md-4 col-form-label text-md-right">{{ __('Postalcode') }}</label>
 
@@ -80,9 +67,23 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="foodbank_province" class="col-md-4 col-form-label text-md-right">{{ __('Province') }}</label>
+                            <label for="foodbank_city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
 
                             <div class="col-md-6">
+                                <input id="foodbank_city" type="foodbank_city" class="form-control @error('foodbank_city') is-invalid @enderror" name="foodbank_city" value="{{ old('foodbank_city') }}" required autocomplete="foodbank_city">
+
+                                @error('foodbank_city')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="foodbank_province" class="col-md-4 col-form-label text-md-right">{{ __('Province') }}</label>
+
+                            <div class="col-md-6">    
                                 <input id="foodbank_province" type="foodbank_province" class="form-control @error('foodbank_province') is-invalid @enderror" name="foodbank_province" value="{{ old('foodbank_province') }}" required autocomplete="foodbank_province">
 
                                 @error('foodbank_province')
@@ -92,7 +93,18 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="foodbank_country" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
 
+                            <div class="col-md-6">
+                                <input type="text" id="foodbank_country" class="form-control  @error('foodbank_country') is-invalid @enderror" name="foodbank_country" value="{{ old('foodbank_country') }}" data-default="BE" required autocomplete="foodbank_country"></select>
+                                @error('foodbank_country')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="foodbank_phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
 
@@ -132,6 +144,28 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 

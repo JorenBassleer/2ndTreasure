@@ -14,16 +14,33 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    // $map = json_decode(\GoogleMaps::load('geocoding')
+    //             ->setParam (['address' =>'antwerpen'])
+    // //             ->get());
+    // $antwerpLat = $map->results[0]->geometry->location->lat;
+    // $antwerpLng = $map->results[0]->geometry->location->lng;
+    // dd($map);
+    // $map = \GoogleMaps::create_map();
+    return view('welcome')->with([
+        'foods' => App\Food::all(),
+        'foodbanks' => App\User::where('isFoodbank', true)
+                                ->whereNotNull(['lat','lng'])->get(),
+        'lat' => 51.2194475,
+        'lng' => 4.4024643,
+    ]);
 });
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/code/{goodiebag}', 'CodeController@show')->name('show.code');
 // Foodbank \\
-Route::resource('/foodbank', 'FoodbankController')->middleware('auth');
+Route::resource('/foodbank', 'FoodbankController');
 
+// Route::post('/foodbank', 'Auth\AuthController@foodbankLogin');
 Route::resource('/goodiebag', 'GoodiebagController');
 
 // Overview of what is in goodiebag + select foodbank

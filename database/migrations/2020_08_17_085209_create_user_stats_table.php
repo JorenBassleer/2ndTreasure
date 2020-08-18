@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFoodbanksTable extends Migration
+class CreateUserStatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateFoodbanksTable extends Migration
      */
     public function up()
     {
-        Schema::create('foodbanks', function (Blueprint $table) {
+        Schema::create('user_stats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->unique();
-            $table->string('company_number')->nullable()->unique();
-            $table->string('details')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->integer('highest_place_ever')->nullable();
+            $table->integer('highest_place_this_week')->nullable();
+            $table->float('highest_number_of_treasures')->nullable();
+            $table->float('total_amount_of_kg_donated')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
@@ -31,6 +33,6 @@ class CreateFoodbanksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('foodbanks');
+        Schema::dropIfExists('user_stats');
     }
 }

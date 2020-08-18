@@ -8,6 +8,7 @@ use App\Foodbank;
 use App\FoodGoodiebag;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Support\Str;
 class GoodiebagController extends Controller
 {
     /**
@@ -47,16 +48,19 @@ class GoodiebagController extends Controller
         }
         
         $goodiebag = new Goodiebag ([
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->user() ? auth()->user()->id : null,
+            'foodbank_id' => $request->foodbank_id,
+
         ]);
+        $goodiebag->code = Str::random(5);
         $goodiebag->save();
         // If false there was a submitted amount that wasn't a number
-        if(!$this->addFoodToGoodiebag($goodiebag,$request->except('_token'))) {
+        if(!$this->addFoodToGoodiebag($goodiebag,$request->except('_token', 'foodbank_id'))) {
             $goodiebag->delete();
             return back()->withErrors('You submitted an amount that wasn\'t a number');
         }
         // Foodbanks in the area of user maybe
-        return redirect()->route('goodiebag.select_foodbank', $goodiebag->id)->with('success_message', 'Goodiebag created');
+        return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created');
         
     }
 
@@ -104,26 +108,6 @@ class GoodiebagController extends Controller
     {
         //
     }
-    public function selectFoodbank(Goodiebag $goodiebag)
-    {
-        // Check if logged in user is the one who created the goodiebag
-        if($goodiebag->user_id != auth()->user()->id) {
-            return back()->withErrors('Unauthorized');
-        }
-       
-        // Don't allow goodiebags with nothing in
-        if(count($goodiebag->foods) == 0) {
-            // Delete goodiebag if it doesn't contain any food
-            $goodiebag->delete();
-            return back()->withErrors('Goodiebag can\'t be empty');
-
-        }
-        return view('goodiebag.select_foodbank')->with([
-            'goodiebag'=>$goodiebag,
-            'foodbanks' => Foodbank::all(),
-            ]);
-
-    }
 
     protected function validateGoodiebag(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -136,6 +120,7 @@ class GoodiebagController extends Controller
             ['meat' => 'nullable'],
             ['body care' => 'nullable'],
            ['other' => 'nullable'],
+           ['foodbank_id' => 'exists:foodbanks, id']
         ]);
         return $validator;
     }
