@@ -17,7 +17,7 @@ class FoodbanksTableSeeder extends Seeder
             'company_number' => 'BE54 0001 0968 7697',
         ]);
         Foodbank::create([
-            'user_id' => 5,
+            'user_id' => 3,
             'company_number' => 'BE54 401 0968 7697',
         ]);
     }

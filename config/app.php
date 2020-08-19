@@ -167,7 +167,6 @@ return [
         */
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
 
-
         /*
          * Package Service Providers...
          */

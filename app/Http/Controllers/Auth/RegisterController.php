@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Config;
 class RegisterController extends Controller
 {
     /*
@@ -92,7 +92,7 @@ class RegisterController extends Controller
 
     // Get lat and long by address         
     $prepAddr = str_replace(' ','+',$address);
-    $apikey = env('GOOGLE_APIKEY');
+    $apikey = config('googlemaps.key');
     $geocode=$this->file_get_content_curl('https://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false&key='.$apikey);
     $output= json_decode($geocode);
     $LatLon[0] = $output->results[0]->geometry->location->lat;

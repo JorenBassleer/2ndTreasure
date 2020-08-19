@@ -35,6 +35,22 @@ class UsersTableSeeder extends Seeder
             'country' => 'België',
             'province' => 'Antwerpen',
             'phone' => '0485177696',
+            'lat' => 51.2194475,
+            'lng' => 4.4024643,
+        ]);
+        User::updateOrCreate([
+            'name' => 'Dakhulp Antwerpen ',
+            'email' => 'sss@antwerpen.com',
+            'password' => Hash::make('12345'),
+            'address' => 'Belgiëlei 161/2',
+            'city' => 'Antwerpen',
+            'isFoodbank' => true,
+            'postalcode' => '2018',
+            'country' => 'België',
+            'province' => 'Antwerpen',
+            'phone' => '0485177696',
+            'lat' => 51.2034918,
+            'lng' => 4.4151250,
         ]);
         for($i=5;$i<15; $i++) {
             User::updateOrCreate([

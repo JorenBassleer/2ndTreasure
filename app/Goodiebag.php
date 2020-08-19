@@ -14,10 +14,12 @@ class Goodiebag extends Model
 
     public function foodbank()
     {
-        return $this->belongsTo('App\Foodbank');
+        return $this->belongsTo('App\User', 'foodbank_id', 'id');
     }
-    // public function appeals()
-    // {
-    //     return $this->hasMany('App\Appeal');
-    // }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

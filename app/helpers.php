@@ -24,3 +24,40 @@ function changeColorToStatus($status)
     else if($status=="Declined") { return "class=text-danger";}
     else if($status=="Completed") { return "class= text-primary";}
 }
+
+function checkIfNull($obj) {
+    if($obj != null ) { return false; }
+    else              { return true; }
+}
+function displayFood($food)
+{
+    switch ($food) {
+        case "water":
+            return "/L";
+            break;
+        case "fruits":
+            return " pieces";
+            break;
+        case "vegetables":
+            return " pieces";
+            break;
+        case "bread":
+            return " slices";
+            break;
+        case "dairy":
+            return " cl";
+            break;
+        case "fish":
+            return " /g";
+            break;
+        case "meat":
+            return " /g";
+            break;
+        case "body_care":
+            return " bottles";
+            break;
+        case "other":
+            return "";
+            break;
+    }
+}

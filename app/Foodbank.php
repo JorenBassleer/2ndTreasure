@@ -66,12 +66,8 @@ class Foodbank extends Authenticatable
         return $this->belongsTo('App\User');
     }
 
-    public function foodbankStat()
+    public function foodbankstat()
     {
         return $this->hasOne('App\FoodbankStats');
-    }
-    public function goodiebags()
-    {
-        return $this->hasMany('App\Goodiebag');
     }
 }

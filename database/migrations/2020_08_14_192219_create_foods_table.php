@@ -17,6 +17,7 @@ class CreateFoodsTable extends Migration
             $table->id();
             $table->string('type')->unique();
             $table->float('value')->nullable();
+            $table->float('avgWeightEach')->nullable();
             $table->timestamps();
         });
     }

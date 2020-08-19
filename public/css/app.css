@@ -3078,6 +3078,13 @@
   color: white !important;
 }
 
+#map {
+  display: block !important;
+  float: right !important;
+  height: 400px !important;
+  width: 50% !important;
+}
+
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

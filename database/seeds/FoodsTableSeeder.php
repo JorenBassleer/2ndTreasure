@@ -12,39 +12,40 @@ class FoodsTableSeeder extends Seeder
     public function run()
     {
         Food::updateOrCreate([
-            'type' => 'Water',
-            'value' => 3,
+            'type' => 'water',
+            'value' => 0.2700,
         ]);
         Food::updateOrCreate([
-            'type' => 'Fruits',
-            'value' => 0.5,
+            'type' => 'fruits',
+            'value' => 0.1000,
         ]);
         Food::updateOrCreate([
-            'type' => 'Vegetables',
-            'value' => 0.5,
+            'type' => 'vegetables',
+            'value' => 0.1000,
         ]);
         Food::updateOrCreate([
-            'type' => 'Bread',
-            'value' => 3,
+            'type' => 'bread',
+            'value' => 0.1600,
         ]);
         Food::updateOrCreate([
-            'type' => 'Dairy',
-            'value' => 2,
+            'type' => 'dairy',
+            'value' => 0.0140,
         ]);
         Food::updateOrCreate([
-            'type' => 'Fish',
-            'value' => 4,
+            'type' => 'fish',
+            'value' => 0.0071,
         ]);
         Food::updateOrCreate([
-            'type' => 'Meat',
-            'value' => 2.5,
+            'type' => 'meat',
+            'value' => 0.0064,
         ]);
         Food::updateOrCreate([
-            'type' => 'Body_care',
-            'value' => 3,
+            'type' => 'body_care',
+            'value' => 0.5000,
         ]);
         Food::updateOrCreate([
-            'type' => 'Other',
+            'type' => 'other',
+            'value' => 0.1510,
         ]);
 
     }

@@ -36,7 +36,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/code/{goodiebag}', 'CodeController@show')->name('show.code');
 // Foodbank \\
 Route::resource('/foodbank', 'FoodbankController');
 
@@ -49,3 +48,17 @@ Route::get('/goodiebag/{goodiebag}/select_foodbank', 'GoodiebagController@select
 Route::resource('/appeal', 'AppealController')->middleware('auth');
 Route::post('/appeal/{appeal}/change_status', 'AppealController@changeStatus')->middleware('auth')->name('appeal.changeStatus');
 Route::get('cron/clean', 'CronController@cleanDatabase');
+// Users
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
+});
+
+// Only foodbanks allowed
+Route::group(['middleware' => ['auth', 'foodbank']], function () {
+    Route::get('/code/confirm', 'CodeController@showConfirm')->name('show.confirm_code');
+    Route::get('/code/{code}/confirm', 'CodeController@qrConfirm')->name('code.qr_confirmed');
+    Route::post('/code/confirm', 'CodeController@confirm')->name('code.confirmed'); 
+});
+
+Route::get('/goodiebag/{goodiebag}/delivered', 'CodeController@checkIfDelivered')->name('code.check_if_delivered');
+Route::get('/code/{goodiebag}', 'CodeController@show')->name('show.code');

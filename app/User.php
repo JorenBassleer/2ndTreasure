@@ -41,16 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    // public function foodbanks()
-    // {
-    //     return $this->belongsToMany('App\Foodbank')->withTimestamps()->withPivot('role_id');
-    // }
-    // public function appeals()
-    // {
-    //     return $this->hasMany('App\Appeal');
-    // }
 
-    public function userStat()
+    public function goodiebags()
+    {
+        return $this->hasMany('App\Goodiebag');
+    }
+    public function userstat()
     {
         return $this->hasOne('App\UserStats');
     }

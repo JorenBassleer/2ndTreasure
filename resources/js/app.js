@@ -5,7 +5,7 @@
  */
 
 require('./bootstrap');
-require('./map.js');
+// require('./map.js');
 
 window.Vue = require('vue');
 

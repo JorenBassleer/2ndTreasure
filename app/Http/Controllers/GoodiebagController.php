@@ -41,12 +41,11 @@ class GoodiebagController extends Controller
      */
     public function store(Request $request)
     {
-        $validator =$this->validateGoodiebag($request);
+        $validator = $this->validateGoodiebag($request);
         if(!$validator->passes()) {
             return redirect()->back()
             ->withErrors(['errors'=>$validator->errors()->all()])->withInput();
         }
-        
         $goodiebag = new Goodiebag ([
             'user_id' => auth()->user() ? auth()->user()->id : null,
             'foodbank_id' => $request->foodbank_id,
@@ -98,6 +97,10 @@ class GoodiebagController extends Controller
         //
     }
 
+    public function confirmGoodiebag(Goodiebag $goodiebag)
+    {
+        # code...
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -111,22 +114,29 @@ class GoodiebagController extends Controller
 
     protected function validateGoodiebag(Request $request) {
         $validator = Validator::make($request->all(), [
-            ['Water' => 'nullable'],
-            ['fruits' => 'nullable'],
-            ['vegetables' => 'nullable'],
-            ['bread' => 'nullable'],
-            ['dairy' => 'nullable'],
-            ['fish' => 'nullable'],
-            ['meat' => 'nullable'],
-            ['body care' => 'nullable'],
-           ['other' => 'nullable'],
-           ['foodbank_id' => 'exists:foodbanks, id']
-        ]);
+            'water' => 'nullable',
+            'fruits' => 'nullable',
+            'vegetables' => 'nullable',
+            'bread' => 'nullable',
+            'dairy' => 'nullable',
+            'fish' => 'nullable',
+            'meat' => 'nullable',
+            'body care' => 'nullable',
+           'other' => 'nullable',
+           'foodbank_id' => 'required', 
+        ],
+        ['foodbank_id.required' => 'You have to select a foodbank on the map']);
+        if($request->foodbank_id==null) {
+            $validator->errors()->add('foodbank_id', 'You have to select a foodbank from the map');
+        }
         return $validator;
     }
 
     protected function addFoodToGoodiebag($goodiebag,$foods)
     {
+        if($this->containsOnlyNull($foods)) {
+            return false;
+        }
         foreach($foods as $food => $amount) {
             // Don't allow null in DB
             if($amount !=null) {
@@ -143,4 +153,8 @@ class GoodiebagController extends Controller
         return true;
     }
 
+    public function containsOnlyNull($input)
+    {
+        return empty(array_filter($input, function ($a) { return $a !== null;}));
+    }
 }
