@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
             'province' => 'Antwerpen',
             'country' => 'België',
             'phone' => '0485177696',
+            'treasures' => 810,
         ]);
         User::updateOrCreate([
             'name' => 'Daklozenhulp Antwerpen ',
@@ -54,7 +55,7 @@ class UsersTableSeeder extends Seeder
         ]);
         for($i=5;$i<15; $i++) {
             User::updateOrCreate([
-                'name' => 'Daklozenhulp Oostakker',
+                'name' => 'Gebruiker',
                 'email' => 'persson@email.com' . $i,
                 'password' => Hash::make('12345'),
                 'address' => 'Achter de Wereld' ,

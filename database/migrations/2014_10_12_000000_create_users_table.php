@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->boolean('isFoodbank')->nullable();
             $table->timestamp('email_verified_at')
                     ->nullable();
-            $table->float('treasures')->nullable();
+            $table->decimal('treasures',10,3)->nullable();
             $table->string('password');
             $table->decimal('lat', 10,7)->nullable();
             $table->decimal('lng',10,7)->nullable();

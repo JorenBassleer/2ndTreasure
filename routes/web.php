@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,12 +41,9 @@ Route::resource('/foodbank', 'FoodbankController');
 // Route::post('/foodbank', 'Auth\AuthController@foodbankLogin');
 Route::resource('/goodiebag', 'GoodiebagController');
 
-// Overview of what is in goodiebag + select foodbank
-Route::get('/goodiebag/{goodiebag}/select_foodbank', 'GoodiebagController@selectFoodbank')->name('goodiebag.select_foodbank');
-
-Route::resource('/appeal', 'AppealController')->middleware('auth');
-Route::post('/appeal/{appeal}/change_status', 'AppealController@changeStatus')->middleware('auth')->name('appeal.changeStatus');
+Route::get('/leaderboard', 'LeaderBoardController@index')->name('leaderboard.index');
 Route::get('cron/clean', 'CronController@cleanDatabase');
+Route::get('cron/testing', 'CronController@testing');
 // Users
 Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');

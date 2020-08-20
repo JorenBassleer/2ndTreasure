@@ -8,7 +8,7 @@ class Food extends Model
 {
     protected $table = 'foods';
 
-    protected $fillable = ['type', 'value'];
+    protected $fillable = ['type', 'value', 'avgWeightPer'];
 
     public function goodiebags()
     {

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Config;
+use App\Goodiebag;
 class RegisterController extends Controller
 {
     /*
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = "/dashboard";
 
     /**
      * Create a new controller instance.
@@ -72,6 +73,14 @@ class RegisterController extends Controller
     {
         $address = $data['address'] . " " . $data['postalcode']. " " . $data['city']. " " . $data['province']. " " . $data['country'];
         $latLng = $this->get_lat_long($address);
+        $treasures = null;
+        // Check if there is a goodiebag_id in session
+        // If so, add to newly created user and destroy session
+        if(session()->has('goodiebag_id')) {
+            $goodiebag = Goodiebag::find(session()->get('goodiebag_id'));
+            $treasures = $goodiebag->treasures;
+            session()->forget('goodiebag_id');
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -83,6 +92,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'lat' => $latLng[0],
             'lng' => $latLng[1],
+            'treasures' => $treasures,
             'password' => Hash::make($data['password']),
         ]);
     }

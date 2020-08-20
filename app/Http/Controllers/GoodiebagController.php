@@ -8,19 +8,12 @@ use App\Foodbank;
 use App\FoodGoodiebag;
 use Illuminate\Http\Request;
 use Validator;
+use Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 class GoodiebagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -58,9 +51,14 @@ class GoodiebagController extends Controller
             $goodiebag->delete();
             return back()->withErrors('You submitted an amount that wasn\'t a number');
         }
-        // Foodbanks in the area of user maybe
-        return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created');
-        
+        // Check if there is not a user logged in
+        // This way if the user creates an account
+        // And wants to collect the treasures
+        // We can find everything associated with
+        // the user
+        // Also Create a session so user can access url + qr code
+        Session::put('goodiebag_id', $goodiebag->id);
+        return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created');  
     }
 
     /**
@@ -81,33 +79,6 @@ class GoodiebagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Goodiebag $goodiebag)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Goodiebag  $goodiebag
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Goodiebag $goodiebag)
-    {
-        //
-    }
-
-    public function confirmGoodiebag(Goodiebag $goodiebag)
-    {
-        # code...
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Goodiebag  $goodiebag
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Goodiebag $goodiebag)
     {
         //
     }
@@ -145,11 +116,35 @@ class GoodiebagController extends Controller
                     return false;
                 }
                 // Search id of food
-                $food_id = Food::where('type', $food)->first()->id;
+                $foodDb = Food::where('type', $food)->first();
                 // add id and amount to array -> so we don't create an unsuccessful goodiebag
-                $goodiebag->foods()->attach($food_id, ['amount' => $amount]);
+                $goodiebag->foods()->attach($foodDb->id, ['amount' => $amount]);
+                // Get submitted amount of food
+                // Get avg food weight if food value isn't submitted in grams
+                if($food == 'fish' || $food == 'meat' || $food == 'body_care' || $food == 'other') {
+                    // Calculate treasures first since if meat/fish
+                    // we convert it to kg
+                    $treasures = $this->calculateAction($food, $amount, 'value');
+                    // Add to total weight of food weight
+                    // Check if meat or fish since submitted amount
+                    // is in g
+                    if($food == 'fish' || $food == 'meat') {
+                        $amount = $amount / 1000;
+                    }
+                    $goodiebag->treasures += $treasures;
+                    $goodiebag->total_kg += $amount;
+                }
+                else {
+                    $foodWeight = $this->calculateAction($food, $amount, 'avgWeightPer');
+                    $treasures = $this->calculateAction($food, $amount, 'value');
+                    // Add to total weight of food weight
+                    $goodiebag->total_kg += $foodWeight;
+                    $goodiebag->treasures += $treasures;
+                }
+
             }
         }
+        $goodiebag->save();
         return true;
     }
 
@@ -157,4 +152,16 @@ class GoodiebagController extends Controller
     {
         return empty(array_filter($input, function ($a) { return $a !== null;}));
     }
+
+    protected function calculateAction($foodName, $amount, $action)
+    {
+        $food = Food::where('type', $foodName)->first();
+        // Get the average action
+        $actionEach = $food->$action;
+        // Multiply with amount submitted
+        $actionAmount = $actionEach * $amount;
+
+        return $actionAmount;
+    }
+
 }

@@ -17,7 +17,7 @@ class CreateFoodGoodiebagTable extends Migration
             $table->id();
             $table->unsignedBigInteger('goodiebag_id')->nullable();
             $table->unsignedBigInteger('food_id')->nullable();
-            $table->float('amount');
+            $table->decimal('amount',10,3);
 
             $table->foreign('goodiebag_id')->references('id')->on('goodiebags')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('food_id')->references('id')->on('foods')->onUpdate('cascade')->onDelete('cascade');

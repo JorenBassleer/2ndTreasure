@@ -36,25 +36,25 @@ function displayFood($food)
             return "/L";
             break;
         case "fruits":
-            return " pieces";
+            return "pieces";
             break;
         case "vegetables":
-            return " pieces";
+            return "pieces";
             break;
         case "bread":
-            return " slices";
+            return "slices";
             break;
         case "dairy":
-            return " cl";
+            return "/L";
             break;
         case "fish":
-            return " /g";
+            return "/g";
             break;
         case "meat":
-            return " /g";
+            return "/g";
             break;
         case "body_care":
-            return " bottles";
+            return "bottles";
             break;
         case "other":
             return "";

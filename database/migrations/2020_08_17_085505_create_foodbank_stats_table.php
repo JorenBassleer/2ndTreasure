@@ -16,10 +16,10 @@ class CreateFoodbankStatsTable extends Migration
         Schema::create('foodbank_stats', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('foodbank_id')->nullable();
-            $table->float('total_amount_of_kg_received');
-            $table->float('total_amount_of_treasures_generated');
+            $table->decimal('total_amount_of_kg_received', 10,3);
+            $table->decimal('total_amount_of_treasures_generated',10,3);
             $table->integer('total_amount_of_goodiebags_received');
-            $table->foreign('foodbank_id')->references('id')->on('foodbanks')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('foodbank_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

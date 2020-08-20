@@ -37,7 +37,7 @@ window.initMap = function() {
         };
 
         infoWindow.setPosition(pos);
-        infoWindow.setContent('You are here');
+        infoWindow.setContent('You are in this area');
         infoWindow.open(map);
         map.setCenter(pos);
         }, function() {

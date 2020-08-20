@@ -18,7 +18,7 @@
                         The foodbank is located at {{$goodiebag->foodbank->address}}
                     </div>
                     <div>
-                        You will gain xx amount of coins
+                        You will gain {{$goodiebag->treasures}} amount of treasures
                     </div>
                     <div>
                         <div>Don't forget to bring:</div>
@@ -27,14 +27,14 @@
                         @endforeach
                     </div>
                     <div class="text-center">
-                        <a href="{{route('code.check_if_delivered', $goodiebag->id)}}" class="btn btn-primary">Goods are delivered</a>
+                        <a href="{{route('code.check_if_delivered', $goodiebag->id)}}" class="btn btn-primary">Click if you delivered your goods</a>
                     </div>
                     <div class="text-center m-3">
                         <a href="{{route('foodbank.show',$goodiebag->foodbank_id)}}">Checkout their page</a>
                     </div>
                     <div class="text-center">
                         <span>Let {{$goodiebag->foodbank->name}} scan your qr code to confirm your goodiebag</span>
-                        <img src="http://api.qrserver.com/v1/create-qr-code/?data=http://127.0.0.1:8000/code/{{$goodiebag->code}}/confirm!&size=100x100" alt="">
+                        <img src="http://api.qrserver.com/v1/create-qr-code/?data={{route('code.qr_confirmed',$goodiebag->code)}}!&size=100x100" alt="Qr-code">
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFoodsTable extends Migration
+class CreateAllTimeLeaderBoardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateFoodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('foods', function (Blueprint $table) {
+        Schema::create('all_time_leader_boards', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->unique();
-            $table->decimal('value', 5,3)->nullable();
-            $table->decimal('avgWeightPer', 5,3)->nullable();
+            $table->unsignedBigInteger('user_id')->unique();
+            $table->decimal('amount_of_kg',10,3 );
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateFoodsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('foods');
+        Schema::dropIfExists('all_time_leader_boards');
     }
 }

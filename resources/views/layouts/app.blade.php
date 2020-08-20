@@ -11,16 +11,24 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.16.0/d3.min.js"></script>
+    <!-- Social Media -->
+    <meta property="og:url"           content="{{URL::to('/')}}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="2ndTreasure" />
+    <meta property="og:description"   content="Do good with goodiebags" />
+    <meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
+    <!-- Facebook -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0&appId=1742654069206147&autoLogAppEvents=1" nonce="9xE3uijj"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{-- <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXVSQngRh511t5sFYqGlveekKmHBda-ow&callback=initMap">
-  </script> --}}
+
 
 </head>
 <body>
@@ -40,11 +48,24 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('leaderboard.index')}}">Leaderboards</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('foodbank.index')}}">Foodbanks</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        {{-- Qr code link + goodiebag --}}
+                        @if(session()->has('goodiebag_id'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('show.code', session()->get('goodiebag_id')) }}">{{ __('Your ongoing goodiebag') }}</a>
+                            </li>
+                        @endif
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

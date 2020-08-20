@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserStats extends Model
+class AllTimeLeaderBoard extends Model
 {
-    protected $fillable = ['user_id', 'highest_place_ever','highest_number_of_treasures','total_amount_of_kg_donated' ];
+    protected $fillable =[
+        'user_id', 'amount_of_kg',
+    ];
     public function user()
     {
         return $this->belongsTo('App\User');

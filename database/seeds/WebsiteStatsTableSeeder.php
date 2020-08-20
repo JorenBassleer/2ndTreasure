@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\WeekStats;
-class WeekStatsTableSeeder extends Seeder
-{
+use App\WebsiteStats;
+class WebsiteStatsTableSeeder extends Seeder
+{     
     /**
      * Run the database seeds.
      *
@@ -11,7 +11,7 @@ class WeekStatsTableSeeder extends Seeder
      */
     public function run()
     {
-        Weekstats::updateOrCreate([
+        WebsiteStats::updateOrCreate([
             'amount_of_foodbanks' => 26,
             'amount_of_users' => 50,
             'amount_of_kg_donated' => 67.8,

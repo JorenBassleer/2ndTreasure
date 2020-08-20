@@ -42,8 +42,10 @@
 @endsection
 @section('scripts')
     <script>
+        // Set the latitude and longitude for maps if user does not give location
         var antLat = {{$lat ?? 51.2194475}};
         var antLng = {{$lng ?? 4.4024643}};
+        // Convert php variable to js for map
         var foodbanks = @json($foodbanks);
     </script>
     <script type="text/javascript" src="{{ asset('js/map-welcome.js') }}"></script>

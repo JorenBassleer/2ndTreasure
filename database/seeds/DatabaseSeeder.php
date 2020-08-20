@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FoodGoodiebagTableSeeder::class);
         $this->call(FoodbankStatsTableSeeder::class);
         $this->call(UserStatsTableSeeder::class);
-        $this->call(WeekStatsTableSeeder::class);
+        $this->call(WebsiteStatsTableSeeder::class);
 
     }
 }

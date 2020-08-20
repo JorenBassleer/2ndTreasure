@@ -11,7 +11,14 @@
                         Foodbank info
                     </div>
                     <div class="text-center">
-                        You can collect your ... treasure(s) here:
+                        You can collect your {{$goodiebag->treasures}} treasure(s) here:
+                    </div>
+                    <div class="text-center">
+                        You stopped around {{$goodiebag->total_kg}}kg to going to waste! Good job.
+                    </div>
+                    
+                    <div>
+                        Share this to your friends: <div class="fb-share-button" data-href="https://2ndtreasure.1819.joren.bassleer.nxtmediatech.eu/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F2ndtreasure.1819.joren.bassleer.nxtmediatech.eu%2F&message=I%20donated%20{{$goodiebag->total_kg}}kg%20food%20to%20{{$goodiebag->foodbank->name}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
                     </div>
                     @auth
                         <div>
