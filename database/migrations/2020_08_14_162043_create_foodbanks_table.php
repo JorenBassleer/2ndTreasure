@@ -18,6 +18,7 @@ class CreateFoodbanksTable extends Migration
             $table->unsignedBigInteger('user_id')->unique();
             $table->string('company_number')->nullable()->unique();
             $table->string('details')->nullable();
+            $table->string('website')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

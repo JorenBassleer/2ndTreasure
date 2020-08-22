@@ -4,8 +4,6 @@ script.defer = true;
 document.head.appendChild(script);
 window.initMap = function() {
     let map, infoWindow;
-    var directionsService = new google.maps.DirectionsService();
-    var directionsRenderer = new google.maps.DirectionsRenderer();
     antwerp = new google.maps.LatLng(51.2194475,4.4024643);
     var mapOptions = {
         center: antwerp,
@@ -23,10 +21,8 @@ window.initMap = function() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     infoWindow = new google.maps.InfoWindow;
-    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map-code'), mapOptions);
     setMarkers(map);
-    directionsRenderer.setMap(map);
-
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -37,43 +33,109 @@ window.initMap = function() {
         };
 
         infoWindow.setPosition(pos);
-        infoWindow.setContent('You are here');
+        infoWindow.setContent('You are somewhere here');
         infoWindow.open(map);
         map.setCenter(pos);
         }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
+            // User has disabled location usage
+            handleLocationError(infoWindow);
         });
     } else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        handleLocationError(infoWindow);
     }
-
+    
+    function handleLocationError(infoWindow) {
+        // Change text of btn and set hidden input to visible
+        document.getElementById('btn-direction').innerHTML = "Get directions by clicking on the map and this button";
+        // Create the initial InfoWindow.
+        var infoWindow = new google.maps.InfoWindow(
+            {content: 'Error: Geolocation failed. Click the map for a starting point and the button for directions to the foodbank!', position: antwerp});
+        infoWindow.open(map);
+        // Configure the click listener.
+        map.addListener('click', function(mapsMouseEvent) {
+            // Close the current InfoWindow.
+            infoWindow.close();
+            // Create a new InfoWindow.
+            infoWindow = new google.maps.InfoWindow({position: mapsMouseEvent.latLng});
+            infoWindow.setContent("Choose a starting point by clicking on the map and the button");
+            var lat = mapsMouseEvent.latLng.lat();
+            var lng = mapsMouseEvent.latLng.lng();
+            // Send the value to hidden input so we can access them in calcRoute() when 
+            // User clicks button
+            document.getElementById("hidden-lat").value = lat.toString();
+            document.getElementById("hidden-lng").value = lng.toString();
+            infoWindow.open(map);
+        });
+    }
     
 };
 
 function calcRoute() {
-        // var start = document.getElementById('start').value;
-        // var end = document.getElementById('end').value;
-        // var request = {
-        //     origin: start,
-        //     destination: end,
-        //     travelMode: 'DRIVING'
-        // };
-        // directionsService.route(request, function(result, status) {
-        //     if (status == 'OK') {
-        //     directionsRenderer.setDirections(result);
-        //     }
-        // });
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+    var mapOptions = {
+        center: antwerp,
+        zoom: 13,
+        mapTypeControlOptions: {
+        mapTypeIds: []
+        }, // here´s the array of controls
+        disableDefaultUI: true, // a way to quickly hide all controls
+        mapTypeControl: true,
+        scaleControl: true,
+        zoomControl: true,
+        zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.LARGE 
+        },
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map-code'), mapOptions);
+
+    directionsRenderer.setMap(map);
+    // These fields only get a value if user/browser has disabled geolocation
+    var userLat = document.getElementById('hidden-lat').value;
+    var userLng = document.getElementById('hidden-lng').value;
+    console.log(userLat, userLng);
+    if (userLat == "" && userLng == "") {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+                }
+            var start = pos;
+            var end = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)};
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: 'DRIVING'
+            };
+            directionsService.route(request, function(result, status) {
+                if (status == 'OK') {
+                    directionsRenderer.setDirections(result);
+                }
+            });
+        });
     }
-
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-infoWindow.setPosition(pos);
-infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-infoWindow.open(map);
+    // User/Browser doesn't allow localisation
+    else {
+        // Get lat & lng from hidden inputs
+        var start = {lat: Number(userLat), lng: Number(userLng)};
+        var end = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)};
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: 'DRIVING'
+        };
+        directionsService.route(request, function(result, status) {
+            if (status == 'OK') {
+                directionsRenderer.setDirections(result);
+            }
+        });
+    }
 }
+
+
+
 
 
 function setMarkers(map){
@@ -98,7 +160,6 @@ function setMarkers(map){
     });
     marker.addListener("click", () => {
         infowindow.open(map, marker);
-        console.log(foodbank.id);
         document.getElementById("foodbank_id").value = foodbank.id;
     });   
 }

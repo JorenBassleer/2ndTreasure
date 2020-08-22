@@ -6,7 +6,7 @@
         @include('partials.errors')
         <div class="col-md-8">
                 @if(isset($userStats))
-                    @if($userStats != null)
+                    @if($userStats->count() != 0)
                         <div class="card-header text-center"><h2>You currently have {{checkIfNull(auth()->user()->treasures) ? '0' : auth()->user()->treasures}} treasures</h2></div>
                         <div class="card-body">
                             {{-- {{dd($userStats->highest_place_ever)}}  --}}
@@ -24,11 +24,11 @@
                             </div>
                         </div>
                     @else
-                        <div>No data yet</div>
+                        <div>You have a total amount of {{$treasures}} treasures</div>
                     @endif
                 @endif
                 @if(isset($foodbankStats))
-                    @if($foodbankStats != null)
+                    @if($foodbankStats->count() != 0)
                         <div class="card-header text-center"><h2>You have received {{checkIfNull($foodbankStats->total_amount_of_kg_donated) ? '0' : $foodbankStats->total_amount_of_kg_donated}}kg of food in total</h2></div>
                         <div class="card-body">
                             <div class="text-center">

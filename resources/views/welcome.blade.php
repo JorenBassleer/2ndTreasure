@@ -41,6 +41,7 @@
 </div>
 @endsection
 @section('scripts')
+
     <script>
         // Set the latitude and longitude for maps if user does not give location
         var antLat = {{$lat ?? 51.2194475}};

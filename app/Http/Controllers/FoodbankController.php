@@ -84,12 +84,18 @@ class FoodbankController extends Controller
     public function show(User $foodbank)
     {
         // Check if logged in foodbank
+        if(Auth::check()) {
+            $isLoggedIn = auth()->user()->id == $foodbank->id ? 1 : 0;
+        }
+        else {
+            $isLoggedIn = 0;
+        }
         // Is the same one as the one displayed
         // Since foodbanks are users
         // We first need to get foodbank information
         return view('foodbank.show')->with([
             'foodbank' => $foodbank,
-            'isLoggedIn' => auth()->user()->id == $foodbank->id ? 1 : 0,
+            'isLoggedIn' => $isLoggedIn,
             ]);
     }
 

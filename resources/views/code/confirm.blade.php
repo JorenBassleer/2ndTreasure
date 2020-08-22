@@ -8,9 +8,6 @@
             <div class="card">
                 <div class="card-header">Confirm the goodiebag you received by entering the code which is displayed on the users device</div>
                 <div class="card-body">
-                    <div class="text-center">
-                        Show this to the foodbank to confirm your delivery
-                    </div>
                     <form action="{{route('code.confirmed')}}" class="form-control" method="POST">
                         @csrf
                         <div class="form-group row">

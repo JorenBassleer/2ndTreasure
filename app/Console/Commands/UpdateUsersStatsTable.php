@@ -42,11 +42,12 @@ class UpdateUsersStatsTable extends Command
         $users =  User::where('isFoodbank', null)
         ->orWhere('isFoodbank', 0)->get();
         foreach($users as $user) {
-            // Get the place of user by counting how many are above
             if($user->weeklyleaderboard == null) {
                 $place = null;
             }
             else {
+                // Get the place of user by counting how many are above
+                // + 1 since that is the place of user in DB
                 $place = WeeklyLeaderBoard::where('amount_of_kg', '>', $user->weeklyleaderboard->amount_of_kg )->count() + 1;
             }
             // For convenience, so all lines won't be really long
@@ -68,10 +69,12 @@ class UpdateUsersStatsTable extends Command
                 if(!$this->isHigher($place, $stats->highest_place_ever)) {
                     $stats->highest_place_ever = $place;
                 }
+                // Check if stats have increased
                 if($this->isHigher($user->treasures, $stats->highest_number_of_treasures)) {
                     $stats->highest_number_of_treasures = $user->treasures;
                 }
             }
+            // Save the stats of user
             $stats->save();
         }
     }

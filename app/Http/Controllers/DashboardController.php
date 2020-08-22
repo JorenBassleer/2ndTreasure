@@ -10,6 +10,20 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $idk = Goodiebag::where('hasReceived', null)->whereNotNull('code')->with([
+            'user' => function ($q) {
+                return $q->where('id', auth()->user()->id)
+                ->get();
+            }
+            ])->get();
+            dd($idk);
+
+            
+            $hehe = auth()->user()->whereHas('goodiebags', function ($query) {
+                return $query->where('hasReceived', null)
+                             ->whereNotNull('code');
+            })->get();
+            dd($hehe);
         if(auth()->user()->isFoodbank == 1) {
             // Logged in user is foodbank
             $foodbank = auth()->user();
@@ -17,7 +31,7 @@ class DashboardController extends Controller
             // dd($foodbankStats);
 
             return view('dashboard.index')->with([
-                'foodbankStats' => $foodbankStats,
+                'foodbankStats' => $foodbankStats == null ? 0 : $foodbankStats,
                 'isFoodbank' => 1,   
             ]);
         }
@@ -35,13 +49,17 @@ class DashboardController extends Controller
             $goodiebag = Goodiebag::find(session()->get('goodiebag_id'));
             $treasures = $goodiebag->treasures;
             $user->treasures += $treasures;
+            // Add to stats of user
+            $user->userstat()->create(['total_amount_of_kg_donated',  $goodiebag->total_kg]);
             session()->forget('goodiebag_id');
+            $user->userstat->save();
             $user->save();
         }
         // Get stats from user
         $userStats = $user->userstat;
         return view('dashboard.index')->with([
-            'userStats' => $userStats,
+            'userStats' => $userStats == null ? 0 : $userStats,
+            'treasures' => $user->treasures == null ? 0 : $user->treasures,
             'isFoodbank' => 0,   
         ]);
     }

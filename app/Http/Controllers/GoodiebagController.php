@@ -8,8 +8,10 @@ use App\Foodbank;
 use App\FoodGoodiebag;
 use Illuminate\Http\Request;
 use Validator;
-use Session;
+use App\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cookie;
+
 use Illuminate\Support\Facades\Auth;
 
 class GoodiebagController extends Controller
@@ -21,8 +23,12 @@ class GoodiebagController extends Controller
      */
     public function create()
     {
-        return view('goodiebag.create')->with([
-            'foods'=> Food::all(),
+        return view('welcome')->with([
+            'foods' => Food::all(),
+            'foodbanks' => User::where('isFoodbank', true)
+                                    ->whereNotNull(['lat','lng'])->get(),
+            'lat' => 51.2194475,
+            'lng' => 4.4024643,
         ]);
     }
 
@@ -51,37 +57,14 @@ class GoodiebagController extends Controller
             $goodiebag->delete();
             return back()->withErrors('You submitted an amount that wasn\'t a number');
         }
-        // Check if there is not a user logged in
-        // This way if the user creates an account
-        // And wants to collect the treasures
-        // We can find everything associated with
-        // the user
-        // Also Create a session so user can access url + qr code
-        Session::put('goodiebag_id', $goodiebag->id);
-        return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created');  
+
+        // Also Create a cookie so user can access the page with qr-code
+        // 10080 = a week
+        $minutes = 10080;
+        return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created')
+                                                            ->withCookie(cookie('goodiebag_id',$goodiebag->id, $minutes));  
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Goodiebag  $goodiebag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Goodiebag $goodiebag)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Goodiebag  $goodiebag
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Goodiebag $goodiebag)
-    {
-        //
-    }
 
     protected function validateGoodiebag(Request $request) {
         $validator = Validator::make($request->all(), [

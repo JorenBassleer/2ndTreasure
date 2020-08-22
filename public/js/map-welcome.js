@@ -81,28 +81,34 @@ function setMarkers(map){
     for (var i = 0; i < foodbanks.length; i++) {
         var foodbank = foodbanks[i];
         var foodbankLoc = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)}
-        const contentString =
-            '<div id="content">' +
-            '<div id="siteNotice">' +
-            "</div>" +
-            '<h2 id="firstHeading" class="firstHeading">'+foodbank.name+'</h2>' +
-            '<div id="bodyContent">' +
-            "<p>" + foodbank.name + " " + foodbank.details + "</p>" +
-            '<a href="http://127.0.0.1:8000/foodbank/'+ foodbank.id +'">Link</a>' +
-            "</div>" +
-            "</div>";
-        const infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
-        const marker = new google.maps.Marker({
-            position: foodbankLoc,
-            map,
-            title: foodbank.name,
-        });
-        marker.addListener("click", () => {
-            infowindow.open(map, marker);
-            console.log(foodbank.id);
-            document.getElementById("foodbank_id").value = foodbank.id;
-        });
+        createMarker(foodbankLoc,foodbank, map);
     }    
+}
+// Created this function to add Listener
+// If we add the eventlistener in for loop it only applies the last foodbank.id
+function createMarker(pos, foodbank, map) {
+    var marker = new google.maps.Marker({       
+        position: pos, 
+        map,  // google.maps.Map 
+        title: foodbank.name      
+    }); 
+    const contentString =
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    '<h2 id="firstHeading" class="firstHeading">'+foodbank.name+'</h2>' +
+    '<div id="bodyContent">' +
+    "<p>" + foodbank.name + " " + foodbank.details + "</p>" +
+    '<a href="http://127.0.0.1:8000/foodbank/'+ foodbank.id +'">Link</a>' +
+    "</div>" +
+    "</div>";
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    google.maps.event.addListener(marker, 'click', function() { 
+        infowindow.open(map, marker);
+        document.getElementById("foodbank_id").value = foodbank.id;
+    }); 
+    return marker; 
 }

@@ -37,9 +37,12 @@
                         <img src="http://api.qrserver.com/v1/create-qr-code/?data={{route('code.qr_confirmed',$goodiebag->code)}}!&size=100x100" alt="Qr-code">
                     </div>
                 </div>
+                <input type="hidden" class="form-control" name="lat" id="hidden-lat" disabled >
+                <input type="hidden" class="form-control" name="lng" id="hidden-lng" disabled >
+                <button id="btn-direction" class="btn btn-primary" onclick="calcRoute()">Get directions from current location</button>
             </div>
             <div class="col-lg-12">
-                <div id="map" style="width: 100%;">
+                <div id="map-code">
     
                 </div>
             </div>  
@@ -51,5 +54,5 @@
     <script>
         var foodbank = @json($goodiebag->foodbank);
     </script>
-    {{-- <script type="text/javascript" src="{{ asset('js/map-code.js') }}"></script> --}}
+    <script type="text/javascript" src="{{ asset('js/map-code.js') }}"></script>
 @endsection

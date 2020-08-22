@@ -11,14 +11,18 @@
 
                     <div class="card-body">
                         <ul>
-                            <li>{{$foodbank->email}}</li>
-                            <li>{{$foodbank->phone}}</li>
-                            <li>{{$foodbank->address}} {{$foodbank->city}} {{$foodbank->postalcode}} {{$foodbank->province}}</li>
+                            <li><a href="mailto:{{$foodbank->email}}">{{$foodbank->email}}</li></a>
+                            <li><a href="tel:{{$foodbank->phone}}">{{$foodbank->phone}}</li></a>
+                            <li><a href="{{$foodbank->website}}">{{$foodbank->website}}</li></a>
+                            <li><a href="#" id="address_click" onclick="displayMap()">{{$foodbank->address}} {{$foodbank->city}} {{$foodbank->postalcode}} {{$foodbank->province}}</li></a>
                         </ul>
                     </div>
                     <div class="card-body">
-                        {{$foodbank->details}}
+                        {{$foodbank->foodbank->details}}
                     </div>
+                </div>
+                <div id="map-code">
+
                 </div>
             @else
                 @include('partials.errors')
@@ -54,4 +58,12 @@
         </div>
     </div>
 </div>
+
+@endsection
+@section('scripts')
+<script>
+    var foodbank = @json($foodbank);
+    var foodbankLoc = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)};
+</script>
+<script type="text/javascript" src="{{ asset('js/map-foodbank.js') }}"></script>
 @endsection

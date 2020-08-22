@@ -60,11 +60,44 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        {{-- Qr code link + goodiebag --}}
-                        @if(session()->has('goodiebag_id'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('show.code', session()->get('goodiebag_id')) }}">{{ __('Your ongoing goodiebag') }}</a>
-                            </li>
+                        @if(!Auth::check())
+                            {{-- Qr code link + goodiebag so non users can access --}}
+                            @if(Cookie::get('goodiebag_id') != null)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('show.code', request()->cookie('goodiebag_id')) }}">{{ __('Your ongoing goodiebag') }}</a>
+                                </li>
+                            @endif
+                        @else
+                        {{-- Alle Goodiebags met hasReceived == null --}}
+                            {{-- Get all goodiebags of user that haven't been delivered --}}
+                                {{-- {{auth()->user()->with([
+                                    'goodiebags' => function ($q) {
+                                        return $q->where('hasReceived', null)->get();
+                                    }
+                                ])->get()}} --}}
+                            @if(count(auth()->user()->with([
+                                'goodiebags' => function ($q) {
+                                    return $q->where('hasReceived', null)
+                                             ->whereNotNull('code')
+                                    ->get();
+                                }
+                                ])) > 0)
+                                <div class="dropdown"type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ __('Your ongoing goodiebags') }}
+                                  </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                        @foreach(auth()->user()->with([
+                                            'goodiebags' => function ($q) {
+                                                return $q->where('hasReceived', null)->first();
+                                            }
+                                            ])->get() as $key => $onGoingGoodiebag)
+                                            {{dd($onGoingGoodiebag->code)}}
+                                            <a href="{{route('goodiebag.show', $onGoingGoodiebag->code)}}"><button class="dropdown-item" type="button">Goodiebag number {{$key}}</button></a>
+                                        @endforeach
+                                    </div>
+                                    {{-- <a class="nav-link" href="{{ route('show.code', request()->cookie('goodiebag_id')) }}"></a> --}}
+                                </li>
+                            @endif 
                         @endif
                         <!-- Authentication Links -->
                         @guest
