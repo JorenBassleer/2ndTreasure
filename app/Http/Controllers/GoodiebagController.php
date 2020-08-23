@@ -9,6 +9,7 @@ use App\FoodGoodiebag;
 use Illuminate\Http\Request;
 use Validator;
 use App\User;
+use App\Traits\CaptchaTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 class GoodiebagController extends Controller
 {
+    use CaptchaTrait;
     /**
      * Show the form for creating a new resource.
      *
@@ -31,7 +33,6 @@ class GoodiebagController extends Controller
             'lng' => 4.4024643,
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -45,6 +46,11 @@ class GoodiebagController extends Controller
             return redirect()->back()
             ->withErrors(['errors'=>$validator->errors()->all()])->withInput();
         }
+        // Validate captcha
+        $result = $this->checkCaptcha($request['g-recaptcha-response']);
+        if(!$result['success']) {
+            return back()->withErrors('Captcha failed');
+        }
         $goodiebag = new Goodiebag ([
             'user_id' => auth()->user() ? auth()->user()->id : null,
             'foodbank_id' => $request->foodbank_id,
@@ -53,16 +59,26 @@ class GoodiebagController extends Controller
         $goodiebag->code = Str::random(5);
         $goodiebag->save();
         // If false there was a submitted amount that wasn't a number
-        if(!$this->addFoodToGoodiebag($goodiebag,$request->except('_token', 'foodbank_id'))) {
+        if(!$this->addFoodToGoodiebag($goodiebag,$request->except('_token', 'foodbank_id','g-recaptcha-response'))) {
             $goodiebag->delete();
             return back()->withErrors('You submitted an amount that wasn\'t a number');
         }
-
-        // Also Create a cookie so user can access the page with qr-code
-        // 10080 = a week
+        if(Auth::check()) {
+            return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created');
+        }
+        // Create cookie if user is not logged in
+        // So user can access the page with qr-code
         $minutes = 10080;
         return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created')
                                                             ->withCookie(cookie('goodiebag_id',$goodiebag->id, $minutes));  
+    }
+    public function destroy(Goodiebag $goodiebag)
+    {
+        if(!$goodiebag->delete()) {
+            return redirect()->route('code.show', $goodiebag->id)->withErrors('Something went wrong while deleting your goodiebag, try again in a few moments');
+        }
+        Cookie::queue(Cookie::forget('goodiebag_id'));
+        return redirect()->route('goodiebag.create')->with('success_message', 'Goodiebag deleted');
     }
 
 
@@ -77,9 +93,14 @@ class GoodiebagController extends Controller
             'meat' => 'nullable',
             'body care' => 'nullable',
            'other' => 'nullable',
-           'foodbank_id' => 'required', 
+           'foodbank_id' => 'required',
+           'g-recaptcha-response' => 'required', 
         ],
-        ['foodbank_id.required' => 'You have to select a foodbank on the map']);
+        // Message if foodbank_id wasn't submitted
+        [
+            'foodbank_id.required' => 'You have to select a foodbank on the map',
+            'g-recaptcha-response.required' => 'Captcha failed',
+        ]);
         if($request->foodbank_id==null) {
             $validator->errors()->add('foodbank_id', 'You have to select a foodbank from the map');
         }

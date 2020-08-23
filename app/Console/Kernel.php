@@ -25,9 +25,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('command:updateUserStats')
-                 ->weekly();
+                 ->weeklyOn(7, '8:00');
         $schedule->command('command:clearWeeklyLeaderBoardTable')
-                 ->weekly();
+                 ->weeklyOn(7, '10:00');
         $schedule->command('command:updateWebsiteStats')
                  ->weekly();
     }

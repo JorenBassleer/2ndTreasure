@@ -95,7 +95,6 @@ function calcRoute() {
     // These fields only get a value if user/browser has disabled geolocation
     var userLat = document.getElementById('hidden-lat').value;
     var userLng = document.getElementById('hidden-lng').value;
-    console.log(userLat, userLng);
     if (userLat == "" && userLng == "") {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -160,6 +159,5 @@ function setMarkers(map){
     });
     marker.addListener("click", () => {
         infowindow.open(map, marker);
-        document.getElementById("foodbank_id").value = foodbank.id;
     });   
 }

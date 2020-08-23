@@ -10,8 +10,15 @@ use Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\LatLngTrait;
+use App\Traits\CaptchaTrait;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FoodbankApplicationMail;
+use Config;
+
 class FoodbankController extends Controller
 {
+    use LatLngTrait, CaptchaTrait;
     /**
      * Display a listing of the resource.
      *
@@ -34,8 +41,35 @@ class FoodbankController extends Controller
         return view('foodbank.create');
     }
 
-    protected $redirectTo = RouteServiceProvider::HOME;
-    /**
+
+    public function showForm()
+    {
+        return view('foodbank.form');
+    }
+    public function postForm(Request $request)
+    {
+        // Validate form
+        $validator = $this->validateFoodbankForm($request);
+
+        if(!$validator->passes()) {
+            return redirect()->back()
+            ->withErrors(['errors'=>$validator->errors()->all()])->withInput();
+        }
+        // Validate captcha
+        $result = $this->checkCaptcha($request['g-recaptcha-response']);
+        if(!$result['success']) {
+            return back()->withErrors('Captcha failed');
+        }
+        try {
+            // Mail to me
+            Mail::to('email@email.com')
+            ->send(new FoodbankApplicationMail($request->except('_token', 'g-recapthca-response')));
+        } catch(Exception $e) {
+            return back()->withErrors($e);
+        }
+        return back()->with('success_message', 'Application has been send');
+    }
+    /**+
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -126,23 +160,12 @@ class FoodbankController extends Controller
         $foodbank->foodbank->company_number = $request->company_number;
 
         $address = $foodbank->address . " " . $foodbank->postalcode . " " . $foodbank->city . " " . $foodbank->province. " " . $foodbank->country;
-        $latLng = $this->get_lat_long($address);
+        $latLng = $this->getLatLng($address);
         $foodbank->lat = $latLng[0];
         $foodbank->lng = $latLng[1];
         $foodbank->save();
         $foodbank->foodbank->save();
         return redirect()->route('foodbank.show', $foodbank->id)->with('success_message', 'Foodbank updated')->withInput();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Foodbank  $foodbank
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Foodbank $foodbank)
-    {
-        //
     }
 
     protected function validateFoodbankRegister(Request $request) {
@@ -174,36 +197,17 @@ class FoodbankController extends Controller
             'foodbank_phone' => 'required|max:100|string',
             'company_number' => 'max:100|string',
             'details' => 'max:255|string',
+        ],
+        [
+            'foodbank_name.required' => 'Name field is required',
+            'foodbank_email.required' => 'Email field is required',
+            'foodbank_address.required' => 'Address field is required',
+            'foodbank_city.required' => 'City field is required',
+            'foodbank_postalcode.required' => 'Postalcode field is required',
+            'foodbank_province.required' => 'Province field is required',
+            'foodbank_country.required' => 'Country field is required',
+            'foodbank_phone.required' => 'Phone field is required',
         ]);
         return $validator;
-    }
-
-    // function to get  the address
-   public function get_lat_long($address){
-
-     // Get lat and long by address         
-     $prepAddr = str_replace(' ','+',$address);
-     $apikey = "AIzaSyAXVSQngRh511t5sFYqGlveekKmHBda-ow";
-     $geocode=$this->file_get_content_curl('https://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false&key='.$apikey);
-     $output= json_decode($geocode);
-     $LatLon[0] = $output->results[0]->geometry->location->lat;
-     $LatLon[1] = $output->results[0]->geometry->location->lng;
-     return $LatLon;
-    }
-
-    public function file_get_content_curl ($url) 
-    {
-        // Throw Error if the curl function does'nt exist.
-        if (!function_exists('curl_init'))
-        { 
-            die('CURL is not installed!');
-        }
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $output = curl_exec($ch);
-        curl_close($ch);
-        return $output;
     }
 }

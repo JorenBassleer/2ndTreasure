@@ -14,9 +14,9 @@
             @csrf
             @foreach($foods as $food)
                 <div class="form-group row">
-                    <label for="{{($food->id)}}" class="col-md-4 col-form-label text-md-right">{{ __(ucfirst(str_replace('_', ' ' ,$food->type))) }}</label>
+                    <label for="{{($food->id)}}" class="col-md-4 col-form-label text-md-right">{{ __(displayFoodText($food->type)) }}</label>
                     <div class="col-md-6">
-                        <input id="food_input" type="text" class="form-control @error($food->id) is-invalid @enderror" name="{{$food->type}}" value="{{ old($food->type) }}" autocomplete="{{foodBackend($food->type)}} " autofocus placeholder="{{displayFood($food->type)}}">
+                        <input id="food_input" type="text" class="form-control @error($food->id) is-invalid @enderror" name="{{$food->type}}" value="{{ old($food->type) }}" autocomplete="{{foodBackend($food->type)}} " autofocus placeholder="{{displayFoodUnit($food->type)}}">
                         @error($food->type)
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -25,6 +25,7 @@
                     </div>
                 </div>
             @endforeach
+            <div class="g-recaptcha mb-4" data-sitekey="6LcPL8IZAAAAAPWoYJcwYZsFaUPTZD_bdkwAAy2j"></div>
             <input type="hidden" name="foodbank_id" id='foodbank_id' value="">
             <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
@@ -36,7 +37,6 @@
         </form>
         <div id="map" class="map"></div>
         </div>
-        <a href="{{route('foodbank.create')}}">Add your own foodbank</a>
     </div>
 </div>
 @endsection

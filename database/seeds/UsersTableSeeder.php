@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Belgiëlei 161/2',
             'city' => 'Antwerpen',
             'postalcode' => '2018',
-            'province' => 'Antwerpen',
+            'province' => 'Antwerpen',  
             'country' => 'België',
             'phone' => '0485177696',
             'treasures' => 810,

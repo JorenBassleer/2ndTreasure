@@ -18,7 +18,7 @@ class CreateWebsiteStatsTable extends Migration
             $table->integer('amount_of_foodbanks');
             $table->integer('amount_of_users');
             $table->decimal('amount_of_kg_donated', 10,3);
-            $table->decimal('amount_of_treasures_created',10,3);
+            $table->decimal('amount_of_treasures_created',10,2);
             $table->timestamps();
         });
     }

@@ -52,7 +52,7 @@ class User extends Authenticatable
     }
     public function foodbankstat()
     {
-        return $this->hasOne('App\FoodbankStats', 'id');
+        return $this->hasOne('App\FoodbankStats');
     }
     public function foodbank()
     {

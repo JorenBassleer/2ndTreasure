@@ -16,7 +16,7 @@ class CreateFoodsTable extends Migration
         Schema::create('foods', function (Blueprint $table) {
             $table->id();
             $table->string('type')->unique();
-            $table->decimal('value', 5,3)->nullable();
+            $table->decimal('value', 5,2)->nullable();
             $table->decimal('avgWeightPer', 5,3)->nullable();
             $table->timestamps();
         });

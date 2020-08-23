@@ -77,7 +77,6 @@ infoWindow.open(map);
 
 
 function setMarkers(map){
-    console.log(foodbanks);
     for (var i = 0; i < foodbanks.length; i++) {
         var foodbank = foodbanks[i];
         var foodbankLoc = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)}

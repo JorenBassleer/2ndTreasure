@@ -17,19 +17,16 @@ function foodBackend($food)
     return replaceSlash(strtolower($better));
 
 }
-function changeColorToStatus($status)
+function displayFoodText($food)
 {
-    if($status=="Accepted") { return "class=text-success";}
-    else if($status=="Pending") { return "class=text-warning";}
-    else if($status=="Declined") { return "class=text-danger";}
-    else if($status=="Completed") { return "class= text-primary";}
+    return ucfirst(str_replace('_', ' ', $food));
 }
 
 function checkIfNull($obj) {
     if($obj != null ) { return false; }
     else              { return true; }
 }
-function displayFood($food)
+function displayFoodUnit($food)
 {
     switch ($food) {
         case "water":
@@ -59,5 +56,59 @@ function displayFood($food)
         case "other":
             return "";
             break;
+    }
+}
+function displayFoodQuantity($amount, $food)
+{
+    switch ($food) {
+        case "water":
+            return round($amount,2) . "l";
+            break;
+        case "fruits":
+            return round($amount) . " pieces";
+            break;
+        case "vegetables":
+            return round($amount) . " pieces";
+            break;
+        case "bread":
+            return round($amount) ." slices";
+            break;
+        case "dairy":
+            return round($amount,2) . "l";
+            break;
+        case "fish":
+            if($amount < 1000) {
+                return round($amount) . "g";
+            }
+            else {
+                return presentWeightToKg($amount, false);
+            }
+            break;
+        case "meat":
+            if($amount < 1000) {
+                return round($amount) . "g";
+            }
+            else {
+                return presentWeightToKg($amount, false);
+            }
+            break;
+        case "body_care":
+            return round($amount) . " bottles";
+            break;
+        case "other":
+            return round($amount);
+            break;
+    }
+}
+
+function presentWeightToKg($weight, $isWeightKg)
+{
+    if($isWeightKg) {
+        // Weight = already in kg
+        return round($weight, 2) . "kg";
+    }
+    else {
+        // Weight is in gram
+        return round($weight / 1000, 2) . "kg";
     }
 }

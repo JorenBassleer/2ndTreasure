@@ -10,24 +10,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $idk = Goodiebag::where('hasReceived', null)->whereNotNull('code')->with([
-            'user' => function ($q) {
-                return $q->where('id', auth()->user()->id)
-                ->get();
-            }
-            ])->get();
-            dd($idk);
 
-            
-            $hehe = auth()->user()->whereHas('goodiebags', function ($query) {
-                return $query->where('hasReceived', null)
-                             ->whereNotNull('code');
-            })->get();
-            dd($hehe);
         if(auth()->user()->isFoodbank == 1) {
             // Logged in user is foodbank
             $foodbank = auth()->user();
-            $foodbankStats = $foodbank->foodbank->foodbankstat;
+            $foodbankStats = $foodbank->foodbankstat;
             // dd($foodbankStats);
 
             return view('dashboard.index')->with([

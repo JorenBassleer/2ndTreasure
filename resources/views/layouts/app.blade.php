@@ -9,10 +9,11 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.16.0/d3.min.js"></script>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Social Media -->
     <meta property="og:url"           content="{{URL::to('/')}}" />
     <meta property="og:type"          content="website" />
@@ -29,6 +30,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <!-- Google recaptcha -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </head>
 <body>
@@ -68,34 +71,17 @@
                                 </li>
                             @endif
                         @else
-                        {{-- Alle Goodiebags met hasReceived == null --}}
                             {{-- Get all goodiebags of user that haven't been delivered --}}
-                                {{-- {{auth()->user()->with([
-                                    'goodiebags' => function ($q) {
-                                        return $q->where('hasReceived', null)->get();
-                                    }
-                                ])->get()}} --}}
-                            @if(count(auth()->user()->with([
-                                'goodiebags' => function ($q) {
-                                    return $q->where('hasReceived', null)
-                                             ->whereNotNull('code')
-                                    ->get();
-                                }
-                                ])) > 0)
-                                <div class="dropdown"type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ __('Your ongoing goodiebags') }}
-                                  </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                        @foreach(auth()->user()->with([
-                                            'goodiebags' => function ($q) {
-                                                return $q->where('hasReceived', null)->first();
-                                            }
-                                            ])->get() as $key => $onGoingGoodiebag)
-                                            {{dd($onGoingGoodiebag->code)}}
-                                            <a href="{{route('goodiebag.show', $onGoingGoodiebag->code)}}"><button class="dropdown-item" type="button">Goodiebag number {{$key}}</button></a>
+                            @if($onGoingGoodiebags->where('user_id', auth()->user()->id)->count() > 0)
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ __('All pending goodiebags') }} <span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        @foreach($onGoingGoodiebags->where('user_id', auth()->user()->id) as $key => $onGoingGoodiebag)
+                                            <a href="{{route('show.code', $onGoingGoodiebag->id)}}" class="dropdown-item">a goodiebag for {{$onGoingGoodiebag->foodbank->name}}</a>
                                         @endforeach
                                     </div>
-                                    {{-- <a class="nav-link" href="{{ route('show.code', request()->cookie('goodiebag_id')) }}"></a> --}}
                                 </li>
                             @endif 
                         @endif
@@ -120,9 +106,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href=""
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

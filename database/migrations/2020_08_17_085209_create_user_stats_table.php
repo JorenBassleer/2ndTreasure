@@ -17,7 +17,7 @@ class CreateUserStatsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('highest_place_ever')->nullable();
-            $table->decimal('highest_number_of_treasures',10,3)->nullable();
+            $table->decimal('highest_number_of_treasures',10,2)->nullable();
             $table->decimal('total_amount_of_kg_donated',10,3)->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');

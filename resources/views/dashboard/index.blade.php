@@ -6,7 +6,7 @@
         @include('partials.errors')
         <div class="col-md-8">
                 @if(isset($userStats))
-                    @if($userStats->count() != 0)
+                    @if($userStats)
                         <div class="card-header text-center"><h2>You currently have {{checkIfNull(auth()->user()->treasures) ? '0' : auth()->user()->treasures}} treasures</h2></div>
                         <div class="card-body">
                             {{-- {{dd($userStats->highest_place_ever)}}  --}}
