@@ -12,9 +12,8 @@ use App\User;
 use App\Traits\CaptchaTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
-
 use Illuminate\Support\Facades\Auth;
-
+use Storage;
 class GoodiebagController extends Controller
 {
     use CaptchaTrait;
@@ -25,12 +24,17 @@ class GoodiebagController extends Controller
      */
     public function create()
     {
+        // Get style of google maps
+        $json = Storage::disk('local')->get('json/map-style.json');
+        $json = json_decode($json, true);
+
         return view('welcome')->with([
             'foods' => Food::all(),
             'foodbanks' => User::where('isFoodbank', true)
                                     ->whereNotNull(['lat','lng'])->get(),
             'lat' => 51.2194475,
             'lng' => 4.4024643,
+            'styledMap' => $json,
         ]);
     }
     /**
@@ -66,11 +70,12 @@ class GoodiebagController extends Controller
         if(Auth::check()) {
             return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created');
         }
+;
         // Create cookie if user is not logged in
         // So user can access the page with qr-code
+        // 10080 minutes = a week
         $minutes = 10080;
-        return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created')
-                                                            ->withCookie(cookie('goodiebag_id',$goodiebag->id, $minutes));  
+        return redirect()->route('show.code', $goodiebag->id)->with('success_message' ,'Goodiebag created')->withCookie(cookie('goodiebag_id',$goodiebag->id, $minutes));  
     }
     public function destroy(Goodiebag $goodiebag)
     {

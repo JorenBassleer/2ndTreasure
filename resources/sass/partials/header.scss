@@ -1,0 +1,47 @@
+.navbar {
+    box-shadow: none !important;
+    background-color: transparent;
+
+    .nav-link {
+        color: white !important;
+        padding: 0 !important;
+        margin: 5px;
+        border-bottom: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+        color: white !important;
+        border-bottom: 1px solid white;
+    }
+
+    .navbar-nav.navbar-center {
+        position: absolute;
+        left: 50%;
+        transform: translatex(-50%);
+    }
+
+    .make-goodiebag-btn {
+        padding: 15px;
+        color: white;
+        border: 2px solid white;
+        border-radius: 40px;
+        text-align: center;
+        text-decoration: none;
+
+
+        transition: all 0.25s ease;
+    }
+
+    .make-goodiebag-btn:hover {
+        color: #00a896;
+        background-color: #fff;
+
+        transition: all 0.25s ease;
+    }
+
+    .container {
+        svg {
+            fill: #fff;
+        }
+    }
+}

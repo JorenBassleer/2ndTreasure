@@ -1,11 +1,13 @@
+
 var script = document.createElement('script');
-script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAXVSQngRh511t5sFYqGlveekKmHBda-ow&callback=initMap';
+script.src = 'https://maps.googleapis.com/maps/api/js?key='+ key + '&callback=initMap';
 script.defer = true;
 document.head.appendChild(script);
+
+
 window.initMap = function() {
     let map, infoWindow;
-    var directionsService = new google.maps.DirectionsService();
-    var directionsRenderer = new google.maps.DirectionsRenderer();
+    var styledMapType = new google.maps.StyledMapType(styledMap);
     antwerp = new google.maps.LatLng(antLat, antLng);
     var mapOptions = {
         center: antwerp,
@@ -18,14 +20,16 @@ window.initMap = function() {
         scaleControl: true,
         zoomControl: true,
         zoomControlOptions: {
-        style: google.maps.ZoomControlStyle.LARGE 
+        style: google.maps.ZoomControlStyle.LARGE
         },
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     infoWindow = new google.maps.InfoWindow;
-    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map-goodiebag'), mapOptions);
+    //Associate the styled map with the MapTypeId and set it to display.
+    map.mapTypes.set('styled_map', styledMapType);
+    map.setMapTypeId('styled_map');
     setMarkers(map);
-    directionsRenderer.setMap(map);
 
 
     // Try HTML5 geolocation.
@@ -41,39 +45,22 @@ window.initMap = function() {
         infoWindow.open(map);
         map.setCenter(pos);
         }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
+            handleLocationError(true, infoWindow, map.getCenter());
         });
     } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
-
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                                'Error: The Geolocation service failed.' :
+                                'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+        }
     
 };
 
-function calcRoute() {
-        var start = document.getElementById('start').value;
-        var end = document.getElementById('end').value;
-        var request = {
-            origin: start,
-            destination: end,
-            travelMode: 'DRIVING'
-        };
-        directionsService.route(request, function(result, status) {
-            if (status == 'OK') {
-            directionsRenderer.setDirections(result);
-            }
-        });
-    }
-
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-infoWindow.setPosition(pos);
-infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-infoWindow.open(map);
-}
 
 
 function setMarkers(map){
@@ -86,10 +73,12 @@ function setMarkers(map){
 // Created this function to add Listener
 // If we add the eventlistener in for loop it only applies the last foodbank.id
 function createMarker(pos, foodbank, map) {
+    var iconBase = '../images/';
     var marker = new google.maps.Marker({       
         position: pos, 
         map,  // google.maps.Map 
-        title: foodbank.name      
+        title: foodbank.name,
+        // icon: iconBase + 'test.png',    
     }); 
     const contentString =
     '<div id="content">' +

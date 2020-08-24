@@ -21,7 +21,7 @@
                         {{$foodbank->foodbank->details}}
                     </div>
                 </div>
-                <div id="map-code">
+                <div id="map-code" class="rounded">
 
                 </div>
             @else
@@ -63,6 +63,8 @@
 @section('scripts')
 <script>
     var foodbank = @json($foodbank);
+    var styledMap = @json($styledMap);
+
     var foodbankLoc = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)};
 </script>
 <script type="text/javascript" src="{{ asset('js/map-foodbank.js') }}"></script>

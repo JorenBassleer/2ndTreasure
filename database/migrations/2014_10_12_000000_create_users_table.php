@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('country')->nullable();
             $table->string('phone')->nullable();
             $table->boolean('isFoodbank')->nullable();
+            $table->boolean('isFlagged')->nullable();
             $table->timestamp('email_verified_at')
                     ->nullable();
             $table->decimal('treasures',10,2)->nullable();

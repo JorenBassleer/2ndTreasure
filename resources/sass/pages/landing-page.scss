@@ -1,0 +1,92 @@
+#app {
+    background: rgb(5, 102, 141);
+    background: linear-gradient(115deg, rgba(5, 102, 141, 1) 0%, rgba(0, 168, 150, 1) 35%, rgba(2, 195, 154, 1) 100%);
+    // clip-path: circle(120.4% at 0 0);
+}
+
+.landing-page {
+    .home-boxes {
+        display: flex;
+        margin-top: 50px;
+        color: white;
+
+        h3 {
+            font-size: 4rem;
+        }
+
+        >div {
+            width: 50%;
+        }
+
+        .left {
+            padding-right: 100px;
+            text-align: right;
+
+            .donate-btn {
+                margin-top: 50px !important;
+            }
+
+            .button1 {
+                background-color: white;
+                padding: 15px;
+                color: #00a896;
+                border: 2px solid white;
+                border-radius: 40px;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            .button1:hover {}
+        }
+
+        .right {
+            padding-left: 100px;
+            text-align: left;
+        }
+    }
+
+    .illustration1,
+    .illustration2 {
+        width: 350px;
+    }
+
+    .home-boxes-2 {
+        display: flex;
+        color: white;
+
+        h3 {
+            font-size: 4rem;
+        }
+
+        div {
+            width: 50%;
+        }
+
+        .left {
+            padding-right: 100px;
+            text-align: right;
+
+        }
+
+        .right {
+            padding-left: 100px;
+            text-align: left;
+
+            .register-btn {
+                margin-top: 50px !important;
+            }
+
+            .button1 {
+                background-color: white;
+                padding: 15px;
+                color: #00a896;
+                border: 2px solid white;
+                border-radius: 40px;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            .button1:hover {}
+        }
+    }
+}

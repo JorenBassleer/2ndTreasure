@@ -15,9 +15,15 @@ use App\Mail\FoodbankApplicationMail;
 
 Route::get('/', 'LandingPageController@displayLandingPage')->name('landing');
 
+Route::get('/500', function() {
+    return view('errors.500');
+});
+
+Route::post('error/500', 'ErrorFormController@postForm')->name('post.form_error');
 
 Auth::routes();
 
+// Doesn't need a lot of styling \\
 Route::get('/email',function() {
     return new FoodbankApplicationMail();
 });
@@ -31,7 +37,9 @@ Route::resource('/foodbank', 'FoodbankController')->only([
     'index', 'show', 'create'
 ]);
 
-Route::resource('/goodiebag', 'GoodiebagController');
+Route::resource('/goodiebag', 'GoodiebagController')->only([
+    'destroy', 'store', 'create'
+]);
 
 Route::get('/leaderboard', 'LeaderBoardController@index')->name('leaderboard.index');
 Route::get('cron/clean', 'CronController@cleanDatabase');
@@ -44,9 +52,12 @@ Route::group(['middleware' => ['auth']], function () {
 
 // Only foodbanks allowed
 Route::group(['middleware' => ['auth', 'foodbank']], function () {
-    Route::get('/code/confirm', 'CodeController@showConfirm')->name('show.confirm_code');
     Route::get('/code/{code}/confirm', 'CodeController@qrConfirm')->name('code.qr_confirmed');
-    Route::post('/code/confirm', 'CodeController@confirm')->name('code.confirmed'); 
+    Route::post('/code/confirm', 'CodeController@confirm')->name('code.confirmed');
+    
+    Route::resource('/foodbank', 'FoodbankController')->only([
+        'update'
+    ]);
 });
 
 Route::get('/goodiebag/{goodiebag}/delivered', 'CodeController@checkIfDelivered')->name('code.check_if_delivered');

@@ -11,6 +11,8 @@ use App\Traits\UserStatsTrait;
 use App\FoodbankStats;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Storage;
+
 class CodeController extends Controller
 {
     use LeaderBoardsTrait, FoodbankStatsTrait, UserStatsTrait;
@@ -21,37 +23,30 @@ class CodeController extends Controller
             return redirect('/')->withErrors('Invalid code.');
         }
         // If user tries to access page without having the
-        // Cookie variable
-        
-        return view('code.show')->with('goodiebag', $goodiebag);
-    }
+        // cookie variable
 
-    public function showConfirm()
-    {
-        // Check if user is logged in
-        if(!Auth::check()) {
-            return redirect()->withErrors('Unauthorized');
-        }
-        // Check if user is a foodbank
-        if(!auth()->user()->isFoodbank) {
-            return back()->withErrors('Unauthorized');
-        }
-        return view('code.confirm');
+        // Get style of google maps
+        $json = Storage::disk('local')->get('json/map-style.json');
+        $json = json_decode($json, true);
+        return view('code.show')->with([
+            'goodiebag' => $goodiebag,
+            'styledMap' => $json,
+            ]);
     }
 
     public function confirm(Request $request)
     {
         if(!$this->validateCode($request)) {
-            return redirect()->route('show.confirm_code')->withErrors('Invalid code');
+            return redirect()->route('dashboard.index')->withErrors('Invalid code');
         }
-        return redirect()->route('show.confirm_code')->with('success_message', 'Goodiebag received!');  
+        return redirect()->route('dashboard.index')->with('success_message', 'Goodiebag received!');  
     }
     public function qrConfirm(Goodiebag $goodiebag)
     {
         if(!$this->validateCode(request())) {
-            return redirect()->route('show.confirm_code')->withErrors('Invalid code.');
+            return redirect()->route('dashboard.index')->withErrors('Invalid code.');
         }
-        return redirect()->route('show.confirm_code')->with('success_message', 'Goodiebag received!');  
+        return redirect()->route('dashboard.index')->with('success_message', 'Goodiebag received!');  
     }
     public function checkIfDelivered(Goodiebag $goodiebag)
     {
@@ -100,6 +95,12 @@ class CodeController extends Controller
             $goodiebag->hasReceived =1;
             // If user is logged in add treasures to User acc
             if($user > null) {
+                // If user is flagged as bad user
+                // Set back to 0 since he delivered a goodiebag
+                if($user->isFlagged) {
+                    $user->isFlagged = 0;
+                    $user->save();
+                }
                 // Add to the users stats
                 $this->addUserStats($user, $goodiebag);
                 // Add user to Leaderboard - weekly & all time

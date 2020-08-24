@@ -105,10 +105,14 @@ function presentWeightToKg($weight, $isWeightKg)
 {
     if($isWeightKg) {
         // Weight = already in kg
-        return round($weight, 2) . "kg";
+        return pointToComma(round($weight, 2) . "kg");
     }
     else {
         // Weight is in gram
-        return round($weight / 1000, 2) . "kg";
+        return pointToComma(round($weight / 1000, 2) . "kg");
     }
+}
+
+function pointToComma($value) {
+    return str_replace('.', ',', $value);
 }

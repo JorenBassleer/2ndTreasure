@@ -24,12 +24,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // Update user stats
+        // We already do this dynamically when user creates a goodiebag
         $schedule->command('command:updateUserStats')
-                 ->weeklyOn(7, '8:00');
+                ->weeklyOn(7, '8:00');
+        // New week so new leaderboard
         $schedule->command('command:clearWeeklyLeaderBoardTable')
-                 ->weeklyOn(7, '10:00');
+                ->weeklyOn(7, '23:00');
+        // Update website stats
         $schedule->command('command:updateWebsiteStats')
-                 ->weekly();
+                ->weekly();
+        // Flag bad users
+        $schedule->command('command:checkUsersUndeliverd')
+                ->weekly();
     }
 
     /**

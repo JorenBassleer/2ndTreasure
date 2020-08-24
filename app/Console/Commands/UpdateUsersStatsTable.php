@@ -41,8 +41,7 @@ class UpdateUsersStatsTable extends Command
     public function handle()
     {
         // Get all the normal users
-        $users =  User::where('isFoodbank', null)
-        ->orWhere('isFoodbank', 0)->get();
+        $users =  User::onlyNormalUsers()->get();
         // Loop through
         foreach($users as $user) {
             $place = $this->checkPlaceInAlltimeLeaderBoard($user);

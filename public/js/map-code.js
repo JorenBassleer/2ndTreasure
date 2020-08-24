@@ -4,6 +4,7 @@ script.defer = true;
 document.head.appendChild(script);
 window.initMap = function() {
     let map, infoWindow;
+    var styledMapType = new google.maps.StyledMapType(styledMap);
     antwerp = new google.maps.LatLng(51.2194475,4.4024643);
     var mapOptions = {
         center: antwerp,
@@ -22,6 +23,8 @@ window.initMap = function() {
     };
     infoWindow = new google.maps.InfoWindow;
     map = new google.maps.Map(document.getElementById('map-code'), mapOptions);
+    map.mapTypes.set('styled_map', styledMapType);
+    map.setMapTypeId('styled_map');
     setMarkers(map);
 
     // Try HTML5 geolocation.
@@ -74,6 +77,8 @@ window.initMap = function() {
 function calcRoute() {
     var directionsRenderer = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
+    var styledMapType = new google.maps.StyledMapType(styledMap);
+
     var mapOptions = {
         center: antwerp,
         zoom: 13,
@@ -90,7 +95,8 @@ function calcRoute() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map-code'), mapOptions);
-
+    map.mapTypes.set('styled_map', styledMapType);
+    map.setMapTypeId('styled_map');
     directionsRenderer.setMap(map);
     // These fields only get a value if user/browser has disabled geolocation
     var userLat = document.getElementById('hidden-lat').value;
@@ -139,6 +145,7 @@ function calcRoute() {
 
 function setMarkers(map){
     var foodbankLoc = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)}
+    var iconBase = '../images/';
     const contentString =
         '<div id="content">' +
         '<div id="siteNotice">' +
@@ -156,6 +163,7 @@ function setMarkers(map){
         position: foodbankLoc,
         map,
         title: foodbank.name,
+        icon: iconBase + 'test.png',
     });
     marker.addListener("click", () => {
         infowindow.open(map, marker);

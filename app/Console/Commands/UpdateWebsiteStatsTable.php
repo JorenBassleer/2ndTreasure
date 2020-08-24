@@ -40,10 +40,9 @@ class UpdateWebsiteStatsTable extends Command
     public function handle()
     {
         // Amount of foodbanks
-        $foodbanksAmount = User::where('isFoodbank', 1)->count();
+        $foodbanksAmount = User::onlyFoodbanks()->count();
         // Amount of normal users
-        $usersAmount = User::where('isFoodbank', 0)
-                            ->orWhere('isFoodbank', null)->count();
+        $usersAmount = User::onlyNormalUsers()->count();
         // Amount of food donated
         $donatedAmount = Goodiebag::where('hasReceived', 1)->sum('total_kg');
         $totalTreasures = Goodiebag::where('hasReceived', 1)->sum('treasures');

@@ -15,6 +15,7 @@ use App\Traits\CaptchaTrait;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FoodbankApplicationMail;
 use Config;
+use Storage;
 
 class FoodbankController extends Controller
 {
@@ -27,7 +28,7 @@ class FoodbankController extends Controller
     public function index()
     {
         return view('foodbank.index')->with([
-            'foodbanks' => User::where('isFoodbank', 1)->paginate(),
+            'foodbanks' => User::onlyFoodbanks()->paginate(),
         ]);
     }
 
@@ -41,11 +42,12 @@ class FoodbankController extends Controller
         return view('foodbank.create');
     }
 
-
+    // Apply to be introduced to website
     public function showForm()
     {
         return view('foodbank.form');
     }
+    // Post form from above
     public function postForm(Request $request)
     {
         // Validate form
@@ -124,12 +126,21 @@ class FoodbankController extends Controller
         else {
             $isLoggedIn = 0;
         }
+        // Check if id = foodbank
+        if(!$foodbank->isFoodbank) {
+            // Send user to 404 if not found
+            return abort(404);
+        }
+        // Get style of google maps
+        $json = Storage::disk('local')->get('json/map-style.json');
+        $json = json_decode($json, true);
         // Is the same one as the one displayed
         // Since foodbanks are users
         // We first need to get foodbank information
         return view('foodbank.show')->with([
             'foodbank' => $foodbank,
             'isLoggedIn' => $isLoggedIn,
+            'styledMap' => $json,
             ]);
     }
 

@@ -21,7 +21,7 @@ class User extends Authenticatable
         'postalcode','phone',
         'province', 'password',
         'country', 'treasures',
-        'lat', 'lng',
+        'lat', 'lng', 'isFlagged',
     ];
 
     /**
@@ -65,5 +65,15 @@ class User extends Authenticatable
     public function alltimeleaderboard()
     {
         return $this->hasOne('App\AllTimeLeaderBoard');
+    }
+
+    public function scopeOnlyNormalUsers($query)
+    {
+        return $query->where('isFoodbank', null)
+                     ->orWhere('isFoodbank', 0);
+    }
+    public function scopeOnlyFoodbanks($query)
+    {
+        return $query->where('isFoodbank', 1);
     }
 }

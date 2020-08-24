@@ -7,11 +7,20 @@
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 // Globals
 @import 'globals.scss';
-@import 'pages/home.scss';
+// Pages
+@import 'pages/code-show.scss';
+@import 'pages/dashboard.scss';
+@import 'pages/landing-page.scss';
+
+// @import 'pages/foodbank.scss';
+@import 'pages/welcome.scss';
 // Partials
 @import 'partials/menu.scss';
 @import 'partials/map.scss';
+@import 'partials/map-goodiebag.scss';
 @import 'partials/map-code.scss';
+@import 'partials/header.scss';
+@import 'partials/footer.scss';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';

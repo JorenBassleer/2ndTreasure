@@ -5,6 +5,8 @@ document.head.appendChild(script);
 window.initMap = function() {
     let map, infoWindow;
     var foodbankCenter = new google.maps.LatLng(foodbankLoc);
+    var styledMapType = new google.maps.StyledMapType(styledMap);
+
     var mapOptions = {
         center: foodbankCenter,
         zoom: 13,
@@ -22,6 +24,9 @@ window.initMap = function() {
     };
     infoWindow = new google.maps.InfoWindow;
     map = new google.maps.Map(document.getElementById('map-code'), mapOptions);
+    map.mapTypes.set('styled_map', styledMapType);
+    map.setMapTypeId('styled_map');
+
     setMarkers(map);    
     
 };
@@ -44,7 +49,8 @@ function setMarkers(map){
     const marker = new google.maps.Marker({
         position: foodbankLoc,
         map,
-        title: foodbank.name,
+        title: foodbank.name
+
     });
     marker.addListener("click", () => {
         infowindow.open(map, marker);
