@@ -3222,35 +3222,362 @@ input[type=button]:hover {
   text-decoration: none;
 }
 
+.login-page .card {
+  border-radius: 0 !important;
+  border: none;
+}
+
+.login-page form .label-email,
+.login-page form .label-password {
+  display: none;
+}
+
+.login-page form .email-form,
+.login-page form .password-form {
+  display: flex;
+  justify-content: center;
+}
+
+.login-page form > div {
+  padding-bottom: 0px;
+}
+
+.login-page form .rememberme-from {
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.login-page form .rememberme-from .form-check {
+  padding: 0 !important;
+}
+
+.login-page form .rememberme-from .checkbox {
+  --background: #fff;
+  --border: #D1D6EE;
+  --border-hover: #BBC1E1;
+  --border-active: #00a896;
+  --tick: #fff;
+  position: relative;
+  padding-left: 20px;
+}
+
+.login-page form .rememberme-from .checkbox input,
+.login-page form .rememberme-from .checkbox svg {
+  width: 16px;
+  height: 16px;
+}
+
+.login-page form .rememberme-from .checkbox input {
+  position: absolute;
+  left: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  background: var(--background);
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: box-shadow 0.3s;
+  box-shadow: inset 0 0 0 var(--s, 1px) var(--b, var(--border));
+}
+
+.login-page form .rememberme-from .checkbox input:hover {
+  --s: 1px;
+  --b: var(--border-hover);
+}
+
+.login-page form .rememberme-from .checkbox input:checked {
+  --b: var(--border-active);
+}
+
+.login-page form .rememberme-from .checkbox svg {
+  pointer-events: none;
+  fill: none;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: var(--stroke, var(--border-active));
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  transform: scale(var(--scale, 1)) translateZ(0);
+}
+
+.login-page form .rememberme-from .checkbox.bounce {
+  --stroke: var(--tick);
+}
+
+.login-page form .rememberme-from .checkbox.bounce input:checked {
+  --s: 11px;
+}
+
+.login-page form .rememberme-from .checkbox.bounce input:checked + svg {
+  -webkit-animation: bounce 0.4s linear forwards 0.2s;
+          animation: bounce 0.4s linear forwards 0.2s;
+}
+
+.login-page form .rememberme-from .checkbox.bounce svg {
+  --scale: 0;
+}
+
+@-webkit-keyframes bounce {
+  50% {
+    transform: scale(1.2);
+  }
+
+  75% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  50% {
+    transform: scale(1.2);
+  }
+
+  75% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.login-page form .login-from,
+.login-page form .register-form {
+  justify-content: center;
+}
+
+.login-page form .login-from .login-btn,
+.login-page form .register-form .login-btn {
+  background-color: #00a896;
+  width: 100px;
+  padding: 15px;
+  color: #FFF;
+  border: 2px solid white;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.login-page form .login-from div,
+.login-page form .register-form div {
+  text-align: center;
+}
+
+.login-page form a,
+.login-page form a:hover {
+  color: #00a896;
+}
+
+.login-page form .password-form div {
+  padding-top: 0 !important;
+}
+
+.login-page form input {
+  border: none;
+  border-radius: 25px;
+  background-color: #e8f0fe !important;
+}
+
+.login-page .login-heading {
+  text-align: center !important;
+  padding-bottom: 20px;
+}
+
+.register-page .card {
+  border-radius: 0 !important;
+  border: none;
+}
+
+.register-page form .label-name,
+.register-page form .label-email,
+.register-page form .label-address,
+.register-page form .label-city,
+.register-page form .label-zip,
+.register-page form .label-country,
+.register-page form .label-province,
+.register-page form .label-phone,
+.register-page form .label-password {
+  display: none;
+}
+
+.register-page form .form-group {
+  display: flex;
+  justify-content: center;
+}
+
+.register-page form > div {
+  padding-bottom: 0px;
+}
+
+.register-page form .form-confirm {
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.register-page form .register-form {
+  justify-content: center;
+}
+
+.register-page form .register-form .register-btn {
+  background-color: #00a896;
+  width: 100px;
+  padding: 15px;
+  color: #FFF;
+  border: 2px solid white;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.register-page form .register-form div {
+  text-align: center;
+}
+
+.register-page form a,
+.register-page form a:hover {
+  color: #00a896;
+}
+
+.register-page form .password-form div {
+  padding-top: 0 !important;
+}
+
+.register-page form input {
+  border: none;
+  border-radius: 25px;
+  background-color: #e8f0fe !important;
+}
+
+.register-page .register-heading {
+  text-align: center !important;
+  padding-bottom: 20px;
+}
+
+.reset-pw-page .card {
+  border-radius: 0 !important;
+  border: none;
+}
+
+.reset-pw-page .heading {
+  text-align: center !important;
+}
+
+.reset-pw-page form .label-email {
+  display: none;
+}
+
+.reset-pw-page form .email-from {
+  display: flex;
+  justify-content: center;
+}
+
+.reset-pw-page form .email-from div {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.reset-pw-page .reset-btn-from {
+  justify-content: center;
+}
+
+.reset-pw-page .reset-btn-from .reset-btn {
+  background-color: #00a896;
+  padding: 15px;
+  color: #FFF;
+  border: 2px solid white;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.reset-pw-page .reset-btn-from div {
+  text-align: center;
+}
+
+.reset-pw-page a,
+.reset-pw-page a:hover {
+  color: #00a896;
+}
+
+.reset-pw-page .password-form div {
+  padding-top: 0 !important;
+}
+
+.reset-pw-page input {
+  border: none;
+  border-radius: 25px;
+  background-color: #e8f0fe !important;
+}
+
 .plus-minus-input {
-  align-items: center;
+  align-items: center !important;
 }
 
 .plus-minus-input .input-group-field {
-  text-align: center;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  padding: 1rem;
+  display: flex;
+  text-align: center !important;
+  margin-left: 0.5rem !important;
+  margin-right: 0.5rem !important;
+  padding: 1rem !important;
 }
 
 .plus-minus-input .input-group-field::-webkit-inner-spin-button,
 .plus-minus-input .input-group-field ::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-          appearance: none;
+  -webkit-appearance: none !important;
+          appearance: none !important;
 }
 
 .plus-minus-input .input-group-button .circle {
-  border-radius: 50%;
-  padding: 0.25em 0.8em;
+  border-radius: 50% !important;
+  padding: 0.25em 0.8em !important;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  -ms-border-radius: 50% !important;
+  -o-border-radius: 50% !important;
+}
+
+#input-food {
+  display: flex;
+  width: 20%;
+  height: calc(1.6em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 #goodiebag-submitbtn {
-  width: 50%;
+  width: 50% !important;
+  background-color: #05668d !important;
 }
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 812px) {
-  #map-goodiebag {
-    height: unset !important;
+#map-goodiebag {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  .col-map {
+    margin-top: 50px !important;
+    width: 100% !important;
+    height: 500px !important;
   }
 }
 
@@ -3340,6 +3667,11 @@ input[type=button]:hover {
 
 .navbar .container svg {
   fill: #fff;
+}
+
+.footer-class {
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .footer-class small {

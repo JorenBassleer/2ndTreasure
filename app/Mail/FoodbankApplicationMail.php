@@ -30,6 +30,8 @@ class FoodbankApplicationMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.application')->with('foodbankInformation' , $this->foodbankInformation);
+        return $this->markdown('emails.foodbank_application')
+                    ->subject('2ndTreasure - Foodbank application')
+                    ->with('foodbankInformation' , $this->foodbankInformation);
     }
 }

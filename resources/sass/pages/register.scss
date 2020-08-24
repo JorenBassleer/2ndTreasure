@@ -1,0 +1,75 @@
+.register-page {
+    .card {
+        border-radius: 0 !important;
+        border: none;
+    }
+
+    form {
+
+        .label-name,
+        .label-email,
+        .label-address,
+        .label-city,
+        .label-zip,
+        .label-country,
+        .label-province,
+        .label-phone,
+        .label-password {
+            display: none;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: center;
+        }
+
+        >div {
+            padding-bottom: 0px;
+        }
+
+        .form-confirm {
+            justify-content: center;
+            padding-bottom: 20px;
+        }
+
+        .register-form {
+            justify-content: center;
+
+            .register-btn {
+                background-color: #00a896;
+                width: 100px;
+                padding: 15px;
+                color: #FFF;
+                border: 2px solid white;
+                border-radius: 40px;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            div {
+                text-align: center;
+            }
+        }
+
+        a,
+        a:hover {
+            color: #00a896;
+        }
+
+        .password-form div {
+            padding-top: 0 !important;
+        }
+
+        input {
+            border: none;
+            border-radius: 25px;
+            background-color: rgb(232, 240, 254) !important;
+        }
+    }
+
+    .register-heading {
+        text-align: center !important;
+        padding-bottom: 20px;
+    }
+
+}

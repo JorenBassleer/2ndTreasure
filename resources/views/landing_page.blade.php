@@ -29,7 +29,7 @@
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                 <div class="register-btn">
-                    <a class="button1 " href="">Register!</a>
+                    <a class="button1 " href="{{route('foodbank.show_form')}}">Register!</a>
                 </div>
             </div>
         </div>

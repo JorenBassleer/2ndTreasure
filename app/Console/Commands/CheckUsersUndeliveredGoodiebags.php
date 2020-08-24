@@ -3,7 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Users;
+use App\User;
+use App\Goodiebag;
 class CheckUsersUndeliveredGoodiebags extends Command
 {
     /**
@@ -11,7 +12,7 @@ class CheckUsersUndeliveredGoodiebags extends Command
      *
      * @var string
      */
-    protected $signature = 'command:checkUsersUndeliverd';
+    protected $signature = 'command:checkUsersUndelivered';
 
     /**
      * The console command description.

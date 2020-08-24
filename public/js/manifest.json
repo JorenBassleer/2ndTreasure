@@ -1,0 +1,14 @@
+{
+    "name": "2ndTreasure",
+    "short_name": "2ndTreasure",
+    "start_url": "../",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "Doing good with a goodiebag",
+    "icons": [{
+      "src": "../images/test.png",
+      "size": "225x225",
+      "type": "image/png"
+    }]
+ 
+  }

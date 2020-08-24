@@ -30,6 +30,12 @@ window.initMap = function() {
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
     setMarkers(map);
+    
+    google.maps.event.addDomListener(window, "resize", function() {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center); 
+      });
 
 
     // Try HTML5 geolocation.

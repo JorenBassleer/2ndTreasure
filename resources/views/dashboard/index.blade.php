@@ -22,11 +22,14 @@
                             <div class="text-center">
                                 Your highest place on the leaderboards ever achieved: {{checkIfNull($userStats->highest_place_ever) ? 'Nothing yet, go out there and get number 1' : $userStats->highest_place_ever}}
                             </div>
+                            <div class="text-center mt-3">
+                                <a href="{{route('leaderboard.index')}}"><span class="mx-3"><i class="fa fa-trophy"></i></span>Check out the leaderboards</a>
+                            </div>
                             <div class="text-center m-3">
                                 Your highest amount of treasures: {{checkIfNull($userStats->highest_number_of_treasures) ? 'You didn\'t acquire any treasures yet! ' : $userStats->highest_number_of_treasures}}
                             </div>
                             <div class="text-center m-3">
-                            Total amount of food donated: {{checkIfNull($userStats->total_amount_of_kg_donated) ? 'You haven\'t donated any food yet' : $userStats->total_amount_of_kg_donated . 'kg wow good job!'}}
+                                Total amount of food donated: {{checkIfNull(presentWeightToKg($userStats->total_amount_of_kg_donated, true)) ? 'You haven\'t donated any food yet' : $userStats->total_amount_of_kg_donated . 'kg wow good job!'}}
                             </div>
                              <div> {{-- {{route('code.qr_confirmed',$goodiebag->code)}} --}}
                               <div class="fb-share-button" data-layout="button" data-size="small"><a target="_blank" class="fb-xfbml-parse-ignore"> Share these stats: </a></div>

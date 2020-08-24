@@ -1,0 +1,60 @@
+.reset-pw-page {
+    .card {
+        border-radius: 0 !important;
+        border: none;
+    }
+
+    .heading {
+        text-align: center !important;
+    }
+
+    form {
+
+        .label-email {
+            display: none;
+        }
+
+        .email-from {
+            display: flex;
+            justify-content: center;
+
+            div {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+        }
+    }
+
+    .reset-btn-from {
+        justify-content: center;
+
+        .reset-btn {
+            background-color: #00a896;
+            padding: 15px;
+            color: #FFF;
+            border: 2px solid white;
+            border-radius: 40px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        div {
+            text-align: center;
+        }
+    }
+
+    a,
+    a:hover {
+        color: #00a896;
+    }
+
+    .password-form div {
+        padding-top: 0 !important;
+    }
+
+    input {
+        border: none;
+        border-radius: 25px;
+        background-color: rgb(232, 240, 254) !important;
+    }
+}

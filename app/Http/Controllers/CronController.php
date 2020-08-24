@@ -10,7 +10,11 @@ use App\FoodbankStats;
 use App\WeeklyLeaderBoard;
 use App\WebsiteStats;
 use App\Traits\LeaderBoardsTrait;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FlaggedUsersMail;
 use App\UserRating;
+use Config;
+
 class CronController extends Controller
 {
     use LeaderBoardsTrait;
@@ -29,18 +33,14 @@ class CronController extends Controller
 
     public function testing()
     {
-
-        $users = User::onlyNormalUsers()->get();
-        foreach($users as $user) {
-            // Get amount of undelivered goodiebags of the user
-            $amount = Goodiebag::where('user_id', $user->id)
-                            ->whereIn('hasReceived', [null, 0])->count();
-            // Get rating of user
-            $rating = $user->userratings()->avg('rating');
-            if($amount > 10 && $rating < 2) {
-                $user->isFlagged = 1;
-                $user->save();
-            }
+        $flaggedUsers = User::onlyNormalUsers()->where('isFlagged', 1)->get();
+        // Send mail to admin
+        try {
+            Mail::to(config('mail.from.address'))
+            ->send(new FlaggedUsersMail($flaggedUsers));
+        } catch(Exception $e) {
+            return $e;
         }
+
     }
 }

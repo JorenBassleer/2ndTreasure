@@ -29,6 +29,8 @@ class ErrorUserInputMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.error-user-input')->with('text', $this->text);
+        return $this->markdown('emails.error_user_input')
+                    ->subject('2ndTreasure - Error report')
+                    ->with('text', $this->text);
     }
 }

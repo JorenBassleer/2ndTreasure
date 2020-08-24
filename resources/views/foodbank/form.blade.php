@@ -7,7 +7,7 @@
         <h2 class="text-center">Foodbank application</h2>
 
             @include('partials.errors')
-            <form action="{{route('post.form_foodbank')}}" method="POST" id="foodbank-form">
+            <form action="{{route('foodbank.post_form')}}" method="POST" id="foodbank-form">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 mb-4">
@@ -87,12 +87,12 @@
             })
             .then(function (response) {
                 // console.log(response);
-                window.location.href="{{ route('show.form_foodbank') }}"
+                window.location.href="{{ route('foodbank.show_form') }}"
             })
             .catch(function (error) {
                 // console.log(error);
-                window.location.href="{{ route('show.form_foodbank') }}"
+                window.location.href="{{ route('foodbank.show_form') }}"
             });
-        })
-    </script>
+        }) 
+        </script>
 @endsection

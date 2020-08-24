@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Mail\FoodbankApplicationMail;
+use App\Mail\ForFlaggedUsersMail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,14 +26,14 @@ Auth::routes();
 
 // Doesn't need a lot of styling \\
 Route::get('/email',function() {
-    return new FoodbankApplicationMail();
+    return new ForFlaggedUsersMail();
 });
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
 // Foodbank \\
-Route::get('/foodbank/form', 'FoodbankController@showForm')->name('show.form_foodbank');
-Route::post('/foodbank/form', 'FoodbankController@postForm')->name('post.form_foodbank');
+Route::get('/foodbank/form', 'FoodbankController@showForm')->name('foodbank.show_form');
+Route::post('/foodbank/form', 'FoodbankController@postForm')->name('foodbank.post_form');
 Route::resource('/foodbank', 'FoodbankController')->only([
     'index', 'show', 'create'
 ]);
@@ -41,13 +42,14 @@ Route::resource('/goodiebag', 'GoodiebagController')->only([
     'destroy', 'store', 'create'
 ]);
 
-Route::get('/leaderboard', 'LeaderBoardController@index')->name('leaderboard.index');
 Route::get('cron/clean', 'CronController@cleanDatabase');
 Route::get('cron/testing', 'CronController@testing');
 
 // Users
 Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
+    Route::get('/leaderboard', 'LeaderBoardController@index')->name('leaderboard.index');
+
 });
 
 // Only foodbanks allowed

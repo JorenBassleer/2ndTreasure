@@ -14,6 +14,7 @@ use App\Traits\LatLngTrait;
 use App\Traits\CaptchaTrait;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FoodbankApplicationMail;
+use App\Mail\FoodbankApplicationReplyMail;
 use Config;
 use Storage;
 
@@ -64,8 +65,10 @@ class FoodbankController extends Controller
         }
         try {
             // Mail to me
-            Mail::to('email@email.com')
+            Mail::to(config('mail.from.address'))
             ->send(new FoodbankApplicationMail($request->except('_token', 'g-recapthca-response')));
+            Mail::to($request->foodbank_email)
+            ->send(new FoodbankApplicationReplyMail($request->except('_token', 'g-recapthca-response')));
         } catch(Exception $e) {
             return back()->withErrors($e);
         }
