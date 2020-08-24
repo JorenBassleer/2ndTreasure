@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="heading">{{ __('Reset Password') }}</h3>
+                    <h1 class="heading">{{ __('Reset Password') }}</h1>
 
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

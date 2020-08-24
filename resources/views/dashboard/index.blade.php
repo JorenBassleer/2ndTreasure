@@ -72,10 +72,10 @@
                                 <div class="col-3">
                                     <strong>Food in goodiebag (kg)</strong> 
                                 </div>
-                                <div class="col-5">
+                                <div class="col-4">
                                     <strong>User info</strong>
                                 </div>
-                                <div class="col">
+                                <div class="col-2 col-sm-6 rating-title">
                                     <strong>Give rating</strong>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                     <div class="col-3">
                                         {{presentWeightToKg($recentGoodiebag->total_kg, true)}}
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-4 col-sm-6">
                                         @if($recentGoodiebag->user != null)
                                             Name: {{$recentGoodiebag->user->name}} <br>
                                             Email: <a href="mailto:{{$recentGoodiebag->user->email}}">{{$recentGoodiebag->user->email}}</a> <br>
@@ -96,17 +96,17 @@
                                             User didn't create an account (yet)
                                         @endif
                                     </div>
-                                    <div class="col">
-                                        <div class="star-rating">
-                                            @for($i=0; $i<5; $i++)
-                                                <span class="fa fa-star-o" data-rating="{{$i}}"></span>
-                                            @endfor
-                                            <input type="hidden" name="whatever1" class="rating-value" value="5">
+                                    <div class="col-2">
+                                        <div class="rating" data-id={{$recentGoodiebag->id}}>
+                                            <form action=" ">
+                                                <div class="rating">
+                                                    <span value="1">☆</span><span value="2">☆</span><span value="3">☆</span><span value="4">☆</span><span value="5">☆</span>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-
                             @endforeach
                             {{-- {{ \Carbon\Carbon::parse($recentGoodiebag->updated_at)->format('H:i d/m/Y')}} --}}
                         </div>
@@ -152,27 +152,31 @@
         });
     });
 </script> --}}
-<script>
-    var $star_rating = $('.star-rating .fa');
 
-    var SetRatingStar = function() {
-            return $star_rating.each(function() {
-                if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
-                    return $(this).removeClass('fa-star-o').addClass('fa-star');
-                } else {
-                    return $(this).removeClass('fa-star').addClass('fa-star-o');
-                }
-            });
-        };
+<script type="text/javascript">
+    // For adding the token to axios header (add this only one time).
+    var token = document.head.querySelector('meta[name="csrf-token"]');
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
-        $star_rating.on('click', function() {
-                $star_rating.siblings('input.rating-value').val($(this).data('rating'));
-                return SetRatingStar();
-        });
+    (function(){
+            const classname = document.querySelectorAll('.rating')
 
-        SetRatingStar();
-        $(document).ready(function() {
-
-        });
+            Array.from(classname).forEach(function(element) {
+                element.addEventListener('change', function() {
+                    const id = element.getAttribute('data-id')
+                    axios.patch(`goodiebag/${id}`, {
+                        quantity: this.value
+                    })
+                    .then(function (response) {
+                        // console.log(response);
+                        
+                    })
+                    .catch(function (error) {
+                        // console.log(error);
+                        
+                    });
+                })
+            })
+        })();
 </script>
 @endsection

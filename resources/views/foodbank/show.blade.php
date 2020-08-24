@@ -1,24 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="foodbank-id container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             @if(!$isLoggedIn)
                 <div class="card">
-                    <h2>{{$foodbank->name}}</h2>
-                    <div class="card-header">{{__('Contact details')}}</div>
-
-                    <div class="card-body">
-                        <ul>
-                            <li><a href="mailto:{{$foodbank->email}}">{{$foodbank->email}}</li></a>
-                            <li><a href="tel:{{$foodbank->phone}}">{{$foodbank->phone}}</li></a>
-                            <li><a href="{{$foodbank->website}}">{{$foodbank->website}}</li></a>
-                            <li><a href="#" id="address_click" onclick="displayMap()">{{$foodbank->address}} {{$foodbank->city}} {{$foodbank->postalcode}} {{$foodbank->province}}</li></a>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        {{$foodbank->foodbank->details}}
+                    <div class="m-2 card-body">
+                        <h1>{{$foodbank->name}}</h1>
+                        <h3 class="header">{{__('Contact details')}}</h3>
+                        <div class="details-div">
+                            <div class="details-list">
+                                <ul>
+                                    <li><a href="mailto:{{$foodbank->email}}">{{$foodbank->email}}</li></a>
+                                    <li><a href="tel:{{$foodbank->phone}}">{{$foodbank->phone}}</li></a>
+                                    <li><a href="{{$foodbank->website}}">{{$foodbank->website}}</li></a>
+                                    <li><a href="#" id="address_click" onclick="displayMap()">{{$foodbank->address}} {{$foodbank->city}} {{$foodbank->postalcode}} {{$foodbank->province}}</li></a>
+                                </ul>
+                                {{$foodbank->foodbank->details}}
+                            </div>
+                            <div class="donate-to-this">
+                                <a class="button2" href="">Donate to this foodbank</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="map-code" class="rounded">

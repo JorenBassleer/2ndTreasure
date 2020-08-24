@@ -3055,6 +3055,7 @@
 footer {
   position: absolute;
   bottom: 0;
+  left: 0;
   width: 100%;
   height: 2.5rem;
 }
@@ -3069,6 +3070,66 @@ h3,
 h4,
 h5 {
   font-family: "Bebas Neue", cursive;
+}
+
+.button1 {
+  background-color: white;
+  padding: 15px;
+  color: #00a896;
+  border: 2px solid white;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.button1:hover {
+  background-color: transparent;
+  padding: 15px;
+  color: white;
+  border: 2px solid white;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.button2 {
+  background-color: #00a896;
+  padding: 15px;
+  color: white;
+  border: 2px solid #00a896;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.button2:hover {
+  background-color: white;
+  padding: 15px;
+  color: #00a896;
+  border: 2px solid #00a896;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=name]:focus,
+input[type=postalcode]:focus,
+input[type=address]:focus,
+input[type=city]:focus,
+input[type=country]:focus,
+input[type=province]:focus,
+input[type=tel]:focus,
+input[type=password]:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  box-shadow: 0 0 8px rgba(0, 168, 151, 0.5) !important;
 }
 
 body {
@@ -3128,13 +3189,31 @@ input[type=button]:hover {
   text-align: right;
 }
 
-.star-rating {
-  line-height: 32px !important;
-  font-size: 1.25em !important;
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  font-size: 20px;
 }
 
-.star-rating .fa-star {
-  color: yellow;
+.rating > span {
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+}
+
+@media screen and (max-width: 692px) {
+  .rating {
+    display: none;
+  }
+
+  .rating-title {
+    display: none;
+  }
 }
 
 #app {
@@ -3163,16 +3242,6 @@ input[type=button]:hover {
 
 .landing-page .home-boxes .left .donate-btn {
   margin-top: 50px !important;
-}
-
-.landing-page .home-boxes .left .button1 {
-  background-color: white;
-  padding: 15px;
-  color: #00a896;
-  border: 2px solid white;
-  border-radius: 40px;
-  text-align: center;
-  text-decoration: none;
 }
 
 .landing-page .home-boxes .right {
@@ -3210,16 +3279,6 @@ input[type=button]:hover {
 
 .landing-page .home-boxes-2 .right .register-btn {
   margin-top: 50px !important;
-}
-
-.landing-page .home-boxes-2 .right .button1 {
-  background-color: white;
-  padding: 15px;
-  color: #00a896;
-  border: 2px solid white;
-  border-radius: 40px;
-  text-align: center;
-  text-decoration: none;
 }
 
 .login-page .card {
@@ -3520,11 +3579,80 @@ input[type=button]:hover {
   background-color: #e8f0fe !important;
 }
 
-.plus-minus-input {
+.foodbanks-page h1 {
+  color: white;
+}
+
+.foodbanks-page .card-deck {
+  margin-top: 60px;
+}
+
+.foodbanks-page h3 {
+  color: #00a896;
+}
+
+.foodbanks-page .card {
+  border-radius: 0 !important;
+  border: none;
+}
+
+.foodbanks-page .card a:hover {
+  text-decoration: none;
+}
+
+.foodbank-id .card {
+  border-radius: 0 !important;
+  border: none;
+}
+
+.foodbank-id .card a:hover {
+  text-decoration: none;
+}
+
+.foodbank-id h1 {
+  color: #00a896;
+}
+
+.foodbank-id h3 {
+  color: #00a896;
+}
+
+.foodbank-id .details-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.foodbank-id .details-list ul li a {
+  color: #00a896;
+}
+
+.foodbank-id .rounded {
+  border-radius: 0 !important;
+}
+
+.foodbank-id .details-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.foodbank-id .donate-to-this {
+  margin-top: 17px;
+}
+
+.create-goodie-page h1 {
+  color: white;
+}
+
+.create-goodie-page .card-deck {
+  margin-bottom: 20px;
+}
+
+.create-goodie-page .plus-minus-input {
   align-items: center !important;
 }
 
-.plus-minus-input .input-group-field {
+.create-goodie-page .plus-minus-input .input-group-field {
   display: flex;
   text-align: center !important;
   margin-left: 0.5rem !important;
@@ -3532,13 +3660,13 @@ input[type=button]:hover {
   padding: 1rem !important;
 }
 
-.plus-minus-input .input-group-field::-webkit-inner-spin-button,
-.plus-minus-input .input-group-field ::-webkit-outer-spin-button {
+.create-goodie-page .plus-minus-input .input-group-field::-webkit-inner-spin-button,
+.create-goodie-page .plus-minus-input .input-group-field ::-webkit-outer-spin-button {
   -webkit-appearance: none !important;
           appearance: none !important;
 }
 
-.plus-minus-input .input-group-button .circle {
+.create-goodie-page .plus-minus-input .input-group-button .circle {
   border-radius: 50% !important;
   padding: 0.25em 0.8em !important;
   -webkit-border-radius: 50% !important;
@@ -3547,7 +3675,7 @@ input[type=button]:hover {
   -o-border-radius: 50% !important;
 }
 
-#input-food {
+.create-goodie-page #input-food {
   display: flex;
   width: 20%;
   height: calc(1.6em + 0.75rem + 2px);
@@ -3563,21 +3691,59 @@ input[type=button]:hover {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-#goodiebag-submitbtn {
-  width: 50% !important;
-  background-color: #05668d !important;
+.create-goodie-page .input-group label {
+  text-align: left !important;
+  padding-left: 0;
 }
 
-#map-goodiebag {
-  width: 100%;
-  height: 100%;
+.create-goodie-page .input-form {
+  margin-top: 1.5rem !important;
+}
+
+.create-goodie-page .card,
+.create-goodie-page .card-2 {
+  border: none;
+  border-radius: 0;
+}
+
+.create-goodie-page .card .card-body,
+.create-goodie-page .card-2 .card-body {
+  padding: 0;
+}
+
+.create-goodie-page .card .card-body .col-map,
+.create-goodie-page .card-2 .card-body .col-map {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.create-goodie-page .intro {
+  margin-top: 60px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.create-goodie-page .g-recaptcha div {
+  width: 100% !important;
+}
+
+.create-goodie-page .col-map {
+  margin-top: 50px !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.create-goodie-page .btn-sm,
+.create-goodie-page .btn-group-sm > .btn,
+.create-goodie-page .btn-sm:focus {
+  outline: none !important;
 }
 
 @media screen and (max-width: 992px) {
-  .col-map {
+  .create-goodie-page .col-map {
     margin-top: 50px !important;
     width: 100% !important;
-    height: 500px !important;
+    height: 100% !important;
   }
 }
 
@@ -3667,6 +3833,25 @@ input[type=button]:hover {
 
 .navbar .container svg {
   fill: #fff;
+}
+
+.navbar .dropdown-menu {
+  width: 90px;
+  border: none;
+  border-radius: 0;
+  min-width: unset;
+  padding: 0;
+  box-shadow: 3px 3px 18px -5px rgba(0, 0, 0, 0.5);
+}
+
+.navbar .dropdown-menu box a {
+  padding: 0.5rem;
+  color: black;
+}
+
+.navbar .dropdown-menu a:focus {
+  background-color: #02c39a;
+  color: white;
 }
 
 .footer-class {

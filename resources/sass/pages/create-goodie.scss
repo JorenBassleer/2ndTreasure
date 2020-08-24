@@ -1,0 +1,110 @@
+.create-goodie-page {
+    h1 {
+        color: white;
+    }
+
+    .card-deck {
+        margin-bottom: 20px;
+    }
+
+    .plus-minus-input {
+        align-items: center !important;
+
+        .input-group-field {
+            display: flex;
+            text-align: center !important;
+            margin-left: 0.5rem !important;
+            margin-right: 0.5rem !important;
+            padding: 1rem !important;
+
+            &::-webkit-inner-spin-button,
+            ::-webkit-outer-spin-button {
+                appearance: none !important;
+            }
+        }
+
+        .input-group-button {
+            .circle {
+                border-radius: 50% !important;
+                padding: 0.25em 0.8em !important;
+                -webkit-border-radius: 50% !important;
+                -moz-border-radius: 50% !important;
+                -ms-border-radius: 50% !important;
+                -o-border-radius: 50% !important;
+            }
+        }
+    }
+
+    #input-food {
+        display: flex;
+        width: 20%;
+        height: calc(1.6em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        font-size: 0.9rem;
+        font-weight: 400;
+        line-height: 1.6;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .input-group {
+        label {
+            text-align: left !important;
+            padding-left: 0;
+        }
+    }
+
+    .input-form {
+        margin-top: 1.5rem !important;
+    }
+
+    .card,
+    .card-2 {
+        border: none;
+        border-radius: 0;
+
+        .card-body {
+            padding: 0;
+
+            .col-map {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+        }
+    }
+
+    .intro {
+        margin-top: 60px;
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    .g-recaptcha {
+        div {
+            width: 100% !important;
+        }
+    }
+
+    .col-map {
+        margin-top: 50px !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .btn-sm,
+    .btn-sm:focus {
+        outline: none !important;
+    }
+
+    @media screen and (max-width: 992px) {
+        .col-map {
+            margin-top: 50px !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+}

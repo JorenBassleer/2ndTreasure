@@ -9,7 +9,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <h3 class="login-heading">{{ __('Login') }}</h3>
+                        <h1 class="login-heading">{{ __('Login') }}</h1>
 
                         <div class="email-form form-group row">
                             <label for="email" class="label-email col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

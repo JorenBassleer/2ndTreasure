@@ -42,18 +42,18 @@
 }
 #goodiebag-submitbtn {
   width: 50% !important;
-  background-color: #05668d !important;
+  background-color: #00a896;
+  padding: 15px;
+  color: #FFF;
+  border: 2px solid white;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
 }
-#map-goodiebag {
-  width: 100%;
-  height: 100%;
-  }
-  @media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 812px) {
 
-}
+#label-food {
   
+}
 @media screen and (max-width: 992px) {
   .col-map {
     margin-top: 50px !important;

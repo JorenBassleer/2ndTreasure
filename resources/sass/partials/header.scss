@@ -44,4 +44,28 @@
             fill: #fff;
         }
     }
+
+    .dropdown-menu {
+        width: 90px;
+        border: none;
+        border-radius: 0;
+        min-width: unset;
+        padding: 0;
+        -webkit-box-shadow: 3px 3px 18px -5px rgba(0, 0, 0, 0.50);
+        -moz-box-shadow: 3px 3px 18px -5px rgba(0, 0, 0, 0.50);
+        box-shadow: 3px 3px 18px -5px rgba(0, 0, 0, 0.50);
+
+        box a {
+            padding: 0.5rem;
+            color: black;
+        }
+
+        a:focus {
+            background-color: #02c39a;
+            color: white;
+
+        }
+    }
+
+
 }

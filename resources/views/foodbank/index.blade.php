@@ -1,25 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="foodbanks-page container">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="text-center">
-                <h2 class="mb-3">All the registered foodbanks</h2>
+                <h1 class="mb-3">All the registered foodbanks</h1>
             </div>
             <div class="card-deck">
                 @foreach($foodbanks as $foodbank)
-                    <a href="{{route('foodbank.show', $foodbank->id)}}" style="color: black;">
-                    <div class="card m-2">
-                        <div class="card-body">
-                            <h5 class="card-title">{{$foodbank->name}}</h5>
-                            <p class="card-text">{{$foodbank->foodbank->details}}</p>
+                    <div class="card">
+                        <a href="{{route('foodbank.show', $foodbank->id)}}" style="color: black;">
+                        <div class="m-2">
+                            <div class="card-body">
+                                <h3 class="card-title">{{$foodbank->name}}</h3>
+                                <p class="card-text">{{$foodbank->foodbank->details}}</p>
+                                <small class="text-muted">Last updated 3 mins ago</small>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </div>
+                        </a>
                     </div>
-                    </a>
                 @endforeach
             </div>
         </div>

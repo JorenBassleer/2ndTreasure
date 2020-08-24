@@ -21,7 +21,7 @@
                             @csrf
                             @foreach($foods as $food)
                                 <div class="input-group plus-minus-input my-3 justify-content-center">
-                                    <label id="label-food" for="{{($food->id)}}" class="col-md-3 col-form-label text-md-right">{{ __(displayFoodText($food->type)) }}</label>
+                                    <label id="label-food" for="{{($food->id)}}" class="col-md-4 text-md-right">{{ __(displayFoodText($food->type)) }}</label>
                                     <div class="input-group-button">
                                         <button type="button" class="btn btn-danger btn-circle btn-sm" data-quantity="minus" data-field="{{$food->type}}">
                                             <i class="fa fa-minus" aria-hidden="true"></i>
@@ -61,10 +61,18 @@
     <div class="row text-center">
         <div class="col mt-3">
             <div>
-                <button type="submit" id="goodiebag-submitbtn" class="btn btn-success" onclick="submitForm()">
+                <button type="submit" id="goodiebag-submitbtn"  onclick="submitForm()">
                     {{ __('Create goodiebag') }}
                 </button>
             </div>
+            
+            {{-- <div class="form-group row mb-0">
+                <div class="col-md-6 offset-md-4">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Reset Password') }}
+                    </button>
+                </div> --}}
+            </div>  
         </div>
     </div>
 </div>

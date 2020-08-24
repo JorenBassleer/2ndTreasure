@@ -1,0 +1,22 @@
+.foodbanks-page {
+    h1 {
+        color: white;
+    }
+
+    .card-deck {
+        margin-top: 60px;
+    }
+
+    h3 {
+        color: #00a896;
+    }
+
+    .card {
+        border-radius: 0 !important;
+        border: none;
+
+        a:hover {
+            text-decoration: none;
+        }
+    }
+}
