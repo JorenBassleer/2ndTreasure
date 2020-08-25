@@ -120,16 +120,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('foodbank.index')}}">Foodbanks</a>
                 </li>
-                {{-- @if(!Auth::check()) --}}
+                @if(!Auth::check())
                     {{-- Qr code link + goodiebag so non users can access --}}
-                    {{-- @if(Cookie::get('goodiebag_id') != null)
+                    @if(Cookie::get('goodiebag_id') != null)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('show.code', request()->cookie('goodiebag_id')) }}">{{ __('Your ongoing goodiebag') }}</a>
                         </li> 
                          @endif
-                    @else --}}
+                    @else
                     {{-- Get all goodiebags of user that haven't been delivered --}}
-                    {{-- @if($onGoingGoodiebags->where('user_id', auth()->user()->id)->count() > 0)
+                    @if($onGoingGoodiebags->where('user_id', auth()->user()->id)->count() > 0)
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ __('All pending goodiebags') }} <span class="caret"></span>
@@ -140,8 +140,8 @@
                                 @endforeach
                             </div>
                         </li>
-                    @endif  --}}
-                {{-- @endif --}}
+                    @endif  
+                @endif 
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">

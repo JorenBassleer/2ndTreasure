@@ -42,7 +42,7 @@
                             <span>Let {{$goodiebag->foodbank->name}} scan your qr code to confirm your goodiebag</span>
                         </div>
                         <div class="text-center">
-                            <img src="http://api.qrserver.com/v1/create-qr-code/?data={{route('code.qr_confirmed',$goodiebag->code)}}!&size=100x100" alt="Qr-code">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?data={{route('code.qr_confirmed',$goodiebag->code)}}!&size=100x100" alt="Qr-code">
                         </div>
                     </div>
                         <input type="hidden" class="form-control" name="lat" id="hidden-lat" disabled >

@@ -20,11 +20,20 @@ class CodeController extends Controller
     public function show(Goodiebag $goodiebag)
     {
         if($goodiebag->code == null) {
-            return redirect('/')->withErrors('Invalid code.');
+            return redirect()->route('goodiebag.create')->withErrors('Invalid code.');
         }
         // If user tries to access page without having the
-        // cookie variable
-
+        // Cookie variable or is not connected with the cookie
+        if(Auth::check()) {
+            if(auth()->user()->id != $goodiebag->user_id) {
+                return redirect()->route('goodiebag.create')->withErrors('Unauthorized');
+            }
+        }
+        else {
+            if(Cookie::get('goodiebag_id') == null) {
+                return redirect()->route('goodiebag.create')->withErrors('Unauthorized');
+            }
+        }
         // Get style of google maps
         $json = Storage::disk('local')->get('json/map-style.json');
         $json = json_decode($json, true);
