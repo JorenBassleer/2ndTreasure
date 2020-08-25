@@ -9,7 +9,7 @@ use App\FoodGoodiebag;
 use Illuminate\Http\Request;
 use Validator;
 use App\User;
-use App\Traits\AddFoodToGoodieBagTrait;
+use App\Traits\AddFoodToGoodiebagTrait;
 use App\Traits\CaptchaTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Storage;
 class GoodiebagController extends Controller
 {
-    use CaptchaTrait, AddFoodToGoodieBagTrait;
+    use CaptchaTrait, AddFoodToGoodiebagTrait;
     /**
      * Show the form for creating a new resource.
      *

@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 use App\Food;
-
 trait AddFoodToGoodiebagTrait
 {
     protected function addFoodToGoodiebag($goodiebag,$foods)
