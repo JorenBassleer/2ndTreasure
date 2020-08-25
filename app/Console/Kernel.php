@@ -26,22 +26,22 @@ class Kernel extends ConsoleKernel
     {
         // Update user stats
         // We already do this dynamically when user creates a goodiebag
-        $schedule->command('command:updateUserStats')
-                ->weeklyOn(7, '8:00');
-        // New week so new leaderboard
-        $schedule->command('command:clearWeeklyLeaderBoardTable')
-                ->weeklyOn(7, '23:00');
-        // Update website stats
-        $schedule->command('command:updateWebsiteStats')
-                ->weekly();
-        // Flag bad users
-        $schedule->command('command:checkUsersUndeliverd')
-                ->weekly();
-        // Send Mails for bad users
-        $schedule->command('command:checkUsersUndelivered')
-                 ->weekly();
-        $schedule->command('command:sendFlaggedUsersMail')
-                ->weekly();
+        // $schedule->command('command:updateUserStats')
+        //         ->weeklyOn(7, '8:00');
+        // // New week so new leaderboard
+        // $schedule->command('command:clearWeeklyLeaderBoardTable')
+        //         ->weeklyOn(7, '23:00');
+        // // Update website stats
+        // $schedule->command('command:updateWebsiteStats')
+        //         ->weekly();
+        // // Flag bad users
+        // $schedule->command('command:checkUsersUndeliverd')
+        //         ->weekly();
+        // // Send Mails for bad users
+        // $schedule->command('command:checkUsersUndelivered')
+        //          ->weekly();
+        // $schedule->command('command:sendFlaggedUsersMail')
+        //         ->weekly();
     }
 
     /**
