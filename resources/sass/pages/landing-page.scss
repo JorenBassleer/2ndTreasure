@@ -39,6 +39,7 @@
     }
 
     .home-boxes-2 {
+        margin-top: 25px;
         display: flex;
         color: white;
 
@@ -64,5 +65,223 @@
                 margin-top: 50px !important;
             }
         }
+    }
+    .counter-title h3 {
+        color: #fff;
+        font-size: 4rem;
+        margin-top: 20px;
+    }
+    .counters {
+        display: flex;
+        color: #fff;
+        padding: 40px 20px;
+        width: 100%;
+
+        h3 {
+            font-size: 2rem;
+        }
+
+        div {
+            width: 50%;
+        }
+        .counter-sub-title {
+            width: 100%;
+        }
+
+        .left {
+            padding-right: 100px;
+            text-align: right;
+
+        }
+        i {
+            color: lightskyblue;
+            margin-bottom: 5px;
+        }
+        .counter {
+            text-align: center;
+            font-size: 45px;
+            margin: 15px;
+        }
+        .right {
+            padding-left: 100px;
+            text-align: left;
+        }
+    }
+}
+@media screen and (max-width: 992px) {
+    .landing-page {
+        .home-boxes {
+
+            .left {
+                h3 {
+                    font-size: 2.5rem;
+                }
+                p {
+                    font-size: 12px;
+                }
+                .donate-btn {
+                    margin: 25px 0 !important;
+                }
+                .button1 {
+                    padding: 15px 30px;
+                }
+            }        
+            .right {
+                padding-left: 50px;
+            }
+
+        }
+        .home-boxes-2 {
+            .right {
+                h3 {
+                    font-size: 2.5rem;
+                }
+                p {
+                    font-size: 12px;
+                }
+                .register-btn {
+                    margin: 25px 0 !important;
+                }
+                .button1 {
+                    padding: 15px 30px;
+                }
+
+            }
+            .left {
+                padding-right: 50px;
+            }
+        }
+        .illustration1, 
+        .illustration2 {
+            width: 250px;
+        }
+    }
+    .counter-title {
+        h3 {
+            font-size: 2.5rem !important;
+        }
+    }
+    .counters {
+        padding: 30px 20px !important;
+
+        div {
+            .counter {
+                font-size: 30px !important;
+            }
+
+            h3 {
+                font-size: 1.5rem !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .landing-page {
+        .home-boxes {
+            margin-top: 25px;
+            .left {
+                padding-right: 50px;
+                h3 {
+                    font-size: 2rem;
+                }
+            } 
+        }
+        .home-boxes-2 {
+            .right {
+                padding-left: 50px;
+                h3 {
+                    font-size: 2rem;
+                }
+                .register-btn {
+                    width: 150px;
+                }
+            }
+        }
+        .illustration1, 
+        .illustration2 {
+            width: 200px;
+        }
+    }
+}
+
+@media screen and(max-width: 600px) {
+    .landing-page {
+        .home-boxes {
+            .left {
+                padding-right: 25px !important;
+            }
+            .right {
+                padding-left: 25px !important;
+            }
+        }
+        .home-boxes-2 {
+            .right {
+                padding-left: 25px !important;
+
+            }
+            .left {
+                padding-right: 25px !important;
+            }
+        }
+
+        .illustration1, 
+        .illustration2 {
+            width: 150px;
+        }
+    }
+}
+
+@media screen and(max-width: 450px) {
+    .landing-page {
+        .home-boxes {
+            display:block;
+            margin: 0 auto;
+            .left {
+                text-align: left;
+                display: block;
+                .donate-btn {
+                    width: unset !important;
+                    text-align: center;
+                    padding: 15px !important;
+                }
+            }
+            #right-first {
+                display: none;
+            }
+            >div {
+                width: unset !important;
+            }
+        }
+        .home-boxes-2 {
+            margin-top: 0px !important;
+            display:block;
+            justify-content: center;
+            align-items: center;
+            .right {
+                padding-left: 0px !important;
+                margin-bottom: 50px;
+                .register-btn {
+                    text-align: center;
+                    width: unset !important;
+                }
+                .illustration1 {
+                    text-align: right;
+                }
+
+            }
+            .left {
+                text-align: right;
+                margin-bottom: 20px;
+            }
+            >div {
+                width: unset !important;
+            }
+        }
+    }
+
+    .illustration1, 
+    .illustration2 {
+        // display: none;
     }
 }

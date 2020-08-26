@@ -13,8 +13,8 @@
                     <a class="button1" href="{{route('goodiebag.create')}}">Donate food!</a>
                 </div>
             </div>
-            <div class="right">
-                <img class="illustration1" src="{{asset('images/boxtransparent.png')}}" alt="">
+            <div id="right-first" class="right">
+                <img id="first-illustation" class="illustration1" src="{{asset('images/boxtransparent.png')}}" alt="">
             </div>
         </div>
 
@@ -31,7 +31,44 @@
                 </div>
             </div>
         </div>
+        <div class="home-boxes">
+            <div class="left">
+                <h3>Collect Treasures</h3>
+                <p>Give goodiebags to foodbanks and receive our currency treasures.<br>
+                You can buy a couple of things (more inc) with treasures.
+                1 full treasure is equal to one day of food for the average human</p>
+                <div class="donate-btn">
+                    <a class="button1" href="{{route('register')}}">Register here</a>
+                </div>
+            </div>
+            <div class="right">
+                <img class="illustration1" src="{{asset('images/boxtransparent.png')}}" alt="">
+            </div>
+        </div>
+        <div class="counter-title">
+            <h3>Feel good stats</h3>
+        </div>
+        <div class="counters">
+            <div class="">
+                <i class=""></i>
+                <div id="kg-donated" class="counter" data-target="{{$kg_donated}}">0</div>
+                <h3>Total kg donated</h3>
+            </div>
+            <div class="">
+                <i class=""></i>
+                <div id="goodiebags-created" class="counter" data-target="{{$people_helped}}">0</div>
+                <h3>Goodiebags created</h3>
+            </div>
+            <div class="">
+                <i class=""></i>
+                <div id="people-helped" class="counter" data-target="{{$goodiebags_created}}">0</div>
+                <h3>Amount of people helped</h3>
+            </div>
+        </div>
     </div>
 </div>
 
+@endsection
+@section('scripts')
+    <script type="text/javascript" src="{{asset('js/counters.js')}}"></script>
 @endsection

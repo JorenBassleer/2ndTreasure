@@ -153,7 +153,7 @@ function setMarkers(map){
         '<h2 id="firstHeading" class="firstHeading">'+foodbank.name+'</h2>' +
         '<div id="bodyContent">' +
         "<p>" + foodbank.name + " " + foodbank.details + "</p>" +
-        '<a href="http://127.0.0.1:8000/foodbank/'+ foodbank.id +'">Link</a>' +
+        '<a href="https://2ndtreasure.live/foodbank/'+ foodbank.id +'">Link</a>' +
         "</div>" +
         "</div>";
     const infowindow = new google.maps.InfoWindow({

@@ -2,15 +2,14 @@ var script = document.createElement('script');
 script.src = 'https://maps.googleapis.com/maps/api/js?key=' + key + '&callback=initMap';
 script.defer = true;
 document.head.appendChild(script);
-
-
+var markers = [];
 window.initMap = function () {
     let map, infoWindow;
     var styledMapType = new google.maps.StyledMapType(styledMap);
     antwerp = new google.maps.LatLng(antLat, antLng);
     var mapOptions = {
         center: antwerp,
-        zoom: 13,
+        zoom: 9,
         mapTypeControlOptions: {
             mapTypeIds: []
         }, // here´s the array of controls
@@ -30,12 +29,6 @@ window.initMap = function () {
     map.setMapTypeId('styled_map');
     setMarkers(map);
 
-    google.maps.event.addDomListener(window, "resize", function () {
-        var center = map.getCenter();
-        google.maps.event.trigger(map, "resize");
-        map.setCenter(center);
-    });
-
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -43,10 +36,6 @@ window.initMap = function () {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('You are in this area');
-            infoWindow.open(map);
             map.setCenter(pos);
         }, function () {
             handleLocationError(true, infoWindow, map.getCenter());
@@ -63,7 +52,10 @@ window.initMap = function () {
             'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
     }
-
+    // Click on marker from previous request
+    if(foodbankMarkerId != null) {
+        google.maps.event.trigger( markers[foodbankMarkerId], 'click' );
+    }
 };
 
 
@@ -75,14 +67,15 @@ function setMarkers(map) {
             lat: Number(foodbank.lat),
             lng: Number(foodbank.lng)
         }
-        createMarker(foodbankLoc, foodbank, map);
+        createMarker(foodbankLoc, foodbank, map, foodbank.id);
     }
+    
 }
 // Created this function to add Listener
 // If we add the eventlistener in for loop it only applies the last foodbank.id
-function createMarker(pos, foodbank, map) {
+function createMarker(pos, foodbank, map, i) {
     var iconBase = '../images/';
-    var marker = new google.maps.Marker({
+        markers[i] = new google.maps.Marker({
         position: pos,
         map, // google.maps.Map 
         title: foodbank.name,
@@ -95,16 +88,17 @@ function createMarker(pos, foodbank, map) {
         '<h2 id="firstHeading" class="firstHeading">' + foodbank.name + '</h2>' +
         '<div id="bodyContent">' +
         "<p>" + foodbank.name + " " + foodbank.details + "</p>" +
-        '<a href="http://127.0.0.1:8000/foodbank/' + foodbank.id + '">Link</a>' +
+        '<a href="https://2ndtreasure.live/foodbank/' + foodbank.id + '">Link</a>' +
         "</div>" +
         "</div>";
     const infowindow = new google.maps.InfoWindow({
         content: contentString
     });
 
-    google.maps.event.addListener(marker, 'click', function () {
-        infowindow.open(map, marker);
+    google.maps.event.addListener(markers[i], 'click', function () {
+        infowindow.open(map, markers[i]);
         document.getElementById("foodbank_id").value = foodbank.id;
     });
-    return marker;
+
+    return markers[i];
 }

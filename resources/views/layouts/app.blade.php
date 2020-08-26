@@ -12,14 +12,15 @@
     <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/d3js/5.16.0/d3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Social Media -->
-    <meta property="og:url"           content="{{URL::to('/')}}" />
+    <meta property="og:url"           content="https://2ndtreasure.live" />
     <meta property="og:type"          content="website" />
     <meta property="og:title"         content="2ndTreasure" />
     <meta property="og:description"   content="Do good with goodiebags" />
-    <meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
+    <meta property="og:image"         content="https://2ndtreasure.live" />
     <!-- Facebook -->
     <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0&appId=1742654069206147&autoLogAppEvents=1" nonce="9xE3uijj"></script> -->
     <!-- Fonts -->

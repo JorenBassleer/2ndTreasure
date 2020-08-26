@@ -3255,6 +3255,7 @@ input[type=button]:hover {
 }
 
 .landing-page .home-boxes-2 {
+  margin-top: 25px;
   display: flex;
   color: white;
 }
@@ -3279,6 +3280,225 @@ input[type=button]:hover {
 
 .landing-page .home-boxes-2 .right .register-btn {
   margin-top: 50px !important;
+}
+
+.landing-page .counter-title h3 {
+  color: #fff;
+  font-size: 4rem;
+  margin-top: 20px;
+}
+
+.landing-page .counters {
+  display: flex;
+  color: #fff;
+  padding: 40px 20px;
+  width: 100%;
+}
+
+.landing-page .counters h3 {
+  font-size: 2rem;
+}
+
+.landing-page .counters div {
+  width: 50%;
+}
+
+.landing-page .counters .counter-sub-title {
+  width: 100%;
+}
+
+.landing-page .counters .left {
+  padding-right: 100px;
+  text-align: right;
+}
+
+.landing-page .counters i {
+  color: lightskyblue;
+  margin-bottom: 5px;
+}
+
+.landing-page .counters .counter {
+  text-align: center;
+  font-size: 45px;
+  margin: 15px;
+}
+
+.landing-page .counters .right {
+  padding-left: 100px;
+  text-align: left;
+}
+
+@media screen and (max-width: 992px) {
+  .landing-page .home-boxes .left h3 {
+    font-size: 2.5rem;
+  }
+
+  .landing-page .home-boxes .left p {
+    font-size: 12px;
+  }
+
+  .landing-page .home-boxes .left .donate-btn {
+    margin: 25px 0 !important;
+  }
+
+  .landing-page .home-boxes .left .button1 {
+    padding: 15px 30px;
+  }
+
+  .landing-page .home-boxes .right {
+    padding-left: 50px;
+  }
+
+  .landing-page .home-boxes-2 .right h3 {
+    font-size: 2.5rem;
+  }
+
+  .landing-page .home-boxes-2 .right p {
+    font-size: 12px;
+  }
+
+  .landing-page .home-boxes-2 .right .register-btn {
+    margin: 25px 0 !important;
+  }
+
+  .landing-page .home-boxes-2 .right .button1 {
+    padding: 15px 30px;
+  }
+
+  .landing-page .home-boxes-2 .left {
+    padding-right: 50px;
+  }
+
+  .landing-page .illustration1,
+  .landing-page .illustration2 {
+    width: 250px;
+  }
+
+  .counter-title h3 {
+    font-size: 2.5rem !important;
+  }
+
+  .counters {
+    padding: 30px 20px !important;
+  }
+
+  .counters div .counter {
+    font-size: 30px !important;
+  }
+
+  .counters div h3 {
+    font-size: 1.5rem !important;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .landing-page .home-boxes {
+    margin-top: 25px;
+  }
+
+  .landing-page .home-boxes .left {
+    padding-right: 50px;
+  }
+
+  .landing-page .home-boxes .left h3 {
+    font-size: 2rem;
+  }
+
+  .landing-page .home-boxes-2 .right {
+    padding-left: 50px;
+  }
+
+  .landing-page .home-boxes-2 .right h3 {
+    font-size: 2rem;
+  }
+
+  .landing-page .home-boxes-2 .right .register-btn {
+    width: 150px;
+  }
+
+  .landing-page .illustration1,
+  .landing-page .illustration2 {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .landing-page .home-boxes .left {
+    padding-right: 25px !important;
+  }
+
+  .landing-page .home-boxes .right {
+    padding-left: 25px !important;
+  }
+
+  .landing-page .home-boxes-2 .right {
+    padding-left: 25px !important;
+  }
+
+  .landing-page .home-boxes-2 .left {
+    padding-right: 25px !important;
+  }
+
+  .landing-page .illustration1,
+  .landing-page .illustration2 {
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .landing-page .home-boxes {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .landing-page .home-boxes .left {
+    text-align: left;
+    display: block;
+  }
+
+  .landing-page .home-boxes .left .donate-btn {
+    width: unset !important;
+    text-align: center;
+    padding: 15px !important;
+  }
+
+  .landing-page .home-boxes #right-first {
+    display: none;
+  }
+
+  .landing-page .home-boxes > div {
+    width: unset !important;
+  }
+
+  .landing-page .home-boxes-2 {
+    margin-top: 0px !important;
+    display: block;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .landing-page .home-boxes-2 .right {
+    padding-left: 0px !important;
+    margin-bottom: 50px;
+  }
+
+  .landing-page .home-boxes-2 .right .register-btn {
+    text-align: center;
+    width: unset !important;
+  }
+
+  .landing-page .home-boxes-2 .right .illustration1 {
+    text-align: right;
+  }
+
+  .landing-page .home-boxes-2 .left {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+
+  .landing-page .home-boxes-2 > div {
+    width: unset !important;
+  }
 }
 
 .login-page .card {
@@ -3666,6 +3886,10 @@ input[type=button]:hover {
           appearance: none !important;
 }
 
+.create-goodie-page .plus-minus-input [type=number] {
+  -moz-appearance: textfield;
+}
+
 .create-goodie-page .plus-minus-input .input-group-button .circle {
   border-radius: 50% !important;
   padding: 0.25em 0.8em !important;
@@ -3713,6 +3937,9 @@ input[type=button]:hover {
 
 .create-goodie-page .card .card-body .col-map,
 .create-goodie-page .card-2 .card-body .col-map {
+  margin-top: 50px !important;
+  width: 100% !important;
+  height: 100% !important;
   padding: 0 !important;
   margin: 0 !important;
 }
@@ -3727,25 +3954,76 @@ input[type=button]:hover {
   width: 100% !important;
 }
 
-.create-goodie-page .col-map {
-  margin-top: 50px !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-
 .create-goodie-page .btn-sm,
 .create-goodie-page .btn-group-sm > .btn,
 .create-goodie-page .btn-sm:focus {
   outline: none !important;
 }
 
+/* The Modal (background) */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Modal Content/Box */
+}
+
+.modal .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* The Close Button */
+}
+
+.modal .modal-content .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal .modal-content .close:hover,
+.modal .modal-content .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal .modal-content .p-pop-up {
+  padding: 5px !important;
+  margin-left: 20px !important;
+}
+
 @media screen and (max-width: 992px) {
-  .create-goodie-page .col-map {
-    margin-top: 50px !important;
-    width: 100% !important;
-    height: 100% !important;
+  .create-goodie-page .card-deck {
+    display: grid;
+    grid-gap: 1rem;
+  }
+
+  .create-goodie-page .card-deck .input-group label {
+    width: 25%;
+  }
+
+  .create-goodie-page .card-deck .card-2 {
+    height: 500px !important;
+  }
+
+  .create-goodie-page .button1 {
+    width: 80%;
   }
 }
+
+/* Portrait */
 
 .notification {
   text-decoration: none !important;

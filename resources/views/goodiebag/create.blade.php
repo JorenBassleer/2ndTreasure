@@ -20,13 +20,18 @@
                             <div class="input-form">
                                 @foreach($foods as $food)
                                     <div class="input-group plus-minus-input my-3 justify-content-center">
-                                        <label id="label-food" for="{{($food->id)}}" class="col-md-3 col-form-label text-md-left">{{ __(displayFoodText($food->type)) }}</label>
+                                        <label id="label-food" for="{{($food->id)}}" class="col-md-3 col-form-label text-md-left">{{ __(displayFoodText($food->type)) }}  {{__(displayFoodUnit($food->type))}}</label>
                                         <div class="input-group-button">
                                             <button type="button" class="btn btn-circle btn-sm" data-quantity="minus" data-field="{{$food->type}}">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                        <input id="input-food" class="input-group-field rounded input-xs-1" type="number" name="{{$food->type}}" value="0">
+                                        @if($food->type != 'meat' && $food->type != 'fish')
+                                            <input id="input-food" class="input-group-field rounded input-xs-1 @error($food->type) is-invalid @enderror" type="number" name="{{$food->type}}" value="{{old($food->type) != null ? old($food->type) : 0}}" max="50">
+                                        @else
+                                            <input id="input-food" class="input-group-field rounded input-xs-1 @error($food->type) is-invalid @enderror" type="number" name="{{$food->type}}" value="{{old($food->type) != null ? old($food->type) : 0}}" max="10000">
+                                        @endif
+                                        <div id="max-error-msg" class="invalid-feedback" name="{{$food->type}}"></div>
                                         <div class="input-group-button">
                                             <button type="button" class="btn btn-circle btn-sm" data-quantity="plus" data-field="{{$food->type}}">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -45,10 +50,7 @@
                                     </div> --}}
                                 @endforeach
                             </div>
-                            <div class="text-center">
-                                <div class="g-recaptcha mb-4" data-sitekey="6LcPL8IZAAAAAPWoYJcwYZsFaUPTZD_bdkwAAy2j"></div>
-                            </div>
-                            <input type="hidden" name="foodbank_id" id='foodbank_id' value="">
+                            <input type="hidden" name="foodbank_id" id='foodbank_id' value="{{old('foodbank_id')}}">
                         </form>
                     </div>
                 </div>
@@ -66,66 +68,30 @@
         <div class="col mt-3">
             <div>
                 <button type="submit" id="goodiebag-submitbtn" class="button1" onclick="submitForm()">
-                    {{ __('Create goodiebag') }}
+                    {{ __('Confirm goodiebag') }}
                 </button>
             </div>
-            
-            {{-- <div class="form-group row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('Reset Password') }}
-                    </button>
-                </div> --}}
             </div>  
         </div>
     </div>
 </div>
-@endsection
-<!-- Change the `data-field` of buttons and `name` of input field's for multiple plus minus buttons-->
+<!-- The Modal -->
+<div id="myModal" class="modal">
 
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p class="p-popup" name="popup"></p>
+    </div>
   
-  
+  </div>
+@endsection
+
 @section('scripts')
-{{-- Button plus and min --}}
+
+<script type="text/javascript" src="{{asset('js/goodiebag-create-buttons.js')}}"></script>
 <script>
-jQuery(document).ready(function(){
-    // This button will increment the value
-    $('[data-quantity="plus"]').click(function(e){
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        fieldName = $(this).attr('data-field');
-        // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        // If is not undefined
-        if (!isNaN(currentVal)) {
-            // Increment
-            $('input[name='+fieldName+']').val(currentVal + 1);
-        } else {
-            // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(0);
-        }
-    });
-    // This button will decrement the value till 0
-    $('[data-quantity="minus"]').click(function(e) {
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        fieldName = $(this).attr('data-field');
-        // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        // If it isn't undefined or its greater than 0
-        if (!isNaN(currentVal) && currentVal > 0) {
-            // Decrement one
-            $('input[name='+fieldName+']').val(currentVal - 1);
-        } else {
-            // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(0);
-        }
-    });
-});
-</script>
-<script>
+    
     // Set the latitude and longitude for maps if user does not give location
     var antLat = {{$lat ?? 51.2194475}};
     var antLng = {{$lng ?? 4.4024643}};
@@ -134,6 +100,13 @@ jQuery(document).ready(function(){
     // Covert json map style for js
     var styledMap = @json($styledMap);
     var key = @json(config('googlemaps.key'));
+    if ( typeof document.getElementById('foodbank_id').value != 'undefined') {
+        var foodbankMarkerId =document.getElementById('foodbank_id').value;
+    }
+    else {
+        var foodbankMarkerId =null;
+    }
+    console.log(foodbankMarkerId);
 </script>
 <script>
     function submitForm() {

@@ -104,7 +104,30 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <ul class="navbar-nav ml-auto">
+            @if(!Auth::check())
+                {{-- Qr code link + goodiebag so non users can access --}}
+                @if(Cookie::get('goodiebag_id') != null)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('show.code', request()->cookie('goodiebag_id')) }}">{{ __('Your ongoing goodiebag') }}</a>
+                    </li> 
+                    @endif
+                @else
+                {{-- Get all goodiebags of user that haven't been delivered --}}
+                @if($onGoingGoodiebags->where('user_id', auth()->user()->id)->count() > 0)
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ __('All pending goodiebags') }} <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            @foreach($onGoingGoodiebags->where('user_id', auth()->user()->id) as $key => $onGoingGoodiebag)
+                                <a href="{{route('show.code', $onGoingGoodiebag->id)}}" class="dropdown-item">Goodiebag code: {{$onGoingGoodiebag->code}}</a>
+                            @endforeach
+                        </div>
+                    </li>
+                @endif  
+            @endif
+        </ul>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav navbar-center">
@@ -120,28 +143,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('foodbank.index')}}">Foodbanks</a>
                 </li>
-                @if(!Auth::check())
-                    {{-- Qr code link + goodiebag so non users can access --}}
-                    @if(Cookie::get('goodiebag_id') != null)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('show.code', request()->cookie('goodiebag_id')) }}">{{ __('Your ongoing goodiebag') }}</a>
-                        </li> 
-                         @endif
-                    @else
-                    {{-- Get all goodiebags of user that haven't been delivered --}}
-                    @if($onGoingGoodiebags->where('user_id', auth()->user()->id)->count() > 0)
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ __('All pending goodiebags') }} <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @foreach($onGoingGoodiebags->where('user_id', auth()->user()->id) as $key => $onGoingGoodiebag)
-                                    <a href="{{route('show.code', $onGoingGoodiebag->id)}}" class="dropdown-item">a goodiebag for {{$onGoingGoodiebag->foodbank->name}}</a>
-                                @endforeach
-                            </div>
-                        </li>
-                    @endif  
-                @endif 
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">

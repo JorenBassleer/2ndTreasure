@@ -19,6 +19,6 @@ class FoodbankMiddleware
           return $next($request);
         }
     
-          return redirect('/');
+        return redirect()->route('landing');
     }
 }
