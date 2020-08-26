@@ -8,7 +8,7 @@
             <div class="text-center">
                 <h1 class="mb-3">Create a goodiebag for a foodbank</h1>
                 <div class="intro">
-                    Select the amounts of food products you would like to donate on the left and select the foodbank on the map that you would like to donate to on the right.
+                    Select the amounts of food products you would like to donate and select the foodbank on the map that you would like to donate to.
                 </div>
             </div>
             <div class="card-deck">
@@ -50,7 +50,11 @@
                                     </div> --}}
                                 @endforeach
                             </div>
-                            <input type="hidden" name="foodbank_id" id='foodbank_id' value="{{old('foodbank_id')}}">
+                            @if(request()->has('foodbank_id'))
+                                <input type="hidden" name="foodbank_id" id='foodbank_id' value="{{request()->foodbank_id}}">
+                            @else
+                                <input type="hidden" name="foodbank_id" id='foodbank_id' value="{{old('foodbank_id')}}">
+                            @endif
                         </form>
                     </div>
                 </div>

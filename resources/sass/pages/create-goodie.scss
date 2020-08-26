@@ -162,20 +162,23 @@
         }
     }
 }
-/* Portrait */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 812px) { 
+
+@media screen and (max-width: 440px) {
     .create-goodie-page {
-
-    }
-
-}
-
-@media screen and (max-width: 575px) {
-    .create-goodie-page {
-
-
-
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        .card-deck {
+            .card {
+                .input-group {
+                    label {
+                        text-align: center !important;
+                        width: 100% !important;
+                    }
+                }
+            }
+            .card-2 {
+                margin: 0;
+            }
+        }
     }
 }

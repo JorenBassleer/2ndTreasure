@@ -3,6 +3,18 @@
 @section('content')
 <div class="landing-page container">
     <div class="row justify-content-center">
+        <div class="animated-txt">
+            <h1 class="ms-header__title">
+              Do good with a
+              <div class="ms-slider">
+                <ul class="ms-slider__words">
+                  <li class="ms-slider__word">goodiebag</li>
+                  <li class="ms-slider__word">foodiebag</li>
+                  <li class="ms-slider__word">goodiebag</li>
+                </ul>
+              </div>
+            </h1>
+        </div>
         <div class="home-boxes">
             <div class="left">
                 <h3>How does <br> 2ndTreasure work?</h3>
@@ -38,7 +50,7 @@
                 You can buy a couple of things (more inc) with treasures.
                 1 full treasure is equal to one day of food for the average human</p>
                 <div class="donate-btn">
-                    <a class="button1" href="{{route('register')}}">Register here</a>
+                    <a class="button1" href="{{route('register')}}">Register here!</a>
                 </div>
             </div>
             <div class="right">
@@ -67,7 +79,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 @section('scripts')
     <script type="text/javascript" src="{{asset('js/counters.js')}}"></script>

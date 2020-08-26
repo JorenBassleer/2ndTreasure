@@ -9,7 +9,7 @@ trait FoodbankStatsTrait
   {
       if($foodbank->foodbankstat == null) {
         
-          // create one variable since i can't put 1 into the create for some reason
+          // create $one variable since i can't put 1 into the create for some reason
           // No stats of this foodbank yet so create new one
           $one = 1;
           $foodbank->foodbankstat()->create([

@@ -66,13 +66,16 @@
             }
         }
     }
+
     .counter-title h3 {
         color: #fff;
         font-size: 4rem;
         margin-top: 20px;
     }
+
     .counters {
         display: flex;
+        text-align: center;
         color: #fff;
         padding: 40px 20px;
         width: 100%;
@@ -84,6 +87,7 @@
         div {
             width: 50%;
         }
+
         .counter-sub-title {
             width: 100%;
         }
@@ -93,76 +97,158 @@
             text-align: right;
 
         }
+
         i {
             color: lightskyblue;
             margin-bottom: 5px;
         }
+
         .counter {
             text-align: center;
+            margin: 15px auto;
             font-size: 45px;
-            margin: 15px;
         }
+
         .right {
             padding-left: 100px;
             text-align: left;
         }
     }
 }
+.animated-txt {
+    width: 200px;
+    color: #fff;
+    .ms-slider {
+        display: inline-block;
+        
+        height: 1.5em;
+        overflow: hidden;
+        
+        vertical-align: middle;
+        
+        mask-type: luminance;
+        mask-mode: alpha;
+        
+        &__words {
+          display: inline-block;
+          margin: 0;
+          padding: 0;
+        
+          list-style: none;
+          
+          animation-name: wordSlider;
+          animation-timing-function: ease-out;
+          animation-iteration-count: infinite;
+          animation-duration: 7s;
+        }
+        
+        &__word {
+          display: block;
+          line-height: 1.3em;
+          text-align: left;
+        }
+      }
+      
+      @keyframes wordSlider {
+        $steps: -0%, -33%, -66%;
+        
+        @for $index from 0 to length($steps)-1 {
+          $next: $index+1;
+          $step: floor(100/(length($steps)-1));
+          $animation_step: floor($step*.2);
+        
+          #{$step*$index}%,
+          #{($step*$next) - $animation_step}% {
+            transform: translateY(nth($steps, $index+1));
+          }
+        }
+        100% {
+          transform: translateY(nth($steps, length($steps)));
+        }
+      }
+
+}
+
 @media screen and (max-width: 992px) {
     .landing-page {
+        .left {
+            padding-right: 20px !important;
+            padding-top: 20px !important;
+            padding-bottom: 20px !important;
+            text-align: right !important;
+        }
+
+        .right {
+            text-align: left !important;
+            padding-left: 100px !important;
+        }
+
         .home-boxes {
 
             .left {
+
                 h3 {
                     font-size: 2.5rem;
                 }
+
                 p {
                     font-size: 12px;
                 }
+
                 .donate-btn {
                     margin: 25px 0 !important;
                 }
+
                 .button1 {
                     padding: 15px 30px;
                 }
-            }        
+            }
+
             .right {
-                padding-left: 50px;
+                padding-left: 0px;
             }
 
         }
+
         .home-boxes-2 {
             .right {
                 h3 {
                     font-size: 2.5rem;
                 }
+
                 p {
                     font-size: 12px;
                 }
+
                 .register-btn {
                     margin: 25px 0 !important;
                 }
+
                 .button1 {
                     padding: 15px 30px;
                 }
 
             }
+
             .left {
                 padding-right: 50px;
             }
         }
-        .illustration1, 
+
+        .illustration1,
         .illustration2 {
             width: 250px;
         }
     }
+
     .counter-title {
         h3 {
             font-size: 2.5rem !important;
         }
     }
+
     .counters {
-        padding: 30px 20px !important;
+        padding: 30px 0px !important;
 
         div {
             .counter {
@@ -180,107 +266,107 @@
     .landing-page {
         .home-boxes {
             margin-top: 25px;
+
             .left {
                 padding-right: 50px;
+
                 h3 {
                     font-size: 2rem;
                 }
-            } 
+            }
         }
+
         .home-boxes-2 {
             .right {
                 padding-left: 50px;
+
                 h3 {
                     font-size: 2rem;
                 }
+
                 .register-btn {
                     width: 150px;
                 }
             }
         }
-        .illustration1, 
+
+        .illustration1,
         .illustration2 {
             width: 200px;
         }
     }
 }
+  
+
+
 
 @media screen and(max-width: 600px) {
     .landing-page {
         .home-boxes {
-            .left {
-                padding-right: 25px !important;
-            }
-            .right {
-                padding-left: 25px !important;
-            }
-        }
-        .home-boxes-2 {
-            .right {
-                padding-left: 25px !important;
-
-            }
-            .left {
-                padding-right: 25px !important;
-            }
-        }
-
-        .illustration1, 
-        .illustration2 {
-            width: 150px;
-        }
-    }
-}
-
-@media screen and(max-width: 450px) {
-    .landing-page {
-        .home-boxes {
-            display:block;
+            display: block;
             margin: 0 auto;
+
             .left {
-                text-align: left;
+                text-align: center !important;
                 display: block;
+                padding: 0 !important;
+
                 .donate-btn {
                     width: unset !important;
                     text-align: center;
                     padding: 15px !important;
                 }
             }
+
+            .right {
+                text-align: center !important;
+                padding: 0 !important;
+            }
+
             #right-first {
                 display: none;
             }
+
             >div {
                 width: unset !important;
             }
         }
+
         .home-boxes-2 {
             margin-top: 0px !important;
-            display:block;
+            display: block;
             justify-content: center;
             align-items: center;
+
             .right {
                 padding-left: 0px !important;
                 margin-bottom: 50px;
+                text-align: center !important;
+
                 .register-btn {
                     text-align: center;
                     width: unset !important;
                 }
+
                 .illustration1 {
                     text-align: right;
                 }
 
             }
+
             .left {
-                text-align: right;
+                text-align: center !important;
                 margin-bottom: 20px;
+                padding: 0 !important;
             }
+
             >div {
                 width: unset !important;
             }
         }
     }
 
-    .illustration1, 
+    .illustration1,
     .illustration2 {
         // display: none;
     }

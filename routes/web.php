@@ -16,8 +16,8 @@ use App\Mail\ForFlaggedUsersMail;
 
 Route::get('/', 'LandingPageController@displayLandingPage')->name('landing');
 
-Route::get('/500', function() {
-    return view('errors.500');
+Route::get('/419', function() {
+    return view('errors.419');
 });
 
 Route::post('error/500', 'ErrorFormController@postForm')->name('post.form_error');

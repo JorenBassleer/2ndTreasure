@@ -145,7 +145,6 @@ function calcRoute() {
 
 function setMarkers(map){
     var foodbankLoc = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)}
-    var iconBase = '../images/';
     const contentString =
         '<div id="content">' +
         '<div id="siteNotice">' +
@@ -163,7 +162,6 @@ function setMarkers(map){
         position: foodbankLoc,
         map,
         title: foodbank.name,
-        icon: iconBase + 'test.png',
     });
     marker.addListener("click", () => {
         infowindow.open(map, marker);

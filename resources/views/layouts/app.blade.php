@@ -76,3 +76,5 @@
 </html>
 
 @yield('scripts')
+
+<script type="text/javascript" src="{{asset('js/header.js')}}"></script>

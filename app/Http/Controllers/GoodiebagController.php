@@ -57,6 +57,7 @@ class GoodiebagController extends Controller
 
         ]);
         $goodiebag->code = Str::random(5);
+        $goodiebag->code = Str::upper($goodiebag->code);
         $goodiebag->save();
         // If false there was a submitted amount that wasn't a number
         if(!$this->addFoodToGoodiebag($goodiebag,$request->except('_token', 'foodbank_id'))) {
@@ -64,7 +65,7 @@ class GoodiebagController extends Controller
             return back()->withErrors('You submitted an amount that wasn\'t valid.')->withInput();
         }
         if(Auth::check()) {
-            return redirect()->route('show.code', $goodiebag->id)->with('success_message', 'Goodiebag created');
+            return redirect()->route('show.code', $goodiebag->id);
         }
 ;
         // Create cookie if user is not logged in

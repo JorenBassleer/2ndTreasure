@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        <svg class="logo-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="75px" height="75px" viewBox="0 0 2000 2000" enable-background="new 0 0 2000 2000" xml:space="preserve">
             <g>
                 <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFF" d="M1093.458,1372.922c10.249-1.054,20.532-0.528,30.798-0.587
@@ -100,44 +100,20 @@
             </g>
         </svg>
         </a>
+        <!-- Center Side Of Navbar -->
+        <ul class="navbar-nav navbar-center" id="make-goodie-center">
+            <li class="nav-item">
+                <a class="make-goodiebag-btn" href="{{route('goodiebag.create')}}">
+                    Make a Goodiebag
+                </a>
+            </li>
+        </ul>
         
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <ul class="navbar-nav ml-auto">
-            @if(!Auth::check())
-                {{-- Qr code link + goodiebag so non users can access --}}
-                @if(Cookie::get('goodiebag_id') != null)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('show.code', request()->cookie('goodiebag_id')) }}">{{ __('Your ongoing goodiebag') }}</a>
-                    </li> 
-                    @endif
-                @else
-                {{-- Get all goodiebags of user that haven't been delivered --}}
-                @if($onGoingGoodiebags->where('user_id', auth()->user()->id)->count() > 0)
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ __('All pending goodiebags') }} <span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            @foreach($onGoingGoodiebags->where('user_id', auth()->user()->id) as $key => $onGoingGoodiebag)
-                                <a href="{{route('show.code', $onGoingGoodiebag->id)}}" class="dropdown-item">Goodiebag code: {{$onGoingGoodiebag->code}}</a>
-                            @endforeach
-                        </div>
-                    </li>
-                @endif  
-            @endif
-        </ul>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav navbar-center">
-                <li class="nav-item">
-                    <a class="make-goodiebag-btn" href="{{route('goodiebag.create')}}">
-                        Make a Goodiebag
-                    </a>
-                </li>
-            </ul>
 
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -153,7 +129,26 @@
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
+                    {{-- Qr code link + goodiebag so non users can access --}}
+                    @if(Cookie::get('goodiebag_id') != null)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('show.code', request()->cookie('goodiebag_id')) }}">{{ __('Your ongoing goodiebag') }}</a>
+                        </li> 
+                    @endif
                 @else
+                {{-- Get all goodiebags of user that haven't been delivered --}}
+                    @if($onGoingGoodiebags->where('user_id', auth()->user()->id)->count() > 0)
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ __('All pending goodiebags') }} <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right-large" aria-labelledby="navbarDropdown">
+                                @foreach($onGoingGoodiebags->where('user_id', auth()->user()->id) as $key => $onGoingGoodiebag)
+                                    <a href="{{route('show.code', $onGoingGoodiebag->id)}}" class="dropdown-item">Goodiebag code: {{$onGoingGoodiebag->code}}</a>
+                                @endforeach
+                            </div>
+                        </li>
+                    @endif
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ ucfirst(Auth::user()->name) }} <span class="caret"></span>
@@ -169,7 +164,7 @@
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
-                            </form>
+                            </form>  
                         </div>
                     </li>
                 @endguest

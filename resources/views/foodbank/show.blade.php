@@ -20,7 +20,7 @@
                                 {{$foodbank->foodbank->details}}
                             </div>
                             <div class="donate-to-this">
-                                <a class="button2" href="">Donate to this foodbank</a>
+                                <a class="button2" href="{{route('goodiebag.create', ['foodbank_id' => $foodbank->id])}}">Donate to this foodbank</a>
                             </div>
                         </div>
                     </div>

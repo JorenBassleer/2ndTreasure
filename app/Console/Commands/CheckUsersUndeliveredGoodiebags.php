@@ -44,11 +44,8 @@ class CheckUsersUndeliveredGoodiebags extends Command
             // Get amount of undelivered goodiebags of the user
             $amount = Goodiebag::where('user_id', $user->id)
                             ->whereIn('hasReceived', [null, 0])->count();
-            // Get rating of user
-            $rating = $user->goodiebags()->avg('rating');
             // If user has more than 15 undelivered goodiebags
-            // And a rating < 2 -> flag user
-            if($amount > 10 && $rating < 2) {
+            if($amount > 10) {
                 $user->isFlagged = 1;
                 $user->save();
             }

@@ -3116,6 +3116,29 @@ h5 {
   transition: all 0.3s;
 }
 
+.button3 {
+  background-color: #00a896;
+  padding: 10px 15px;
+  color: white;
+  border: 2px solid #00a896;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+  margin-bottom: 0.5rem;
+}
+
+.button3:hover {
+  background-color: white;
+  padding: 10px 15px;
+  color: #00a896;
+  border: 2px solid #00a896;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
 input[type=text]:focus,
 input[type=email]:focus,
 input[type=name]:focus,
@@ -3132,16 +3155,29 @@ input[type=password]:focus {
   box-shadow: 0 0 8px rgba(0, 168, 151, 0.5) !important;
 }
 
-body {
-  margin: 0px;
-  font-family: "Arial";
-}
-
-.example {
+.code-show .example {
   padding: 20px;
 }
 
-input[type=button] {
+.code-show h1 {
+  color: white;
+}
+
+.code-show .card {
+  margin-top: 60px;
+  border: none;
+  border-radius: 0;
+}
+
+.code-show .button-div {
+  margin-bottom: 30px !important;
+}
+
+.code-show .card-2 {
+  margin-top: 20px !important;
+}
+
+.code-show input[type=button] {
   padding: 5px 10px;
   margin: 10px 5px;
   border-radius: 5px;
@@ -3150,15 +3186,46 @@ input[type=button] {
   border: 1px solid #ccc;
 }
 
-input[type=button]:hover {
+.code-show input[type=button]:hover {
   background: #ccc;
 }
 
-.confirm {
+.code-show .heading-div a {
+  color: #00a896;
+}
+
+.code-show .delivered-btn {
+  margin: 20px 0;
+}
+
+.code-show .col-lg-12 {
+  padding: 0;
+}
+
+.code-show .col-lg-12 #map-code {
+  margin-top: 0 !important;
+}
+
+.code-show .qr-code-div {
+  padding: 2rem;
+}
+
+.code-show #btn-direction {
+  background-color: #00a896;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 0;
+  text-align: center;
+  text-decoration: none;
+  margin: 0.5rem;
+}
+
+.code-show .confirm {
   display: none;
 }
 
-.confirm > div:first-of-type {
+.code-show .confirm > div:first-of-type {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -3167,7 +3234,7 @@ input[type=button]:hover {
   left: 0px;
 }
 
-.confirm > div:last-of-type {
+.code-show .confirm > div:last-of-type {
   padding: 10px 20px;
   background: white;
   position: absolute;
@@ -3180,28 +3247,57 @@ input[type=button]:hover {
   border: 1px solid #333;
 }
 
-.confirm > div:last-of-type div:first-of-type {
+.code-show .confirm > div:last-of-type div:first-of-type {
   min-width: 150px;
   padding: 10px;
 }
 
-.confirm > div:last-of-type div:last-of-type {
+.code-show .confirm > div:last-of-type div:last-of-type {
   text-align: right;
 }
 
-.rating {
+@media screen and (min-width: 992px) {
+  .code-show #delete-form {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .code-show .heading-div {
+    display: grid;
+  }
+
+  .code-show #delete-form {
+    margin: 0.5rem auto !important;
+  }
+
+  .code-show #delete-form button {
+    width: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.dashboard-index .card-header h1 {
+  color: black;
+}
+
+.dashboard-index .rating {
   unicode-bidi: bidi-override;
   direction: rtl;
   font-size: 20px;
 }
 
-.rating > span {
+.dashboard-index .rating > span {
   position: relative;
   width: 1.1em;
 }
 
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
+.dashboard-index .rating > span:hover:before,
+.dashboard-index .rating > span:hover ~ span:before {
   content: "\2605";
   position: absolute;
 }
@@ -3290,6 +3386,7 @@ input[type=button]:hover {
 
 .landing-page .counters {
   display: flex;
+  text-align: center;
   color: #fff;
   padding: 40px 20px;
   width: 100%;
@@ -3319,8 +3416,8 @@ input[type=button]:hover {
 
 .landing-page .counters .counter {
   text-align: center;
+  margin: 15px auto;
   font-size: 45px;
-  margin: 15px;
 }
 
 .landing-page .counters .right {
@@ -3328,7 +3425,82 @@ input[type=button]:hover {
   text-align: left;
 }
 
+.animated-txt {
+  width: 200px;
+  color: #fff;
+}
+
+.animated-txt .ms-slider {
+  display: inline-block;
+  height: 1.5em;
+  overflow: hidden;
+  vertical-align: middle;
+  mask-type: luminance;
+  mask-mode: alpha;
+}
+
+.animated-txt .ms-slider__words {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  -webkit-animation-name: wordSlider;
+          animation-name: wordSlider;
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-duration: 7s;
+          animation-duration: 7s;
+}
+
+.animated-txt .ms-slider__word {
+  display: block;
+  line-height: 1.3em;
+  text-align: left;
+}
+
+@-webkit-keyframes wordSlider {
+  0%, 40% {
+    transform: translateY(0%);
+  }
+
+  50%, 90% {
+    transform: translateY(-33%);
+  }
+
+  100% {
+    transform: translateY(-66%);
+  }
+}
+
+@keyframes wordSlider {
+  0%, 40% {
+    transform: translateY(0%);
+  }
+
+  50%, 90% {
+    transform: translateY(-33%);
+  }
+
+  100% {
+    transform: translateY(-66%);
+  }
+}
+
 @media screen and (max-width: 992px) {
+  .landing-page .left {
+    padding-right: 20px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    text-align: right !important;
+  }
+
+  .landing-page .right {
+    text-align: left !important;
+    padding-left: 100px !important;
+  }
+
   .landing-page .home-boxes .left h3 {
     font-size: 2.5rem;
   }
@@ -3346,7 +3518,7 @@ input[type=button]:hover {
   }
 
   .landing-page .home-boxes .right {
-    padding-left: 50px;
+    padding-left: 0px;
   }
 
   .landing-page .home-boxes-2 .right h3 {
@@ -3379,7 +3551,7 @@ input[type=button]:hover {
   }
 
   .counters {
-    padding: 30px 20px !important;
+    padding: 30px 0px !important;
   }
 
   .counters div .counter {
@@ -3423,43 +3595,26 @@ input[type=button]:hover {
 }
 
 @media screen and (max-width: 600px) {
-  .landing-page .home-boxes .left {
-    padding-right: 25px !important;
-  }
-
-  .landing-page .home-boxes .right {
-    padding-left: 25px !important;
-  }
-
-  .landing-page .home-boxes-2 .right {
-    padding-left: 25px !important;
-  }
-
-  .landing-page .home-boxes-2 .left {
-    padding-right: 25px !important;
-  }
-
-  .landing-page .illustration1,
-  .landing-page .illustration2 {
-    width: 150px;
-  }
-}
-
-@media screen and (max-width: 450px) {
   .landing-page .home-boxes {
     display: block;
     margin: 0 auto;
   }
 
   .landing-page .home-boxes .left {
-    text-align: left;
+    text-align: center !important;
     display: block;
+    padding: 0 !important;
   }
 
   .landing-page .home-boxes .left .donate-btn {
     width: unset !important;
     text-align: center;
     padding: 15px !important;
+  }
+
+  .landing-page .home-boxes .right {
+    text-align: center !important;
+    padding: 0 !important;
   }
 
   .landing-page .home-boxes #right-first {
@@ -3480,6 +3635,7 @@ input[type=button]:hover {
   .landing-page .home-boxes-2 .right {
     padding-left: 0px !important;
     margin-bottom: 50px;
+    text-align: center !important;
   }
 
   .landing-page .home-boxes-2 .right .register-btn {
@@ -3492,8 +3648,9 @@ input[type=button]:hover {
   }
 
   .landing-page .home-boxes-2 .left {
-    text-align: right;
+    text-align: center !important;
     margin-bottom: 20px;
+    padding: 0 !important;
   }
 
   .landing-page .home-boxes-2 > div {
@@ -3823,6 +3980,7 @@ input[type=button]:hover {
 .foodbank-id .card {
   border-radius: 0 !important;
   border: none;
+  margin-top: 60px;
 }
 
 .foodbank-id .card a:hover {
@@ -3858,6 +4016,43 @@ input[type=button]:hover {
 
 .foodbank-id .donate-to-this {
   margin-top: 17px;
+}
+
+@media screen and (max-width: 991px) {
+  .foodbank-id .donate-to-this {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 556px) {
+  .foodbank-id .details-div {
+    flex-direction: column;
+  }
+
+  .foodbank-id .details-div .details-list {
+    margin-bottom: 20px;
+  }
+
+  .foodbank-id .details-div .donate-to-this {
+    width: 100%;
+    text-align: center;
+    margin: 15px 0;
+  }
+}
+
+@media screen and (max-width: 378px) {
+  .foodbank-id .donate-to-this .button2 {
+    font-size: 12px;
+    padding: 12px;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  .foodbank-id .donate-to-this .button2 {
+    font-size: 10px;
+    padding: 10px;
+    margin: 10px 0;
+  }
 }
 
 .create-goodie-page h1 {
@@ -4023,7 +4218,43 @@ input[type=button]:hover {
   }
 }
 
-/* Portrait */
+@media screen and (max-width: 440px) {
+  .create-goodie-page {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  .create-goodie-page .card-deck .card .input-group label {
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .create-goodie-page .card-deck .card-2 {
+    margin: 0;
+  }
+}
+
+.thankyou-page h1 {
+  color: white;
+}
+
+.thankyou-page .card {
+  margin-top: 60px;
+  border: none;
+  border-radius: 0;
+}
+
+.thankyou-page .text-center > a,
+.thankyou-page .text-center > a:hover,
+.thankyou-page .fb-share-button > a {
+  color: #00a896;
+}
+
+.thankyou-page .text-center-btn {
+  margin-top: 50px !important;
+  margin-bottom: 50px !important;
+  text-align: center !important;
+}
 
 .notification {
   text-decoration: none !important;
@@ -4075,6 +4306,10 @@ input[type=button]:hover {
   background-color: transparent;
 }
 
+.navbar ul {
+  list-style: none;
+}
+
 .navbar .nav-link {
   color: white !important;
   padding: 0 !important;
@@ -4088,6 +4323,7 @@ input[type=button]:hover {
 }
 
 .navbar .navbar-nav.navbar-center {
+  list-style: none;
   position: absolute;
   left: 50%;
   transform: translatex(-50%);
@@ -4103,6 +4339,10 @@ input[type=button]:hover {
   transition: all 0.25s ease;
 }
 
+.navbar .dropdown-item {
+  padding: 0.25rem 1rem !important;
+}
+
 .navbar .make-goodiebag-btn:hover {
   color: #00a896;
   background-color: #fff;
@@ -4114,10 +4354,9 @@ input[type=button]:hover {
 }
 
 .navbar .dropdown-menu {
-  width: 90px;
+  width: 180px;
   border: none;
   border-radius: 0;
-  min-width: unset;
   padding: 0;
   box-shadow: 3px 3px 18px -5px rgba(0, 0, 0, 0.5);
 }
@@ -4130,6 +4369,117 @@ input[type=button]:hover {
 .navbar .dropdown-menu a:focus {
   background-color: #02c39a;
   color: white;
+}
+
+.navbar .navbar-toggler {
+  border: none;
+}
+
+.navbar .navbar-toggler:focus {
+  outline: none;
+}
+
+.navbar .custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+}
+
+@media screen and (max-width: 767px) {
+  .navbar #make-goodie-center {
+    margin-top: unset !important;
+    list-style: none !important;
+    padding-left: 0px;
+    margin-bottom: 0px !important;
+  }
+
+  .navbar #make-goodie-center .make-goodiebag-btn {
+    padding: 12px;
+  }
+
+  .navbar #make-goodie-center .nav-item {
+    text-align: center;
+  }
+
+  .navbar .navbar-toggler {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  .navbar .dropdown-menu {
+    min-width: 12.5rem;
+  }
+}
+
+@media screen and (max-width: 538px) {
+  .navbar #make-goodie-center {
+    list-style: none !important;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .navbar {
+    padding: unset !important;
+  }
+
+  .navbar .navbar-center {
+    left: unset;
+    width: 50%;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .navbar #make-goodie-center {
+    padding: 10px;
+    font-size: 10px;
+  }
+
+  .navbar .navbar-toggler {
+    padding: 5px !important;
+  }
+}
+
+@media screen and (max-width: 396px) {
+  .navbar #make-goodie-center {
+    padding: 0px !important;
+    font-size: 10px;
+  }
+
+  .navbar .make-goodiebag-btn {
+    padding: 5px !important;
+  }
+
+  .navbar .logo-svg {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .navbar .navbar-toggler {
+    padding: 2.5px !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .navbar #make-goodie-center {
+    padding: 0px !important;
+    font-size: 10px;
+  }
+
+  .navbar .make-goodiebag-btn {
+    padding: 5px !important;
+  }
+
+  .navbar .logo-svg {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .navbar .navbar-toggler {
+    padding: 2.5px !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
 }
 
 .footer-class {

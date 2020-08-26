@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="dashboard-index container">
     <div class="row justify-content-center">
         <div class="col-md-10">
             @include('partials.errors')
@@ -13,12 +13,11 @@
                         @if(auth()->user()->isFlagged)
                             <div class="alert alert-danger">
                                 <div class="text-center"><h1>You have been flagged as a bad user</h1></div>
-                                <div class="text-center">Delete your goodiebags or deliver them. Otherwise you will get removed from our platform if you don't deliver your goodiebags</div>
+                                <div class="text-center">Delete your goodiebags or deliver them. Otherwise you will get removed from our platform</div>
                             </div>
                         @endif
                         <div class="card-header text-center"><h2>You currently have {{checkIfNull(auth()->user()->treasures) ? '0' : auth()->user()->treasures}} treasures</h2></div>
                         <div class="card-body">
-                            {{-- {{dd($userStats->highest_place_ever)}}  --}}
                             <div class="text-center">
                                 Your highest place on the leaderboards ever achieved: {{checkIfNull($userStats->highest_place_ever) ? 'Nothing yet, go out there and get number 1' : $userStats->highest_place_ever}}
                             </div>
@@ -46,37 +45,50 @@
                         <form action="{{route('code.confirmed')}}" method="POST">
                             @csrf
                             <div class="row w-50 p-3">
-                                <label for="code" class="col-form-label">{{__('Enter code: (case sensitive)')}}</label>
+                                <label for="code" class="col-form-label">{{__('Enter code: ')}}</label>
                                 <input type="text" class="form-control" name="code" id="code">
                                 <button type='submit' class="btn btn-primary mt-3">{{__('Confirm goodiebag received')}}</button>
                             </div>
                         </form>
                     </div>
                     @if($foodbankStats)
-                        <div class="card-header text-center"><h2>You have received {{presentWeightToKg($foodbankStats->total_amount_of_kg_received, true)}} of food in total</h2></div>
-                        <div class="card-body">
-                            <div class="text-center">
-                                You have generated a total amount of {{pointToComma($foodbankStats->total_amount_of_treasures_generated)}} treasures
+                        <div class="text-center">
+                            <div class="card">
+                                <div class="card-header">
+                                    Amount of food received last weeks
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="food-received" width="400" height="150"></canvas>
+                                </div>
                             </div>
-                            <div class="text-center">
-                                Amount of goodiebags received: {{$foodbankStats->total_amount_of_goodiebags_received}}
+                            <div class="card">
+                                <div class="card-header">
+                                    Amount of food people helped
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="people-helped" width="400" height="150"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    Amount of food goodiebags received
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="goodiebags-received" width="400" height="150"></canvas>
+                                </div>
                             </div>
                         </div>
                         <div class="container mt-5">
-                            <div class="text-center mb-2"><h3>Goodiebags you have received</h3></div>
-                            <div class="text-center mb-4"> Help us by giving feedback of the users</div>
+                            <div class="text-center mb-2"><h3>Goodiebags you have received in the last 7 days</h3></div>
                             <div class="row mb-4">
                                 <div class="col-1">
                                     <strong>#</strong>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-5">
                                     <strong>Food in goodiebag (kg)</strong> 
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     <strong>User info</strong>
-                                </div>
-                                <div class="col-2 col-sm-6 rating-title">
-                                    <strong>Give rating</strong>
                                 </div>
                             </div>
                             @foreach ($pastRecentGoodiebags as $key => $recentGoodiebag)
@@ -84,10 +96,10 @@
                                     <div class="col-1">
                                         {{$key +1}}
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-5">
                                         {{presentWeightToKg($recentGoodiebag->total_kg, true)}}
                                     </div>
-                                    <div class="col-4 col-sm-6">
+                                    <div class="col-6">
                                         @if($recentGoodiebag->user != null)
                                             Name: {{$recentGoodiebag->user->name}} <br>
                                             Email: <a href="mailto:{{$recentGoodiebag->user->email}}">{{$recentGoodiebag->user->email}}</a> <br>
@@ -95,15 +107,6 @@
                                         @else
                                             User didn't create an account (yet)
                                         @endif
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="rating" data-id={{$recentGoodiebag->id}}>
-                                            <form action=" ">
-                                                <div class="rating">
-                                                    <span value="1">☆</span><span value="2">☆</span><span value="3">☆</span><span value="4">☆</span><span value="5">☆</span>
-                                                </div>
-                                            </form>
-                                        </div>
                                     </div>
                                 </div>
                                 <hr>
@@ -123,60 +126,70 @@
 </div>
 @endsection
 @section('scripts')
-{{-- <script>
-    window.fbAsyncInit = function() {
-        FB.init({appId: '1742654069206147', status: true, cookie: true,
-        xfbml: true});
-    };
-    (function() {
-        var e = document.createElement('script'); e.async = true;
-        e.src = document.location.protocol +
-        '//connect.facebook.net/en_US/all.js';
-        document.getElementById('fb-root').appendChild(e);
-    }());
-</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#fb-share-button').click(function(e){
-            e.preventDefault();
-            FB.ui(
-            {
-                method: 'feed',
-                name: 'This is the content of the "name" field.',
-                link: 'http://www.groupstudy.in/articlePost.php?id=A_111213073144',
-                picture: 'http://www.groupstudy.in/img/logo3.jpeg',
-                caption: 'Top 3 reasons why you should care about your finance',
-                description: "What happens when you don't take care of your finances? Just look at our country -- you spend irresponsibly, get in debt up to your eyeballs, and stress about how you're going to make ends meet. The difference is that you don't have a glut of taxpayers…",
-                message: ""
-            });
-        });
+
+$(document).ready(function() {
+    var food = document.getElementById('food-received').getContext('2d');
+    var people = document.getElementById('people-helped').getContext('2d');
+    var goodiebags = document.getElementById('goodiebags-received').getContext('2d');
+    var stats = @json($stats);
+    console.log(stats[0].total_amounnt_of_kg_received);
+
+    var chart = new Chart(food, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
+            datasets: [{
+                label: 'My First dataset',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [stats[0].total_amount_of_kg_received, stats[1].total_amount_of_kg_received, stats[2].total_amount_of_kg_received, stats[3].total_amount_of_kg_received],
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
     });
-</script> --}}
+    var chart2 = new Chart(people, {
+        // The type of chart we want to create
+        type: 'line',
 
-<script type="text/javascript">
-    // For adding the token to axios header (add this only one time).
-    var token = document.head.querySelector('meta[name="csrf-token"]');
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+        // The data for our dataset
+        data: {
+            labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
+            datasets: [{
+                label: 'My First dataset',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [Math.round(stats[0].total_amount_of_treasures_generated), Math.round(stats[1].total_amount_of_treasures_generated), Math.round(stats[2].total_amount_of_treasures_generated), Math.round(stats[3].total_amount_of_treasures_generated)]
+            }]
+        },
 
-    (function(){
-            const classname = document.querySelectorAll('.rating')
+        // Configuration options go here
+        options: {}
+    });
+    var chart3 = new Chart(goodiebags, {
+        // The type of chart we want to create
+        type: 'line',
 
-            Array.from(classname).forEach(function(element) {
-                element.addEventListener('change', function() {
-                    const id = element.getAttribute('data-id')
-                    axios.patch(`goodiebag/${id}`, {
-                        quantity: this.value
-                    })
-                    .then(function (response) {
-                        // console.log(response);
-                        
-                    })
-                    .catch(function (error) {
-                        // console.log(error);
-                        
-                    });
-                })
-            })
-        })();
+        // The data for our dataset
+        data: {
+            labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
+            datasets: [{
+                label: 'My First dataset',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [stats[0].total_amount_of_goodiebags_received, stats[1].total_amount_of_goodiebags_received, stats[2].total_amount_of_goodiebags_received, stats[3].total_amount_of_goodiebags_received]
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+});
 </script>
 @endsection

@@ -21,7 +21,6 @@ class CreateGoodiebagsTable extends Migration
             $table->boolean('hasReceived')->nullable();
             $table->decimal('total_kg', 10,3)->nullable();
             $table->decimal('treasures', 10,2)->nullable();
-            $table->integer('rating')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('foodbank_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

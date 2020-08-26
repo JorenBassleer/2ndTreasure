@@ -10,7 +10,7 @@ class Goodiebag extends Model
         'foodbank_id','user_id',
      'status_id', 'code', 
      'hasReceived', 'total_kg',
-     'treasures', 'rating', 
+     'treasures' 
     ];
     public function foods()
     {

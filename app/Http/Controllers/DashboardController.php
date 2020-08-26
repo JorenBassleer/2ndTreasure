@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Goodiebag;
 use Carbon\Carbon;
+use App\FoodbankStats;
 class DashboardController extends Controller
 {
     public function index()
@@ -15,6 +16,17 @@ class DashboardController extends Controller
             // Logged in user is foodbank
             $foodbank = auth()->user();
             $foodbankStats = $foodbank->foodbankstat;
+            // Get for the stats
+            $fourWeeksAgo = Carbon::now()->subWeeks(4)->format('d/m/Y');
+            $threeWeeksAgo = Carbon::now()->subWeeks(3)->format('d/m/Y');
+            $twoWeeksAgo = Carbon::now()->subWeeks(2)->format('d/m/Y');
+            $oneWeeksAgo = Carbon::now()->subWeeks(1)->format('d/m/Y');
+
+            $stats = FoodbankStats::where([
+                ['user_id', auth()->user()->id],
+                ['created_at', '>=', $fourWeeksAgo]
+                ])->orderBy('created_at', 'asc')->take(4)->get();
+
             // Get time now
             $aWeekAgo = Carbon::now()->subDays(7);
             // Get goodiebags that foodbank has received
@@ -29,6 +41,11 @@ class DashboardController extends Controller
                 'foodbankStats' => $foodbankStats == null ? 0 : $foodbankStats,
                 'isFoodbank' => 1,
                 'pastRecentGoodiebags' => $pastRecentGoodiebags,
+                'fourWeeksAgo' => $fourWeeksAgo,
+                'threeWeeksAgo' => $threeWeeksAgo,
+                'twoWeeksAgo' => $twoWeeksAgo,
+                'oneWeeksAgo' => $oneWeeksAgo,
+                'stats' => $stats,
             ]);
         }
         // Logged in user is normal user
