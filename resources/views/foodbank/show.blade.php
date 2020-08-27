@@ -68,7 +68,6 @@
 <script>
     var foodbank = @json($foodbank);
     var styledMap = @json($styledMap);
-    var key = @json(config('googlemaps.key'));
     var foodbankLoc = {lat: Number(foodbank.lat), lng: Number(foodbank.lng)};
 </script>
 <script type="text/javascript" src="{{ asset('js/map-foodbank.js') }}"></script>

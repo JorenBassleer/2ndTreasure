@@ -93,7 +93,6 @@
     <script>
         var foodbank = @json($goodiebag->foodbank);
         var styledMap = @json($styledMap);
-        var key = @json(config('googlemaps.key'));
     </script>
     <script type="text/javascript" src="{{asset('js/submit-confirm.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/map-code.js') }}"></script>
