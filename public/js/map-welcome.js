@@ -6,7 +6,7 @@ var markers = [];
 window.initMap = function () {
     let map, infoWindow;
     var styledMapType = new google.maps.StyledMapType(styledMap);
-    antwerp = new google.maps.LatLng(antLat, antLng);
+    antwerp = new google.maps.LatLng(51.2194475, 4.4024643);
     var mapOptions = {
         center: antwerp,
         zoom: 9,
