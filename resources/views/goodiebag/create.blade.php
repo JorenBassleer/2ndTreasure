@@ -104,6 +104,7 @@
     // Covert json map style for js
     var styledMap = @json($styledMap);
     var key = @json(config('googlemaps.key'));
+    console.log(key);
     if ( typeof document.getElementById('foodbank_id').value != 'undefined') {
         var foodbankMarkerId =document.getElementById('foodbank_id').value;
     }
