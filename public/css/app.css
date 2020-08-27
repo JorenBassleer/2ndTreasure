@@ -4330,6 +4330,10 @@ input[type=password]:focus {
   margin-top: 20px !important;
 }
 
+#map-code img {
+  max-width: none;
+}
+
 .navbar {
   box-shadow: none !important;
   background-color: transparent;
