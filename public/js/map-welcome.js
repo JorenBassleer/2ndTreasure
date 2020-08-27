@@ -53,24 +53,24 @@ window.initMap = function () {
         infoWindow.open(map);
     }
     // Click on marker from previous request
-    // if(foodbankMarkerId != null) {
-    //     google.maps.event.trigger( markers[foodbankMarkerId], 'click' );
-    // }
+    if(foodbankMarkerId != null) {
+        google.maps.event.trigger( markers[foodbankMarkerId], 'click' );
+    }
 };
 
 
 
-function setMarkers(map) {
-    for (var i = 0; i < foodbanks.length; i++) {
-        var foodbank = foodbanks[i];
-        var foodbankLoc = {
-            lat: Number(foodbank.lat),
-            lng: Number(foodbank.lng)
-        }
-        createMarker(foodbankLoc, foodbank, map, foodbank.id);
-    }
+// function setMarkers(map) {
+//     for (var i = 0; i < foodbanks.length; i++) {
+//         var foodbank = foodbanks[i];
+//         var foodbankLoc = {
+//             lat: Number(foodbank.lat),
+//             lng: Number(foodbank.lng)
+//         }
+//         createMarker(foodbankLoc, foodbank, map, foodbank.id);
+//     }
     
-}
+// }
 // Created this function to add Listener
 // If we add the eventlistener in for loop it only applies the last foodbank.id
 function createMarker(pos, foodbank, map, i) {
