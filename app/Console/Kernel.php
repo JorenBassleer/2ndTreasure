@@ -37,10 +37,14 @@ class Kernel extends ConsoleKernel
         // Flag bad users
         $schedule->command('command:checkUsersUndeliverd')
                 ->weekly();
-        // Send Mails for bad users
-        $schedule->command('command:checkUsersUndelivered')
-                 ->weekly();
+        // Send Mails for bad users;
         $schedule->command('command:sendFlaggedUsersMail')
+                ->weekly();
+        // Update weekly foodbankstats
+        $schedule->command('command:updateWeeklyFoodbankStats')
+                ->weekly();
+        // Update weekly user stats
+        $schedule->command('command:updateWeeklyUserStats')
                 ->weekly();
     }
 

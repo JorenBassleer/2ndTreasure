@@ -3281,34 +3281,63 @@ input[type=password]:focus {
   }
 }
 
-.dashboard-index .card-header h1 {
-  color: black;
-}
-
-.dashboard-index .rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  font-size: 20px;
-}
-
-.dashboard-index .rating > span {
-  position: relative;
-  width: 1.1em;
-}
-
-.dashboard-index .rating > span:hover:before,
-.dashboard-index .rating > span:hover ~ span:before {
-  content: "\2605";
-  position: absolute;
-}
-
-@media screen and (max-width: 692px) {
-  .rating {
-    display: none;
+@media screen and (max-width: 420px) {
+  .code-show {
+    padding: 0.5rem;
   }
 
-  .rating-title {
-    display: none;
+  .code-show .col-md-8 {
+    padding: 0px !important;
+  }
+
+  .code-show .card-body {
+    font-size: 13px !important;
+    padding: 0.75rem !important;
+  }
+
+  .code-show .card-body .delivered-btn a {
+    padding: 5px 9px !important;
+    font-size: 11px !important;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .dashboard-index .dashboard-content .w-50 {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 495px) {
+  .dashboard-index {
+    padding: 0px !important;
+  }
+
+  .dashboard-index .dashboard-content {
+    padding: 0px;
+  }
+
+  .dashboard-index .dashboard-content .container {
+    padding: 0px !important;
+  }
+
+  .dashboard-index .dashboard-content .container h3 {
+    font-size: 1.2rem;
+  }
+
+  .dashboard-index .dashboard-content .container .col-5 {
+    font-size: 12px;
+    padding: 0px !important;
+  }
+
+  .dashboard-index .dashboard-content .container .col-6 {
+    font-size: 12px;
+    padding: 0px !important;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  .dashboard-index .container {
+    display: none !important;
   }
 }
 
@@ -4427,18 +4456,7 @@ input[type=password]:focus {
   }
 }
 
-@media screen and (max-width: 375px) {
-  .navbar #make-goodie-center {
-    padding: 10px;
-    font-size: 10px;
-  }
-
-  .navbar .navbar-toggler {
-    padding: 5px !important;
-  }
-}
-
-@media screen and (max-width: 396px) {
+@media screen and (max-width: 431px) {
   .navbar #make-goodie-center {
     padding: 0px !important;
     font-size: 10px;
@@ -4457,6 +4475,17 @@ input[type=password]:focus {
     padding: 2.5px !important;
     width: 40px !important;
     height: 40px !important;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .navbar #make-goodie-center {
+    padding: 10px;
+    font-size: 10px;
+  }
+
+  .navbar .navbar-toggler {
+    padding: 5px !important;
   }
 }
 

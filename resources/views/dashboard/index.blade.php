@@ -3,7 +3,7 @@
 @section('content')
 <div class="dashboard-index container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-10 dashboard-content">
             @include('partials.errors')
             <div class="text-center mb-4">
                 <h1>Your dashboard</h1>
@@ -16,26 +16,26 @@
                                 <div class="text-center">Delete your goodiebags or deliver them. Otherwise you will get removed from our platform</div>
                             </div>
                         @endif
-                        <div class="card-header text-center"><h2>You currently have {{checkIfNull(auth()->user()->treasures) ? '0' : auth()->user()->treasures}} treasures</h2></div>
-                        <div class="card-body">
-                            <div class="text-center">
-                                Your highest place on the leaderboards ever achieved: {{checkIfNull($userStats->highest_place_ever) ? 'Nothing yet, go out there and get number 1' : $userStats->highest_place_ever}}
+                        <div class="text-center">
+                            <div class="card my-3">
+                                <div class="card-header">
+                                    Amount of food donated last weeks
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="food-donated"></canvas>
+                                </div>
                             </div>
-                            <div class="text-center mt-3">
-                                <a href="{{route('leaderboard.index')}}"><span class="mx-3"><i class="fa fa-trophy"></i></span>Check out the leaderboards</a>
-                            </div>
-                            <div class="text-center m-3">
-                                Your highest amount of treasures: {{checkIfNull($userStats->highest_number_of_treasures) ? 'You didn\'t acquire any treasures yet! ' : $userStats->highest_number_of_treasures}}
-                            </div>
-                            <div class="text-center m-3">
-                                Total amount of food donated: {{checkIfNull(presentWeightToKg($userStats->total_amount_of_kg_donated, true)) ? 'You haven\'t donated any food yet' : $userStats->total_amount_of_kg_donated . 'kg wow good job!'}}
-                            </div>
-                             <div> {{-- {{route('code.qr_confirmed',$goodiebag->code)}} --}}
-                              <div class="fb-share-button" data-layout="button" data-size="small"><a target="_blank" class="fb-xfbml-parse-ignore"> Share these stats: </a></div>
+                            <div class="card my-3">
+                                <div class="card-header">
+                                    Amount of people helped last weeks
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="people-helped"></canvas>
+                                </div>
                             </div>
                         </div>
                     @else
-                        <div>You have a total amount of {{$treasures}} treasures</div>
+                        <div>You currently have no stats yet. Once your account has enough activity and stats we will display them here</div>
                     @endif
                 @endif
                 @if(isset($foodbankStats))
@@ -53,28 +53,28 @@
                     </div>
                     @if($foodbankStats)
                         <div class="text-center">
-                            <div class="card">
+                            <div class="card my-3">
                                 <div class="card-header">
                                     Amount of food received last weeks
                                 </div>
                                 <div class="card-body">
-                                    <canvas id="food-received" width="400" height="150"></canvas>
+                                    <canvas id="food-received" ></canvas>
                                 </div>
                             </div>
-                            <div class="card">
+                            <div class="card my-3">
                                 <div class="card-header">
                                     Amount of food people helped
                                 </div>
                                 <div class="card-body">
-                                    <canvas id="people-helped" width="400" height="150"></canvas>
+                                    <canvas id="people-helped" ></canvas>
                                 </div>
                             </div>
-                            <div class="card">
+                            <div class="card my-3">
                                 <div class="card-header">
                                     Amount of food goodiebags received
                                 </div>
                                 <div class="card-body">
-                                    <canvas id="goodiebags-received" width="400" height="150"></canvas>
+                                    <canvas id="goodiebags-received" ></canvas>
                                 </div>
                             </div>
                         </div>
@@ -111,13 +111,12 @@
                                 </div>
                                 <hr>
                             @endforeach
-                            {{-- {{ \Carbon\Carbon::parse($recentGoodiebag->updated_at)->format('H:i d/m/Y')}} --}}
                         </div>
                         <div class="float-right">
                             {{$pastRecentGoodiebags->links()}}
                         </div>
                     @else
-                        <div>No data yet</div>
+                        <div>No data yet. Once users have donated goodiebags to you over a time of 4 weeks you can track your stats here</div>
                     @endif
                 @endif
             </div>  
@@ -130,66 +129,109 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-    var food = document.getElementById('food-received').getContext('2d');
-    var people = document.getElementById('people-helped').getContext('2d');
-    var goodiebags = document.getElementById('goodiebags-received').getContext('2d');
-    var stats = @json($stats);
-    console.log(stats[0].total_amounnt_of_kg_received);
+    var isFoodbank = @json($isFoodbank);
+    // Charts for foodbank
+    if(isFoodbank == 1) {
+        var food = document.getElementById('food-received').getContext('2d');
+        var people = document.getElementById('people-helped').getContext('2d');
+        var goodiebags = document.getElementById('goodiebags-received').getContext('2d');
+        var stats = @json($stats);
+        var chart = new Chart(food, {
+            // The type of chart we want to create
+            type: 'line',
 
-    var chart = new Chart(food, {
-        // The type of chart we want to create
-        type: 'line',
+            // The data for our dataset
+            data: {
+                labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
+                datasets: [{
+                    label: 'Kg food received',
+                    backgroundColor: 'rgb(0,168,150)',
+                    borderColor: 'rgb(0,0,0)',
+                    data: [stats[0].amount_of_kg_received, stats[1].amount_of_kg_received, stats[2].amount_of_kg_received, stats[3].amount_of_kg_received],
+                }]
+            },
 
-        // The data for our dataset
-        data: {
-            labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
-            datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [stats[0].total_amount_of_kg_received, stats[1].total_amount_of_kg_received, stats[2].total_amount_of_kg_received, stats[3].total_amount_of_kg_received],
-            }]
-        },
+            // Configuration options go here
+            options: {}
+        });
+        var chart2 = new Chart(people, {
+            // The type of chart we want to create
+            type: 'line',
 
-        // Configuration options go here
-        options: {}
-    });
-    var chart2 = new Chart(people, {
-        // The type of chart we want to create
-        type: 'line',
+            // The data for our dataset
+            data: {
+                labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
+                datasets: [{
+                    label: 'People helped',
+                    backgroundColor: 'rgb(0,168,150)',
+                    borderColor: 'rgb(0,0,0)',
+                    data: [Math.round(stats[0].amount_of_treasures_generated), Math.round(stats[1].amount_of_treasures_generated), Math.round(stats[2].amount_of_treasures_generated), Math.round(stats[3].amount_of_treasures_generated)]
+                }]
+            },
 
-        // The data for our dataset
-        data: {
-            labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
-            datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [Math.round(stats[0].total_amount_of_treasures_generated), Math.round(stats[1].total_amount_of_treasures_generated), Math.round(stats[2].total_amount_of_treasures_generated), Math.round(stats[3].total_amount_of_treasures_generated)]
-            }]
-        },
+            // Configuration options go here
+            options: {}
+        });
+        var chart3 = new Chart(goodiebags, {
+            // The type of chart we want to create
+            type: 'line',
 
-        // Configuration options go here
-        options: {}
-    });
-    var chart3 = new Chart(goodiebags, {
-        // The type of chart we want to create
-        type: 'line',
+            // The data for our dataset
+            data: {
+                labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: 'rgb(0,168,150)',
+                    borderColor: 'rgb(0,0,0)',
+                    data: [stats[0].amount_of_goodiebags_received, stats[1].amount_of_goodiebags_received, stats[2].amount_of_goodiebags_received, stats[3].amount_of_goodiebags_received]
+                }]
+            },
 
-        // The data for our dataset
-        data: {
-            labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
-            datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [stats[0].total_amount_of_goodiebags_received, stats[1].total_amount_of_goodiebags_received, stats[2].total_amount_of_goodiebags_received, stats[3].total_amount_of_goodiebags_received]
-            }]
-        },
+            // Configuration options go here
+            options: {}
+        });
+    }
+    else {
+        var food = document.getElementById('food-donated').getContext('2d');
+        var people = document.getElementById('people-helped').getContext('2d');
+        var stats = @json($stats);
+        var chart = new Chart(food, {
+            // The type of chart we want to create
+            type: 'line',
 
-        // Configuration options go here
-        options: {}
-    });
+            // The data for our dataset
+            data: {
+                labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
+                datasets: [{
+                    label: 'Kg food donated',
+                    backgroundColor: 'rgb(0,168,150)',
+                    borderColor: 'rgb(0,0,0)',
+                    data: [stats[0].amount_of_kg_donated, stats[1].amount_of_kg_donated, stats[2].amount_of_kg_donated, stats[3].amount_of_kg_donated],
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+        var chart2 = new Chart(people, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: [@json($fourWeeksAgo), @json($threeWeeksAgo), @json($twoWeeksAgo), @json($oneWeeksAgo)],
+                datasets: [{
+                    label: 'People helped',
+                    backgroundColor: 'rgb(0,168,150)',
+                    borderColor: 'rgb(0,0,0)',
+                    data: [Math.round(stats[0].number_of_treasures), Math.round(stats[1].number_of_treasures), Math.round(stats[2].number_of_treasures), Math.round(stats[3].number_of_treasures)]
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+    }
 });
 </script>
 @endsection

@@ -1,29 +1,38 @@
-.dashboard-index {
-  .card-header h1 {
-    color: black;
-  }
-  .rating {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    font-size: 20px;
-  }
-  .rating > span {
-    position: relative;
-    width: 1.1em;
-  }
-  .rating > span:hover:before,
-  .rating > span:hover ~ span:before {
-    content: "\2605";
-    position: absolute;
+@media screen and (max-width: 580px) {
+  .dashboard-index {
+    .dashboard-content {
+      .w-50 {
+        width: 100% !important;
+      }
+    }
   }
 }
-
-
-@media screen and (max-width: 692px) {
-    .rating {
-      display: none;
+@media screen and (max-width: 495px) {
+  .dashboard-index {  
+    padding: 0px !important;
+    .dashboard-content {
+      padding: 0px;
+      .container {
+        padding: 0px !important;
+        h3 {
+          font-size: 1.2rem;
+        }
+        .col-5 {
+          font-size: 12px;
+          padding: 0px !important;
+        }
+        .col-6 {
+          font-size: 12px;
+          padding: 0px !important;
+        }
+      }
     }
-    .rating-title {
-      display: none;
+  }
+}
+@media screen and (max-width: 399px) {
+  .dashboard-index {
+    .container {
+      display: none !important;
     }
+  }
 }

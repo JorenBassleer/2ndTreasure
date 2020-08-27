@@ -24,9 +24,6 @@
                         </div>
                     </div>
                     @auth
-                        <div class="text-center">
-                            The treasures have been added to your account!
-                        </div>
                         
                         <div class="text-center-btn">
                             <a href="{{route('dashboard.index')}}" class="button2">Check your balance</a>

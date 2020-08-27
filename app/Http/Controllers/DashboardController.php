@@ -7,28 +7,31 @@ use App\User;
 use App\Goodiebag;
 use Carbon\Carbon;
 use App\FoodbankStats;
+use App\WeeklyFoodbankStats;
+use App\WeeklyUserStats;
+use App\WeeklyUserkStats;
 class DashboardController extends Controller
 {
     public function index()
     {
+        // Get lor labels in graphs
+        $fourWeeksAgo = Carbon::now()->subWeeks(4)->format('d/m/Y');
+        $threeWeeksAgo = Carbon::now()->subWeeks(3)->format('d/m/Y');
+        $twoWeeksAgo = Carbon::now()->subWeeks(2)->format('d/m/Y');
+        $oneWeeksAgo = Carbon::now()->subWeeks(1)->format('d/m/Y');
+        // Get time now
+        $aWeekAgo = Carbon::now()->subDays(7);
 
         if(auth()->user()->isFoodbank == 1) {
             // Logged in user is foodbank
             $foodbank = auth()->user();
             $foodbankStats = $foodbank->foodbankstat;
-            // Get for the stats
-            $fourWeeksAgo = Carbon::now()->subWeeks(4)->format('d/m/Y');
-            $threeWeeksAgo = Carbon::now()->subWeeks(3)->format('d/m/Y');
-            $twoWeeksAgo = Carbon::now()->subWeeks(2)->format('d/m/Y');
-            $oneWeeksAgo = Carbon::now()->subWeeks(1)->format('d/m/Y');
 
-            $stats = FoodbankStats::where([
+            $stats = WeeklyFoodbankStats::where([
                 ['user_id', auth()->user()->id],
                 ['created_at', '>=', $fourWeeksAgo]
                 ])->orderBy('created_at', 'asc')->take(4)->get();
 
-            // Get time now
-            $aWeekAgo = Carbon::now()->subDays(7);
             // Get goodiebags that foodbank has received
             // Only the recently ones
             $pastRecentGoodiebags = Goodiebag::where([
@@ -52,10 +55,19 @@ class DashboardController extends Controller
         $user = auth()->user();
         // Get stats from user
         $userStats = $user->userstat;
+        $stats = WeeklyUserStats::where([
+            ['user_id', auth()->user()->id],
+            ['created_at', '>=', $fourWeeksAgo]
+            ])->orderBy('created_at', 'asc')->take(4)->get();
         return view('dashboard.index')->with([
             'userStats' => $userStats == null ? 0 : $userStats,
             'treasures' => $user->treasures == null ? 0 : $user->treasures,
-            'isFoodbank' => 0,   
+            'isFoodbank' => 0,
+            'fourWeeksAgo' => $fourWeeksAgo,
+            'threeWeeksAgo' => $threeWeeksAgo,
+            'twoWeeksAgo' => $twoWeeksAgo,
+            'oneWeeksAgo' => $oneWeeksAgo,
+            'stats' => $stats,
         ]);
     }
 }

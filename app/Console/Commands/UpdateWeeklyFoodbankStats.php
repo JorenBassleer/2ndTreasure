@@ -1,39 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
-use Illuminate\Http\Request;
-use App\Goodiebag;
+use Illuminate\Console\Command;
 use App\User;
-use App\UserStats;
-use App\FoodbankStats;
-use App\WeeklyLeaderBoard;
-use App\WeeklyUserStats;
-use App\WebsiteStats;
-use App\Traits\LeaderBoardsTrait;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\FlaggedUsersMail;
-use App\UserRating;
 use App\WeeklyFoodbankStats;
-use Config;
-
-class CronController extends Controller
+class UpdateWeeklyFoodbankStats extends Command
 {
-    use LeaderBoardsTrait;
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:updateWeeklyFoodbankStats';
 
-    public function cleanDatabase()
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Update the weekly stats of the foodbanks';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $emptyRows = Goodiebag::whereNull(['foodbank_id', 'status_id'])->get();
-        if($emptyRows == null) {
-            return response()->json('No empty rows', 200);
-        }
-        foreach($emptyRows as $emptyRow) {
-            $emptyRow->delete();
-        }
-        return response()->json('Database cleaned', 200);
+        parent::__construct();
     }
 
-    public function testing()
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
     {
         // Get all foodbanks
         $foodbanks = User::onlyFoodbanks()->get();
@@ -64,7 +67,5 @@ class CronController extends Controller
                 $weeklyFoodbankStats->save();
             }
         }
-        
-
     }
 }

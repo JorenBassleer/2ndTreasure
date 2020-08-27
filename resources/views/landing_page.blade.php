@@ -45,10 +45,9 @@
         </div>
         <div class="home-boxes">
             <div class="left">
-                <h3>Collect Treasures</h3>
-                <p>Give goodiebags to foodbanks and receive our currency treasures.<br>
-                You can buy a couple of things (more inc) with treasures.
-                1 full treasure is equal to one day of food for the average human</p>
+                <h3>Track your stats</h3>
+                <p>We track the goodiebags you donate to the foodbanks<br>
+                After you spend 4 weeks and donate enough goodiebags you will be able to see your progress in the dashboard</p>
                 <div class="donate-btn">
                     <a class="button1" href="{{route('register')}}">Register here!</a>
                 </div>

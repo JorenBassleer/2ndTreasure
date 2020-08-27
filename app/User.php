@@ -50,9 +50,17 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\UserStats');
     }
+    public function weeklyuserstats()
+    {
+        return $this->hasMany('App\WeeklyUserStats');
+    }
     public function foodbankstat()
     {
         return $this->hasOne('App\FoodbankStats');
+    }
+    public function weeklyfoodbankstats()
+    {
+        return $this->hasMany('App\WeeklyFoodbankStats');
     }
     public function foodbank()
     {

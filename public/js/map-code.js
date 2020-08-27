@@ -35,9 +35,6 @@ window.initMap = function() {
             lng: position.coords.longitude
         };
 
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('You are somewhere here');
-        infoWindow.open(map);
         map.setCenter(pos);
         }, function() {
             // User has disabled location usage

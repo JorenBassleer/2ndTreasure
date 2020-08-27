@@ -28,7 +28,7 @@
                         {{$goodiebag->foodbank->province}}
                     </div>
                     <div class="text-center mt-3 mb-3">
-                        You will gain <strong>{{pointToComma($goodiebag->treasures)}}</strong> amount of treasures
+                        You will give <strong>{{pointToComma($goodiebag->treasures)}}</strong> worth of days supplies. Wow!
                     </div>
                     <div class="text-center mt-3 mb-3">
                         <div>Don't forget to bring everything what you placed in your goodiebag:</div>
@@ -58,10 +58,10 @@
             </div>
             @else
                 <div class="text-center card-body">
-                    You have deliverd your goodiebag! Thank you!
+                    You have delivered your goodiebag! Good job!
                 </div>
                 <div class="button-div text-center m-3">
-                        <a href="{{route('dashboard.index')}}" class="button2">Collect your treasures</a>   
+                        <a href="{{route('dashboard.index')}}" class="button2">Check out your dashboard</a>   
                 </div>
                 <div class="text-center">
                     You stopped around {{presentWeightToKg($goodiebag->total_kg, 1)}} to going to waste!
