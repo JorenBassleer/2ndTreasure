@@ -38,16 +38,6 @@
                                             </button>
                                         </div>
                                     </div>
-                                    {{-- <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <input id="food_input" type="text" class="form-control @error($food->id) is-invalid @enderror" name="{{$food->type}}" value="{{ old($food->type) }}" autocomplete="{{foodBackend($food->type)}} " autofocus placeholder="{{displayFoodUnit($food->type)}}">
-                                            @error($food->type)
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
                                 @endforeach
                             </div>
                             @if(request()->has('foodbank_id'))
