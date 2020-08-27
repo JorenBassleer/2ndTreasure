@@ -27,7 +27,7 @@ window.initMap = function () {
     //Associate the styled map with the MapTypeId and set it to display.
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
-    // setMarkers(map);
+    setMarkers(map);
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -60,17 +60,17 @@ window.initMap = function () {
 
 
 
-// function setMarkers(map) {
-//     for (var i = 0; i < foodbanks.length; i++) {
-//         var foodbank = foodbanks[i];
-//         var foodbankLoc = {
-//             lat: Number(foodbank.lat),
-//             lng: Number(foodbank.lng)
-//         }
-//         createMarker(foodbankLoc, foodbank, map, foodbank.id);
-//     }
+function setMarkers(map) {
+    for (var i = 0; i < foodbanks.length; i++) {
+        var foodbank = foodbanks[i];
+        var foodbankLoc = {
+            lat: Number(foodbank.lat),
+            lng: Number(foodbank.lng)
+        }
+        createMarker(foodbankLoc, foodbank, map, foodbank.id);
+    }
     
-// }
+}
 // Created this function to add Listener
 // If we add the eventlistener in for loop it only applies the last foodbank.id
 function createMarker(pos, foodbank, map, i) {

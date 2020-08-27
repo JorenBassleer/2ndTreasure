@@ -4253,6 +4253,10 @@ input[type=password]:focus {
     padding-right: 0px !important;
   }
 
+  .create-goodie-page .card-deck .card .input-group #input-food {
+    width: 50% !important;
+  }
+
   .create-goodie-page .card-deck .card .input-group label {
     text-align: center !important;
     width: 100% !important;

@@ -170,6 +170,9 @@
         .card-deck {
             .card {
                 .input-group {
+                    #input-food {
+                        width: 50% !important;
+                    }
                     label {
                         text-align: center !important;
                         width: 100% !important;

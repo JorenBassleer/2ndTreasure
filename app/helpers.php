@@ -1,4 +1,4 @@
-<?php
+    <?php
 function replaceSpace($data)
 {
     return str_replace('_', ' ', $data);
@@ -39,7 +39,7 @@ function displayFoodUnit($food)
             return "pieces";
             break;
         case "bread":
-            return "slices";
+            return "";
             break;
         case "dairy":
             return "/L";

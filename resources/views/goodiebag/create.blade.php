@@ -20,7 +20,7 @@
                             <div class="input-form">
                                 @foreach($foods as $food)
                                     <div class="input-group plus-minus-input my-3 justify-content-center">
-                                        <label id="label-food" for="{{($food->id)}}" class="col-md-3 col-form-label text-md-left">{{ __(displayFoodText($food->type)) }}  {{__(displayFoodUnit($food->type))}}</label>
+                                        <label id="label-food" for="{{($food->id)}}" class="col-md-3 col-form-label text-md-left">{{ __(displayFoodText($food->type)) }} {{__(displayFoodUnit($food->type))}}</label>
                                         <div class="input-group-button">
                                             <button type="button" class="btn btn-circle btn-sm" data-quantity="minus" data-field="{{$food->type}}">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
@@ -92,6 +92,7 @@
 @endsection
 
 @section('scripts')
+<script type="text/javascript" src="{{ asset('js/map-welcome.js') }}"></script>
 
 <script type="text/javascript" src="{{asset('js/goodiebag-create-buttons.js')}}"></script>
 <script>
@@ -115,5 +116,4 @@
         document.getElementById('goodiebag_form').submit();
     }
 </script>
-<script type="text/javascript" src="{{ asset('js/map-welcome.js') }}"></script>
 @endsection
