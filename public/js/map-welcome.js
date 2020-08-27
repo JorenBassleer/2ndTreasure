@@ -38,6 +38,7 @@ $(function() {
                     lng: position.coords.longitude
                 };
                 map.setCenter(pos);
+                map.setZoom(9);
             }, function () {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
