@@ -51,7 +51,7 @@
                 <div class="card card-2">
                     <div class="card-body">
                         <div class="col-map rounded">
-                            <div id="map-goodiebag" class="map ml-4 rounded img-fluid float-right"></div>
+                            <div id="map-goodiebag" class="map ml-4 rounded float-right"></div>
                         </div>
                     </div>
                 </div>

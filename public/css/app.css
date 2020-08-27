@@ -4265,6 +4265,14 @@ input[type=password]:focus {
   .create-goodie-page .card-deck .card-2 {
     margin: 0;
   }
+
+  .create-goodie-page .card-deck .card-2 #map-goodiebag {
+    margin-top: 50px !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
 
 .thankyou-page h1 {

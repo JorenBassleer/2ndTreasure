@@ -181,7 +181,15 @@
             }
             .card-2 {
                 margin: 0;
+                #map-goodiebag {
+                    margin-top: 50px !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
             }
+            
         }
     }
 }
