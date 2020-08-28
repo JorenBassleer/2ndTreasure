@@ -36,5 +36,11 @@ class GoodiebagsTableSeeder extends Seeder
             'hasReceived' => 1,
             'treasures' => 0.336,
         ]);
+
+        for($i=0;$i<212;$i++) {
+            Goodiebag::updateOrCreate([
+                'hasReceived' => 1,
+            ]);
+        }
     }
 }

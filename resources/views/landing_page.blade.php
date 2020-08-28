@@ -67,12 +67,12 @@
             </div>
             <div class="">
                 <i class=""></i>
-                <div id="goodiebags-created" class="counter" data-target="{{$people_helped}}">0</div>
+                <div id="goodiebags-created" class="counter" data-target="{{$goodiebags_createed}}">0</div>
                 <h3>Goodiebags created</h3>
             </div>
             <div class="">
                 <i class=""></i>
-                <div id="people-helped" class="counter" data-target="{{$goodiebags_created}}">0</div>
+                <div id="people-helped" class="counter" data-target="{{$people_helped}}">0</div>
                 <h3>Amount of people helped</h3>
             </div>
         </div>

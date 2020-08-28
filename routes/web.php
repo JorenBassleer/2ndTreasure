@@ -19,7 +19,6 @@ Route::get('/', 'LandingPageController@displayLandingPage')->name('landing');
 Auth::routes();
 
 
-// Route::get('/home', 'HomeController@index')->name('home');
 
 // Foodbank \\
 Route::get('/foodbank/form', 'FoodbankController@showForm')->name('foodbank.show_form');
