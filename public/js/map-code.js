@@ -75,7 +75,6 @@ function calcRoute() {
     var directionsRenderer = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
     var styledMapType = new google.maps.StyledMapType(styledMap);
-
     var mapOptions = {
         center: antwerp,
         zoom: 13,
