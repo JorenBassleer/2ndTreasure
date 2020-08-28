@@ -38,7 +38,9 @@ class GoodiebagsTableSeeder extends Seeder
         ]);
 
         for($i=0;$i<212;$i++) {
-            Goodiebag::updateOrCreate([
+            Goodiebag::create([
+                'user_id' => 1,
+                'foodbank_id' => 1,
                 'hasReceived' => 1,
             ]);
         }
