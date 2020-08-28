@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function(event){
         var maxVal = parseInt($('input[name='+fieldName+']').attr('max'));
         // If is not undefined && current value is below the maxt
         if (!isNaN(currentVal)) {
-            console.log(maxVal);
 
             // Set value to max if number is bigger than max
             if(currentVal >= maxVal) {
@@ -67,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function(event){
             // Set value to max if value is bigger than max
             if(currentVal > maxVal) {
                 $('span[name=' + fieldName +']').text('Value can\'t be greater than ' + maxVal);
-                console.log( $('span[name=' + fieldName +']'));
                 // $('input[name='+fieldName+']').val(maxVal)
             }
             if(fieldName != 'meat' && fieldName != 'fish') {

@@ -16,18 +16,8 @@ use App\Mail\ForFlaggedUsersMail;
 
 Route::get('/', 'LandingPageController@displayLandingPage')->name('landing');
 
-Route::get('/419', function() {
-    return view('errors.419');
-});
-
-Route::post('error/500', 'ErrorFormController@postForm')->name('post.form_error');
-
 Auth::routes();
 
-// Doesn't need a lot of styling \\
-Route::get('/email',function() {
-    return new ForFlaggedUsersMail();
-});
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
@@ -41,9 +31,6 @@ Route::resource('/foodbank', 'FoodbankController')->only([
 Route::resource('/goodiebag', 'GoodiebagController')->only([
     'destroy', 'store', 'create'
 ]);
-
-Route::get('cron/clean', 'CronController@cleanDatabase');
-Route::get('cron/testing', 'CronController@testing');
 
 // Users
 Route::group(['middleware' => ['auth']], function () {
@@ -64,5 +51,3 @@ Route::group(['middleware' => ['auth', 'foodbank']], function () {
 
 Route::get('/goodiebag/{goodiebag}/delivered', 'CodeController@checkIfDelivered')->name('code.check_if_delivered');
 Route::get('/code/{goodiebag}', 'CodeController@show')->name('show.code');
-
-Route::get('/cookie/destroy', 'CookieController@destroyCookie');
