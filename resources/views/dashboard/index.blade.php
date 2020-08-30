@@ -17,6 +17,7 @@
                             </div>
                         @endif
                         <div class="text-center">
+                            <a href="{{route('leaderboard.index')}}">Look at the leaderboards</a>
                             <div class="card my-3">
                                 <div class="card-header">
                                     Amount of food donated last weeks

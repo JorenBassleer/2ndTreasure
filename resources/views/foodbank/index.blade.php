@@ -14,7 +14,7 @@
                         <div class="m-2">
                             <div class="card-body">
                                 <h3 class="card-title">{{$foodbank->name}}</h3>
-                                <p class="card-text">{{$foodbank->foodbank->details}}</p>
+                                {{-- <p class="card-text">{{$foodbank->foodbank->details}}</p> --}}
                                 <small class="text-muted">Last updated 3 mins ago</small>
                             </div>
                         </div>
