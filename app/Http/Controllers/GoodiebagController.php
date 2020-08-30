@@ -29,8 +29,6 @@ class GoodiebagController extends Controller
         // Get style of google maps
         $json = Storage::disk('local')->get('json/map-style.json');
         $json = json_decode($json, true);
-        $cookie = 'idk';
-        return redirect()->route('landing')->withCookie(cookie('test', $cookie));
         return view('goodiebag.create')->with([
             'foods' => Food::all(),
             'foodbanks' => User::where('isFoodbank', true)
