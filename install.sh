@@ -1,5 +1,5 @@
 # Change to the project directory
-cd /data/sites/web/1819jorenbassleernxtmediatecheu/subsites/bassleer.webshop.1819.joren.bassleer.nxtmediatech.eu/Bassleer-Webshop
+cd /data/sites/web/1819jorenbassleernxtmediatecheu/subsites/2ndtreasure.1819.joren.bassleer.nxtmediatech.eu
 
 # Turn on maintenance mode
 php artisan down

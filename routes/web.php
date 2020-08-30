@@ -15,7 +15,6 @@ use App\Mail\ForFlaggedUsersMail;
 */
 
 Route::get('/', 'LandingPageController@displayLandingPage')->name('landing');
-
 Auth::routes();
 
 
