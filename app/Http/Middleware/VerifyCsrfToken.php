@@ -14,4 +14,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
     ];
+
+    public function handle($request) {
+        dd($request, $this);
+    }
 }
