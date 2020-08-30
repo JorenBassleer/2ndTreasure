@@ -15,7 +15,7 @@ class VerifyCsrfToken extends Middleware
         //
     ];
 
-    public function handle($request) {
-        dd($request, $this);
-    }
+    // public function handle($request) {
+    //     dd($request, $this);
+    // }
 }
