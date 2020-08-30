@@ -26,7 +26,6 @@ class GoodiebagController extends Controller
      */
     public function create()
     {
-        dd(Cookie::get());
         // Get style of google maps
         $json = Storage::disk('local')->get('json/map-style.json');
         $json = json_decode($json, true);
@@ -38,7 +37,7 @@ class GoodiebagController extends Controller
             'lat' => 51.2194475,
             'lng' => 4.4024643,
             'styledMap' => $json,
-        ]);
+        ])->withCookie(cookie('test', 'idk'));
     }
     /**
      * Store a newly created resource in storage.
