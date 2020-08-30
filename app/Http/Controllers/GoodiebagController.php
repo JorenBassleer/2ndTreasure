@@ -26,7 +26,6 @@ class GoodiebagController extends Controller
      */
     public function create()
     {
-        dd(is_writable(config('session.files')));
         // Get style of google maps
         $json = Storage::disk('local')->get('json/map-style.json');
         $json = json_decode($json, true);
