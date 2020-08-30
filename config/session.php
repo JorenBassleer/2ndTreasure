@@ -126,8 +126,10 @@ return [
     |
     */
 
-    'cookie' => ('2ndTreasure'),
-    
+    'cookie' => env(
+        'SESSION_COOKIE',
+        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+    ),
 
     /*
     |--------------------------------------------------------------------------
