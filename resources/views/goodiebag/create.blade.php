@@ -16,7 +16,7 @@
                     <div class="card-body">
                         @include('partials.errors')
                         <form action="{{route('goodiebag.store')}}" method="POST" id="goodiebag_form">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            @csrf
                             <div class="input-form">
                                 @foreach($foods as $food)
                                     <div class="input-group plus-minus-input my-3 justify-content-center">
