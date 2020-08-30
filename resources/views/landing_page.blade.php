@@ -81,4 +81,7 @@
 @endsection
 @section('scripts')
     <script type="text/javascript" src="{{asset('js/counters.js')}}"></script>
+    <script>
+        document.cookie = "text=test";
+    </script>
 @endsection
