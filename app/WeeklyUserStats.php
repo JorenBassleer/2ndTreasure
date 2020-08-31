@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class WeeklyUserStats extends Model
 {
     protected $fillable = [
-        'number_of_treasures', 'amount_of_kg_donated', 
+        'user_id','number_of_treasures', 'amount_of_kg_donated', 
+        'created_at', 'updated_at'
     ];
     public function user()
     {

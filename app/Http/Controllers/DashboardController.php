@@ -25,8 +25,7 @@ class DashboardController extends Controller
         if(auth()->user()->isFoodbank == 1) {
             // Logged in user is foodbank
             $foodbank = auth()->user();
-            $foodbankStats = $foodbank->foodbankstat;
-
+            $foodbankStats = $foodbank->weeklyfoodbankstats;
             $stats = WeeklyFoodbankStats::where([
                 ['user_id', auth()->user()->id],
                 ['created_at', '>=', $fourWeeksAgo]
@@ -54,7 +53,7 @@ class DashboardController extends Controller
         // Logged in user is normal user
         $user = auth()->user();
         // Get stats from user
-        $userStats = $user->userstat;
+        $userStats = $user->weeklyuserstats;
         $stats = WeeklyUserStats::where([
             ['user_id', auth()->user()->id],
             ['created_at', '>=', $fourWeeksAgo]

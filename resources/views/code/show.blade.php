@@ -28,12 +28,15 @@
                         {{$goodiebag->foodbank->province}}
                     </div>
                     <div class="text-center mt-3 mb-3">
+                        <strong>Opening hours:  </strong>{{$goodiebag->foodbank->foodbank->opening_hours}}
+                    </div>
+                    <div class="text-center mt-3 mb-3">
                         You will give <strong>{{pointToComma($goodiebag->treasures)}}</strong> worth of days supplies. Wow!
                     </div>
                     <div class="text-center mt-3 mb-3">
                         <div>Don't forget to bring everything what you placed in your goodiebag:</div>
                         @foreach($goodiebag->foods as $food)
-                            <span>{{displayFoodText($food->type)}}: {{displayFoodQuantity($food->pivot->amount, $food->type)}}<br></span>
+                            <span><strong>{{displayFoodText($food->type)}}:</strong>{{displayFoodQuantity($food->pivot->amount, $food->type)}}<br></span>
                         @endforeach
                     </div>
                     <div class="delivered-btn text-center">

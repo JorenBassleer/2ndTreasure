@@ -48,7 +48,7 @@
                             <div class="row w-50 p-3">
                                 <label for="code" class="col-form-label">{{__('Enter code: ')}}</label>
                                 <input type="text" class="form-control" name="code" id="code">
-                                <button type='submit' class="btn btn-primary mt-3">{{__('Confirm goodiebag received')}}</button>
+                                <button type='submit' class="button1 mt-4">{{__('Confirm goodiebag received')}}</button>
                             </div>
                         </form>
                     </div>

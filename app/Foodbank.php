@@ -10,6 +10,7 @@ class Foodbank extends Authenticatable
     protected $fillable = [
         'user_id' ,
         'company_number','details',
+        'website', 'opening_hours'
     ];
     public function user()
     {

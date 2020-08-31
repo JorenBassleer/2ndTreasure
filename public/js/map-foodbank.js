@@ -39,8 +39,7 @@ function setMarkers(map){
         "</div>" +
         '<h2 id="firstHeading" class="firstHeading">'+foodbank.name+'</h2>' +
         '<div id="bodyContent">' +
-        "<p>" + foodbank.name + " " + foodbank.details + "</p>" +
-        '<a href="https://2ndtreasure.live/foodbank/'+ foodbank.id +'">Link</a>' +
+        '<a href="https://2ndtreasure.live/goodiebag/create?foodbank_id='+ foodbank.id +'">Donate</a>' +
         "</div>" +
         "</div>";
     const infowindow = new google.maps.InfoWindow({

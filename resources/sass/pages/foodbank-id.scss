@@ -18,6 +18,7 @@
     }
 
     .details-list {
+        
         ul {
             list-style-type: none;
             padding: 0;
@@ -26,6 +27,7 @@
             li a {
                 color: #00a896;
             }
+
         }
     }
 
@@ -36,10 +38,17 @@
     .details-div {
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
     }
 
     .donate-to-this {
-        margin-top: 17px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    .foodbank-edit {
+        textarea {
+            width: 100%;
+        }
     }
 }
 
@@ -54,7 +63,7 @@
 @media screen and(max-width: 556px) {
     .foodbank-id {
         .details-div {
-            flex-direction: column;
+            
 
             .details-list {
                 margin-bottom: 20px;

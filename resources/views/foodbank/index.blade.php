@@ -22,6 +22,9 @@
                     </div>
                 @endforeach
             </div>
+            <div class="my-3 links">
+                {{$foodbanks->links()}}
+            </div>
         </div>
     </div>
 </div>

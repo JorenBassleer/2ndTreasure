@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:updateWebsiteStats')
                 ->weekly();
         // Flag bad users
-        $schedule->command('command:checkUsersUndeliverd')
+        $schedule->command('command:checkUsersUndelivered')
                 ->weekly();
         // Send Mails for bad users;
         $schedule->command('command:sendFlaggedUsersMail')

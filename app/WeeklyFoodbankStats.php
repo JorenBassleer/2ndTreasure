@@ -8,7 +8,8 @@ class WeeklyFoodbankStats extends Model
 {
     protected $fillable = [
         'user_id', 'amount_of_kg_received',
-        'amount_of_treasures_generated', 'amount_of_goodiebags_received'
+        'amount_of_treasures_generated', 'amount_of_goodiebags_received',
+        'created_at', 'updated_at'
     ];
     public function foodbank()
     {

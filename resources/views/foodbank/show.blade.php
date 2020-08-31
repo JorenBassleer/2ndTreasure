@@ -15,7 +15,8 @@
                                     <li><a href="mailto:{{$foodbank->email}}">{{$foodbank->email}}</li></a>
                                     <li><a href="tel:{{$foodbank->phone}}">{{$foodbank->phone}}</li></a>
                                     <li><a href="{{$foodbank->website}}">{{$foodbank->website}}</li></a>
-                                    <li><a href="#" id="address_click" onclick="displayMap()">{{$foodbank->address}} {{$foodbank->city}} {{$foodbank->postalcode}} {{$foodbank->province}}</li></a>
+                                    <li>{{$foodbank->address}} {{$foodbank->city}} {{$foodbank->postalcode}} {{$foodbank->province}}</li>
+                                    <li class="my-2"><strong>Opening hours: </strong>{{$foodbank->foodbank->opening_hours}}</li>
                                 </ul>
                                 {{$foodbank->foodbank->details}}
                             </div>
@@ -38,24 +39,57 @@
                         <h2><input type="text" name="foodbank_name" id="" value="{{$foodbank->name}}"></h2>
                         <div class="card-header">{{__('Contact details')}}</div>
 
-                        <div class="card-body">
+                        <div class="card-body foodbank-edit">
                             <ul>
-                                <li><input type="text" name="foodbank_email" id="" value="{{$foodbank->email}}"></li>
-                                <li><input type="text" name="foodbank_phone" id="" value="{{$foodbank->phone}}"></li>
-                                <li><input type="text" name="foodbank_address" id="" value="{{$foodbank->address}}"></li>
-                                <li><input type="text" name="foodbank_city" id="" value="{{$foodbank->city}}"></li>
-                                <li><input type="text" name="foodbank_postalcode" id="" value="{{$foodbank->postalcode}}"></li>
-                                <li><input type="text" name="foodbank_province" id="" value="{{$foodbank->province}}"></li>
-                                <li><input type="text" name="foodbank_country" id="" value="{{$foodbank->country}}"></li>
+                                <li>
+                                    <label for="foodbank_email">Email:</label>
+                                    <input type="text" name="foodbank_email" id="" value="{{$foodbank->email}}">
+                                </li>
+                                <li>
+                                    <label for="foodbank_phone">Phone number:</label>
+                                    <input type="text" name="foodbank_phone" id="" value="{{$foodbank->phone}}">
+                                </li>
+                                <li>
+                                    <label for="foodbank_address">Address:</label>
+                                    <input type="text" name="foodbank_address" id="" value="{{$foodbank->address}}">
+                                </li>
+                                <li>
+                                    <label for="foodbank_city">City:</label>
+                                    <input type="text" name="foodbank_city" id="" value="{{$foodbank->city}}">
+                                </li>
+                                <li>
+                                    <label for="foodbank_postalcode">Postal code:</label>
+                                    <input type="text" name="foodbank_postalcode" id="" value="{{$foodbank->postalcode}}">
+                                </li>
+                                <li>
+                                    <label for="foodbank_province">Province: </label>
+                                    <input type="text" name="foodbank_province" id="" value="{{$foodbank->province}}">
+                                </li>
+                                <li>
+                                    <label for="foodbank_country">Country: </label>
+                                    <input type="text" name="foodbank_country" id="" value="{{$foodbank->country}}">
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <label for="opening_hours">Opening hours:</label>
+                                    <textarea name="opening_hours" id="" >{{$foodbank->foodbank->opening_hours}}</textarea>
+                                </li>
+                                <li>
+                                    <label for="company_number">Company number:</label>
+                                    <input type="text" name="company_number" id="" value="{{$foodbank->foodbank->company_number}}">
+                                </li>
+                                <li>
+                                    <label for="details">Details: </label>
+                                    <textarea name="details" id="" >{{$foodbank->foodbank->details}}</textarea>
+                                </li>
                             </ul>
                         </div>
                         <div class="card-body">
-                            <input type="textarea" name="details" id="" value="{{$foodbank->foodbank->details}}">
                         </div>
                         <div class="card-footer">
-                            <input type="text" name="company_number" id="" value="{{$foodbank->foodbank->company_number}}">
                         </div>
-                        <button type="submit" class="btn btn-primary">Update page</button>
+                        <button type="submit" class="button3">Update page</button>
                     </div>
                 </form>
             @endif

@@ -65,17 +65,18 @@ $(function() {
     function setMarkers(map) {
         for (var i = 0; i < foodbanks.length; i++) {
             var foodbank = foodbanks[i];
+            var hour = foodbanksHours[i]
             var foodbankLoc = {
                 lat: Number(foodbank.lat),
                 lng: Number(foodbank.lng)
             }
-            createMarker(foodbankLoc, foodbank, map, foodbank.id);
+            createMarker(foodbankLoc, foodbank, hour.opening_hours, map, foodbank.id);
         }
         
     }
     // Created this function to add Listener
     // If we add the eventlistener in for loop it only applies the last foodbank.id
-    function createMarker(pos, foodbank, map, i) {
+    function createMarker(pos, foodbank, hour, map, i) {
             markers[i] = new google.maps.Marker({
             position: pos,
             map, // google.maps.Map 
@@ -87,7 +88,8 @@ $(function() {
             "</div>" +
             '<h2 id="firstHeading" class="firstHeading">' + foodbank.name + '</h2>' +
             '<div id="bodyContent">' +
-            "<p>" + foodbank.name + " " + foodbank.details + "</p>" +
+            '<h4>Opening hours: </h4>' +
+            "<p>" + hour + "</p>" +
             '<a href="https://2ndtreasure.live/foodbank/' + foodbank.id + '">Link</a>' +
             "</div>" +
             "</div>";

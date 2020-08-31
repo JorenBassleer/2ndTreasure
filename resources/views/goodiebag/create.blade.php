@@ -80,7 +80,6 @@
   
   </div>
 @endsection
-
 @section('scripts')
 <script type="text/javascript" src="{{ asset('js/map-welcome.js') }}"></script>
 
@@ -92,6 +91,7 @@
     var antLng = {{$lng ?? 4.4024643}};
     // Convert php variable to js for map value
     var foodbanks = @json($foodbanks);
+    var foodbanksHours = @json($opening_hours);
     // Covert json map style for js
     var styledMap = @json($styledMap);
     if ( typeof document.getElementById('foodbank_id').value != 'undefined') {
